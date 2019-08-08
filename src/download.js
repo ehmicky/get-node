@@ -12,16 +12,17 @@ import { downloadUnixNode } from './unix.js'
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
 export const download = async function(version, outputDir) {
-  const nodePath = `${outputDir}/${NODE_FILENAME}`
+  const outputDirA = `${outputDir}/${version}`
+  const nodePath = `${outputDirA}/${NODE_FILENAME}`
 
   if (await pathExists(nodePath)) {
     return nodePath
   }
 
-  await createOutputDir(outputDir)
+  await createOutputDir(outputDirA)
 
   await cleanWrite(
-    () => downloadRuntime(version, outputDir, nodePath),
+    () => downloadRuntime(version, outputDirA, nodePath),
     nodePath,
   )
 

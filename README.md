@@ -19,14 +19,14 @@ Works on Linux/Mac/Windows.
 ```bash
 # Download Node.js latest release
 $ get-node
-$ ./node
+$ ./12.8.0/node
 Welcome to Node.js v12.8.0.
 Type ".help" for more information.
 > .exit
 
 # Download a specific Node.js release
 $ get-node 8
-$ ./node
+$ ./8.16.0/node
 > process.version
 'v8.16.0'
 > .exit
@@ -37,7 +37,7 @@ $ get-node '<7'
 
 # Specify the output directory
 $ get-node 12 ~/.cache/node_releases/
-$ ~/.cache/node_releases/node --version
+$ ~/.cache/node_releases/12.8.0/node --version
 v12.8.0
 ```
 

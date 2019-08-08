@@ -1,0 +1,75 @@
+{
+  "name": "get-node",
+  "version": "0.0.1",
+  "main": "build/src/main.js",
+  "files": [
+    "build/src",
+    "examples",
+    "!~"
+  ],
+  "bin": {
+    "get-node": "build/src/bin.js"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "gulp check --full"
+    }
+  },
+  "description": "Download Node.js",
+  "keywords": [
+    "nodejs",
+    "node",
+    "download",
+    "nvm",
+    "npx",
+    "versions",
+    "versioning",
+    "exec",
+    "shell",
+    "terminal",
+    "command-line",
+    "cli",
+    "dependency-management",
+    "es6",
+    "javascript",
+    "library",
+    "npmjs",
+    "operating-system",
+    "package-manager",
+    "server"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://git.io/fj7JT",
+  "repository": "ehmicky/get-node",
+  "bugs": {
+    "url": "https://github.com/ehmicky/get-node/issues"
+  },
+  "author": "ehmicky <ehmicky@gmail.com> (https://github.com/ehmicky)",
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "dependencies": {
+    "clean-write": "0.0.1",
+    "core-js": "^3.1.4",
+    "cross-fetch": "^3.0.4",
+    "end-of-stream": "^1.4.1",
+    "make-dir": "^3.0.0",
+    "normalize-node-version": "^0.0.2",
+    "path-exists": "^4.0.0",
+    "semver": "^6.3.0",
+    "tar-fs": "^2.0.0"
+  },
+  "devDependencies": {
+    "ava": "^2.2.0",
+    "gulp": "^4.0.2",
+    "gulp-shared-tasks": "^0.30.33",
+    "husky": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=8.12.0"
+  }
+}

@@ -46,8 +46,7 @@ v12.8.0
 npm install get-node
 ```
 
-At the moment this requires `node` to be globally installed. Which means this is
-only useful when you are installing a different version of Node.
+`node >=8.12.0` must already be installed.
 
 # Usage
 

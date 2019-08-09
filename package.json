@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "clean-write": "0.0.1",
-    "core-js": "^3.1.4",
+    "core-js": "^3.2.0",
     "cross-fetch": "^3.0.4",
     "end-of-stream": "^1.4.1",
     "make-dir": "^3.0.0",

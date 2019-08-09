@@ -57,7 +57,7 @@
     "cross-fetch": "^3.0.4",
     "end-of-stream": "^1.4.1",
     "make-dir": "^3.0.0",
-    "normalize-node-version": "^0.0.3",
+    "normalize-node-version": "^0.0.4",
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",

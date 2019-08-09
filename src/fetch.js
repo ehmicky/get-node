@@ -1,7 +1,9 @@
 import fetch from 'cross-fetch'
 
 // Make a HTTP GET request
-export const fetchUrl = async function(url) {
+export const fetchUrl = async function(path) {
+  const url = `${URL_BASE}/${path}`
+
   const response = await performFetch(url)
 
   if (!response.ok) {
@@ -19,4 +21,4 @@ const performFetch = async function(url) {
   }
 }
 
-export const URL_BASE = 'https://nodejs.org/dist'
+const URL_BASE = 'https://nodejs.org/dist'

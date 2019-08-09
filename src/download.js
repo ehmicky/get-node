@@ -1,6 +1,7 @@
 import { platform } from 'process'
 import { promisify } from 'util'
 import { rename } from 'fs'
+import { join } from 'path'
 
 import pathExists from 'path-exists'
 // TODO: replace with `util.promisify(fs.mkdir)(path, { recursive: true })`
@@ -16,8 +17,8 @@ const pRename = promisify(rename)
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
 export const download = async function(version, outputDir) {
-  const outputDirA = `${outputDir}/${version}`
-  const nodePath = `${outputDirA}/${NODE_FILENAME}`
+  const outputDirA = join(outputDir, version)
+  const nodePath = join(outputDirA, NODE_FILENAME)
 
   if (await pathExists(nodePath)) {
     return nodePath

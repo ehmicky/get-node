@@ -18,7 +18,7 @@
       "pre-push": "gulp check --full"
     }
   },
-  "description": "Download Node.js",
+  "description": "Download a specific version of Node.js",
   "keywords": [
     "nodejs",
     "node",

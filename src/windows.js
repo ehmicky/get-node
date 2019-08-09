@@ -3,15 +3,14 @@ import { createWriteStream } from 'fs'
 import { promisify } from 'util'
 
 import endOfStream from 'end-of-stream'
-
-import { fetchUrl } from './fetch.js'
+import fetchNodeWebsite from 'fetch-node-website'
 
 // TODO: replace with Stream.finished() after dropping support for Node 8/9
 const pEndOfStream = promisify(endOfStream)
 
 // The Windows Node binary comes as a regular file
 export const downloadWindowsNode = async function(version, tmpFile) {
-  const { body } = await fetchUrl(`v${version}/win-${arch}/node.exe`)
+  const { body } = await fetchNodeWebsite(`v${version}/win-${arch}/node.exe`)
 
   const writeStream = createWriteStream(tmpFile, { mode: NODE_MODE })
   body.pipe(writeStream)

@@ -5,8 +5,7 @@ import { rename, rmdir } from 'fs'
 
 import { extract as tarExtract } from 'tar-fs'
 import endOfStream from 'end-of-stream'
-
-import { fetchUrl } from './fetch.js'
+import fetchNodeWebsite from 'fetch-node-website'
 
 const pRename = promisify(rename)
 const pRmdir = promisify(rmdir)
@@ -16,7 +15,7 @@ const pEndOfStream = promisify(endOfStream)
 
 // The Unix Node binary comes in a tar.gz folder
 export const downloadUnixNode = async function(version, tmpFile) {
-  const { body } = await fetchUrl(
+  const { body } = await fetchNodeWebsite(
     `v${version}/node-v${version}-${platform}-${arch}.tar.gz`,
   )
 

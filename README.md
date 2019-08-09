@@ -6,8 +6,6 @@
 
 Download a specific version of Node.js.
 
-The binary is downloaded from the Node.js website.
-
 This is cached: if the output directory already has a `node` executable, no
 download will be performed.
 
@@ -56,6 +54,15 @@ get-node [VERSION] [OUTPUT_DIRECTORY]
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
+
+## Node.js mirror
+
+The binary is downloaded from `https://nodejs.org/dist`. You can specify a
+mirror website using the environment variable `NODE_MIRROR`.
+
+```bash
+NODE_MIRROR="https://npm.taobao.org/mirrors/node" get-node [VERSION] [OUTPUT_DIRECTORY]
+```
 
 # See also
 

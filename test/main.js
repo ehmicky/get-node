@@ -40,6 +40,18 @@ test('Version range', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
+test('Caching', async t => {
+  const outputDir = getOutputDir()
+  const nodePath = await getNode('6.0.0', outputDir)
+  const nodePathA = await getNode('6.0.0', outputDir)
+
+  t.is(nodePath, nodePathA)
+
+  await pUnlink(nodePath)
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+})
+
 test('Default version to *', async t => {
   const [nodePath, nodePathA] = await Promise.all([
     getNode('*', getOutputDir()),

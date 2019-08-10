@@ -1,7 +1,8 @@
 import { tmpdir } from 'os'
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
-import { resolve } from 'path'
+import { resolve, basename } from 'path'
+import { cwd } from 'process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
@@ -11,16 +12,43 @@ import getNode from '../src/main.js'
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 
-test('Success', async t => {
-  const id = String(Math.random()).replace('.', '')
-  const outputDir = `${tmpdir()}/test-get-node-${id}`
-  const versionRange = '6.0.0'
+const TMP_DIR = `${tmpdir()}/test-get-node-`
 
-  const nodePath = await getNode(versionRange, outputDir)
+const getOutputDir = function() {
+  const id = String(Math.random()).replace('.', '')
+  return `${TMP_DIR}${id}`
+}
+
+test('Success', async t => {
+  const nodePath = await getNode('6.0.0', getOutputDir())
 
   t.true(await pathExists(nodePath))
 
   await pUnlink(nodePath)
   await pRmdir(resolve(nodePath, '..'))
   await pRmdir(resolve(nodePath, '../..'))
+})
+
+test('Default version to *', async t => {
+  const [nodePath, nodePathA] = await Promise.all([
+    getNode('*', getOutputDir()),
+    getNode(undefined, getOutputDir()),
+  ])
+
+  t.is(basename(resolve(nodePath, '..')), basename(resolve(nodePathA, '..')))
+
+  await pUnlink(nodePath)
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+})
+
+// eslint-disable-next-line
+test.only('Default outputDir to current directory', async t => {
+  const nodePath = await getNode()
+
+  t.is(resolve(nodePath, '../..'), cwd())
+
+  await pUnlink(nodePath)
+  console.log(resolve(nodePath, '..'))
+  // await pRmdir(resolve(nodePath, '..'))
 })

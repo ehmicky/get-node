@@ -28,17 +28,18 @@ const getNodeCli = async function(versionRange, outputDir) {
   await pExecFile(binPath, [versionRange, outputDir])
 }
 
+const TEST_VERSION = '6.0.0'
+
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
   test(`Downloads node | ${title}`, async t => {
-    const versionRange = '6.0.0'
     const outputDir = getOutputDir()
-    await getNodeFunc(versionRange, outputDir)
+    await getNodeFunc(TEST_VERSION, outputDir)
 
     const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
-    const nodePath = `${outputDir}/${versionRange}/${nodeFilename}`
+    const nodePath = `${outputDir}/${TEST_VERSION}/${nodeFilename}`
 
     const { stdout } = await pExecFile(nodePath, ['--version'])
-    t.is(stdout.trim(), 'v6.0.0')
+    t.is(stdout.trim(), `v${TEST_VERSION}`)
 
     await pUnlink(nodePath)
     await pRmdir(resolve(nodePath, '..'))
@@ -47,7 +48,7 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
 })
 
 test('Returns filepath', async t => {
-  const nodePath = await getNode('6.0.0', getOutputDir())
+  const nodePath = await getNode(TEST_VERSION, getOutputDir())
 
   t.true(await pathExists(nodePath))
 
@@ -68,8 +69,8 @@ test('Can use version range', async t => {
 
 test('Caches download', async t => {
   const outputDir = getOutputDir()
-  const nodePath = await getNode('6.0.0', outputDir)
-  const nodePathA = await getNode('6.0.0', outputDir)
+  const nodePath = await getNode(TEST_VERSION, outputDir)
+  const nodePathA = await getNode(TEST_VERSION, outputDir)
 
   t.is(nodePath, nodePathA)
 
@@ -80,11 +81,11 @@ test('Caches download', async t => {
 
 test('Can re-use same outputDir', async t => {
   const outputDir = getOutputDir()
-  const nodePath = await getNode('6.0.0', outputDir)
+  const nodePath = await getNode(TEST_VERSION, outputDir)
 
   await pUnlink(nodePath)
 
-  const nodePathA = await getNode('6.0.0', outputDir)
+  const nodePathA = await getNode(TEST_VERSION, outputDir)
 
   t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
 

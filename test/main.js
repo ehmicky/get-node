@@ -116,8 +116,12 @@ test('Defaults outputDir to current directory', async t => {
 each(
   [[true, ''], ['not_a_version_range', ''], ['6', true], ['90', '']],
   ({ title }, [versionRange, outputDir]) => {
-    test(`Invalid arguments | ${title}`, async t => {
+    test(`Invalid arguments | programmatic ${title}`, async t => {
       await t.throwsAsync(getNode(versionRange, outputDir))
     })
   },
 )
+
+test('Invalid arguments | CLI', async t => {
+  await t.throwsAsync(getNodeCli('not_a_version_range', ''))
+})

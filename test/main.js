@@ -52,13 +52,26 @@ test('Caching', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Default version to *', async t => {
-  const [nodePath, nodePathA] = await Promise.all([
-    getNode('*', getOutputDir()),
-    getNode(undefined, getOutputDir()),
-  ])
+test('Re-using outputDir', async t => {
+  const outputDir = getOutputDir()
+  const nodePath = await getNode('6.0.0', outputDir)
+  const nodePathA = await getNode('7.0.0', outputDir)
 
-  t.is(basename(resolve(nodePath, '..')), basename(resolve(nodePathA, '..')))
+  t.is(resolve(nodePath, '../..'), resolve(nodePathA, '../..'))
+
+  await pUnlink(nodePath)
+  await pUnlink(nodePathA)
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePathA, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+})
+
+test('Default version to *', async t => {
+  const outputDir = getOutputDir()
+  const nodePath = await getNode('*', outputDir)
+  const nodePathA = await getNode(undefined, outputDir)
+
+  t.is(nodePath, nodePathA)
 
   await pUnlink(nodePath)
   await pRmdir(resolve(nodePath, '..'))

@@ -29,5 +29,5 @@ export const removeOutputDir = async function(nodePath) {
 
 export const getNodeCli = async function(versionRange, outputDir) {
   const binPath = await getBinPath()
-  await pExecFile(binPath, [versionRange, outputDir])
+  await pExecFile('node', [binPath, versionRange, outputDir])
 }

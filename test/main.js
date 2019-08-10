@@ -30,6 +30,16 @@ const getNodeCli = async function(versionRange, outputDir) {
 
 const TEST_VERSION = '6.0.0'
 
+const removeOutput = async function(nodePath) {
+  await pUnlink(nodePath)
+  await removeOutputDir(nodePath)
+}
+
+const removeOutputDir = async function(nodePath) {
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+}
+
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
   test(`Downloads node | ${title}`, async t => {
     const outputDir = getOutputDir()
@@ -41,9 +51,7 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
     const { stdout } = await pExecFile(nodePath, ['--version'])
     t.is(stdout.trim(), `v${TEST_VERSION}`)
 
-    await pUnlink(nodePath)
-    await pRmdir(resolve(nodePath, '..'))
-    await pRmdir(resolve(nodePath, '../..'))
+    await removeOutput(nodePath)
   })
 })
 
@@ -52,9 +60,7 @@ test('Returns filepath', async t => {
 
   t.true(await pathExists(nodePath))
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+  await removeOutput(nodePath)
 })
 
 test('Can use version range', async t => {
@@ -62,9 +68,7 @@ test('Can use version range', async t => {
 
   t.true(await pathExists(nodePath))
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+  await removeOutput(nodePath)
 })
 
 test('Caches download', async t => {
@@ -74,9 +78,7 @@ test('Caches download', async t => {
 
   t.is(nodePath, nodePathA)
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+  await removeOutput(nodePath)
 })
 
 test('Can re-use same outputDir', async t => {
@@ -90,8 +92,7 @@ test('Can re-use same outputDir', async t => {
   t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
 
   await pUnlink(nodePathA)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+  await removeOutputDir(nodePath)
 })
 
 test('Defaults version to *', async t => {
@@ -101,9 +102,7 @@ test('Defaults version to *', async t => {
 
   t.is(nodePath, nodePathA)
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+  await removeOutput(nodePath)
 })
 
 test('Defaults outputDir to current directory', async t => {

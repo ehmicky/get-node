@@ -81,14 +81,15 @@ test('Caches download', async t => {
 test('Can re-use same outputDir', async t => {
   const outputDir = getOutputDir()
   const nodePath = await getNode('6.0.0', outputDir)
-  const nodePathA = await getNode('7.0.0', outputDir)
-
-  t.is(resolve(nodePath, '../..'), resolve(nodePathA, '../..'))
 
   await pUnlink(nodePath)
+
+  const nodePathA = await getNode('6.0.0', outputDir)
+
+  t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
+
   await pUnlink(nodePathA)
   await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePathA, '..'))
   await pRmdir(resolve(nodePath, '../..'))
 })
 

@@ -6,6 +6,7 @@ import { cwd } from 'process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
+import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
@@ -50,3 +51,12 @@ test('Default outputDir to current directory', async t => {
   await pUnlink(nodePath)
   await pRmdir(resolve(nodePath, '..'))
 })
+
+each(
+  [[true, ''], ['not_a_version_range', ''], ['6', true]],
+  ({ title }, [versionRange, outputDir]) => {
+    test(`Invalid arguments | ${title}`, async t => {
+      await t.throwsAsync(getNode(versionRange, outputDir))
+    })
+  },
+)

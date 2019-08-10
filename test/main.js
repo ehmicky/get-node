@@ -1,6 +1,4 @@
 import { promisify } from 'util'
-import { unlink } from 'fs'
-import { resolve } from 'path'
 import { platform } from 'process'
 import { execFile } from 'child_process'
 
@@ -14,11 +12,9 @@ import {
   TEST_VERSION,
   getOutputDir,
   removeOutput,
-  removeOutputDir,
   getNodeCli,
 } from './helpers/main.js'
 
-const pUnlink = promisify(unlink)
 const pExecFile = promisify(execFile)
 
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
@@ -51,39 +47,4 @@ test('Can use version range', async t => {
   t.true(await pathExists(nodePath))
 
   await removeOutput(nodePath)
-})
-
-test('Caches download', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir)
-  const nodePathA = await getNode(TEST_VERSION, outputDir)
-
-  t.is(nodePath, nodePathA)
-
-  await removeOutput(nodePath)
-})
-
-test('Writes atomically', async t => {
-  const outputDir = getOutputDir()
-  const [nodePath, nodePathA] = await Promise.all([
-    getNode(TEST_VERSION, outputDir),
-    getNode(TEST_VERSION, outputDir),
-  ])
-
-  t.is(nodePath, nodePathA)
-
-  await removeOutput(nodePath)
-})
-
-test('Can re-use same outputDir', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir)
-  await pUnlink(nodePath)
-
-  const nodePathA = await getNode(TEST_VERSION, outputDir)
-  await pUnlink(nodePathA)
-
-  t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
-
-  await removeOutputDir(nodePath)
 })

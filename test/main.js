@@ -30,6 +30,16 @@ test('Success', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
+test('Version range', async t => {
+  const nodePath = await getNode('6', getOutputDir())
+
+  t.true(await pathExists(nodePath))
+
+  await pUnlink(nodePath)
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+})
+
 test('Default version to *', async t => {
   const [nodePath, nodePathA] = await Promise.all([
     getNode('*', getOutputDir()),
@@ -53,7 +63,7 @@ test('Default outputDir to current directory', async t => {
 })
 
 each(
-  [[true, ''], ['not_a_version_range', ''], ['6', true]],
+  [[true, ''], ['not_a_version_range', ''], ['6', true], ['90', '']],
   ({ title }, [versionRange, outputDir]) => {
     test(`Invalid arguments | ${title}`, async t => {
       await t.throwsAsync(getNode(versionRange, outputDir))

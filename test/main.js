@@ -1,8 +1,9 @@
 import { tmpdir } from 'os'
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
-import { resolve, basename } from 'path'
+import { resolve } from 'path'
 import { cwd } from 'process'
+import { execFile } from 'child_process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
@@ -12,6 +13,7 @@ import getNode from '../src/main.js'
 
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
+const pExecFile = promisify(execFile)
 
 const TMP_DIR = `${tmpdir()}/test-get-node-`
 
@@ -20,7 +22,18 @@ const getOutputDir = function() {
   return `${TMP_DIR}${id}`
 }
 
-test('Success', async t => {
+test('Downloads node', async t => {
+  const nodePath = await getNode('6.0.0', getOutputDir())
+
+  const { stdout } = await pExecFile(nodePath, ['--version'])
+  t.is(stdout.trim(), 'v6.0.0')
+
+  await pUnlink(nodePath)
+  await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '../..'))
+})
+
+test('Returns filepath', async t => {
   const nodePath = await getNode('6.0.0', getOutputDir())
 
   t.true(await pathExists(nodePath))

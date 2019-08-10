@@ -47,7 +47,6 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
 
     const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
     const nodePath = `${outputDir}/${TEST_VERSION}/${nodeFilename}`
-
     const { stdout } = await pExecFile(nodePath, ['--version'])
     t.is(stdout.trim(), `v${TEST_VERSION}`)
 
@@ -56,7 +55,8 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
 })
 
 test('Returns filepath', async t => {
-  const nodePath = await getNode(TEST_VERSION, getOutputDir())
+  const outputDir = getOutputDir()
+  const nodePath = await getNode(TEST_VERSION, outputDir)
 
   t.true(await pathExists(nodePath))
 
@@ -64,7 +64,8 @@ test('Returns filepath', async t => {
 })
 
 test('Can use version range', async t => {
-  const nodePath = await getNode('6', getOutputDir())
+  const outputDir = getOutputDir()
+  const nodePath = await getNode('6', outputDir)
 
   t.true(await pathExists(nodePath))
 
@@ -96,14 +97,13 @@ test('Writes atomically', async t => {
 test('Can re-use same outputDir', async t => {
   const outputDir = getOutputDir()
   const nodePath = await getNode(TEST_VERSION, outputDir)
-
   await pUnlink(nodePath)
 
   const nodePathA = await getNode(TEST_VERSION, outputDir)
+  await pUnlink(nodePathA)
 
   t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
 
-  await pUnlink(nodePathA)
   await removeOutputDir(nodePath)
 })
 

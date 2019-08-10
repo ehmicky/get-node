@@ -56,7 +56,7 @@ test('Returns filepath', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Version range', async t => {
+test('Can use version range', async t => {
   const nodePath = await getNode('6', getOutputDir())
 
   t.true(await pathExists(nodePath))
@@ -66,7 +66,7 @@ test('Version range', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Caching', async t => {
+test('Caches download', async t => {
   const outputDir = getOutputDir()
   const nodePath = await getNode('6.0.0', outputDir)
   const nodePathA = await getNode('6.0.0', outputDir)
@@ -78,7 +78,7 @@ test('Caching', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Re-using outputDir', async t => {
+test('Can re-use same outputDir', async t => {
   const outputDir = getOutputDir()
   const nodePath = await getNode('6.0.0', outputDir)
   const nodePathA = await getNode('7.0.0', outputDir)
@@ -92,7 +92,7 @@ test('Re-using outputDir', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Default version to *', async t => {
+test('Defaults version to *', async t => {
   const outputDir = getOutputDir()
   const nodePath = await getNode('*', outputDir)
   const nodePathA = await getNode(undefined, outputDir)
@@ -104,7 +104,7 @@ test('Default version to *', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-test('Default outputDir to current directory', async t => {
+test('Defaults outputDir to current directory', async t => {
   const nodePath = await getNode()
 
   t.is(resolve(nodePath, '../..'), cwd())

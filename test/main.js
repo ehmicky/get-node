@@ -16,11 +16,9 @@ const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 const pExecFile = promisify(execFile)
 
-const TMP_DIR = `${tmpdir()}/test-get-node-`
-
 const getOutputDir = function() {
   const id = String(Math.random()).replace('.', '')
-  return `${TMP_DIR}${id}`
+  return `${tmpdir()}/test-get-node-${id}`
 }
 
 const getNodeCli = async function(versionRange, outputDir) {

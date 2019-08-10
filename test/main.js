@@ -42,13 +42,11 @@ test('Default version to *', async t => {
   await pRmdir(resolve(nodePath, '../..'))
 })
 
-// eslint-disable-next-line
-test.only('Default outputDir to current directory', async t => {
+test('Default outputDir to current directory', async t => {
   const nodePath = await getNode()
 
   t.is(resolve(nodePath, '../..'), cwd())
 
   await pUnlink(nodePath)
-  console.log(resolve(nodePath, '..'))
-  // await pRmdir(resolve(nodePath, '..'))
+  await pRmdir(resolve(nodePath, '..'))
 })

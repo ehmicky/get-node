@@ -2,12 +2,13 @@ import { tmpdir } from 'os'
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
 import { resolve } from 'path'
-import { cwd } from 'process'
+import { cwd, platform } from 'process'
 import { execFile } from 'child_process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
 import { each } from 'test-each'
+import { getBinPath } from 'get-bin-path'
 
 import getNode from '../src/main.js'
 
@@ -22,15 +23,27 @@ const getOutputDir = function() {
   return `${TMP_DIR}${id}`
 }
 
-test('Downloads node', async t => {
-  const nodePath = await getNode('6.0.0', getOutputDir())
+const getNodeCli = async function(versionRange, outputDir) {
+  const binPath = await getBinPath()
+  await pExecFile(binPath, [versionRange, outputDir])
+}
 
-  const { stdout } = await pExecFile(nodePath, ['--version'])
-  t.is(stdout.trim(), 'v6.0.0')
+each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
+  test(`Downloads node | ${title}`, async t => {
+    const versionRange = '6.0.0'
+    const outputDir = getOutputDir()
+    await getNodeFunc(versionRange, outputDir)
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
+    const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
+    const nodePath = `${outputDir}/${versionRange}/${nodeFilename}`
+
+    const { stdout } = await pExecFile(nodePath, ['--version'])
+    t.is(stdout.trim(), 'v6.0.0')
+
+    await pUnlink(nodePath)
+    await pRmdir(resolve(nodePath, '..'))
+    await pRmdir(resolve(nodePath, '../..'))
+  })
 })
 
 test('Returns filepath', async t => {

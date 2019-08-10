@@ -1,7 +1,7 @@
 import { promisify } from 'util'
-import { unlink, rmdir } from 'fs'
+import { unlink } from 'fs'
 import { resolve } from 'path'
-import { cwd, platform } from 'process'
+import { platform } from 'process'
 import { execFile } from 'child_process'
 
 import test from 'ava'
@@ -19,7 +19,6 @@ import {
 } from './helpers/main.js'
 
 const pUnlink = promisify(unlink)
-const pRmdir = promisify(rmdir)
 const pExecFile = promisify(execFile)
 
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
@@ -87,36 +86,4 @@ test('Can re-use same outputDir', async t => {
   t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
 
   await removeOutputDir(nodePath)
-})
-
-test('Defaults version to *', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode('*', outputDir)
-  const nodePathA = await getNode(undefined, outputDir)
-
-  t.is(nodePath, nodePathA)
-
-  await removeOutput(nodePath)
-})
-
-test('Defaults outputDir to current directory', async t => {
-  const nodePath = await getNode()
-
-  t.is(resolve(nodePath, '../..'), cwd())
-
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
-})
-
-each(
-  [[true, ''], ['not_a_version_range', ''], ['6', true], ['90', '']],
-  ({ title }, [versionRange, outputDir]) => {
-    test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(getNode(versionRange, outputDir))
-    })
-  },
-)
-
-test('Invalid arguments | CLI', async t => {
-  await t.throwsAsync(getNodeCli('not_a_version_range', ''))
 })

@@ -1,18 +1,12 @@
 import { platform } from 'process'
-import { promisify } from 'util'
-import { rename } from 'fs'
 import { join } from 'path'
 
 import pathExists from 'path-exists'
-// TODO: replace with `util.promisify(fs.mkdir)(path, { recursive: true })`
-// after dropping support for Node 8/9
-import makeDir from 'make-dir'
 import { tmpName } from 'tmp-promise'
+import moveFile from 'move-file'
 
 import { downloadWindowsNode } from './windows.js'
 import { downloadUnixNode } from './unix.js'
-
-const pRename = promisify(rename)
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
@@ -33,15 +27,21 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'node'
 
 // Downloading the file should be atomic, so we don't leave partially written
 // corrupted file executables. We cannot use libraries like `write-file-atomic`
-// because they don't support streams. We download to a temporary directory
+// because they don't support streams. We download to the temporary directory
 // first then move the file once download has completed.
+// We use the temporary directory instead of creating a sibling file:
+//  - this is to make sure if process is interrupted (e.g. with SIGINT), the
+//    temporary file is cleaned up (without requiring libraries like
+//    `signal-exit`)
+//  - this means the file might be on a different partition
+//    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
+//    instead of renaming it. This is done by the `move-file` library.
 const safeDownload = async function(version, outputDir, nodePath) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}` })
 
   await downloadRuntime(version, tmpFile)
 
-  await createOutputDir(outputDir)
-  await moveFile(tmpFile, nodePath)
+  await moveTmpFile(tmpFile, nodePath)
 }
 
 // Retrieve the Node binary from the Node website and persist it.
@@ -54,19 +54,11 @@ const downloadRuntime = function(version, tmpFile) {
   return downloadUnixNode(version, tmpFile)
 }
 
-const createOutputDir = async function(outputDir) {
-  if (await pathExists(outputDir)) {
-    return
-  }
-
-  await makeDir(outputDir)
-}
-
-const moveFile = async function(tmpFile, nodePath) {
+const moveTmpFile = async function(tmpFile, nodePath) {
   // Another parallel download might have been running
   if (await pathExists(nodePath)) {
     return
   }
 
-  await pRename(tmpFile, nodePath)
+  await moveFile(tmpFile, nodePath)
 }

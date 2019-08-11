@@ -44,6 +44,18 @@ test('Can re-use same outputDir', async t => {
   await removeOutputDir(nodePath)
 })
 
+test('Parallel downloads', async t => {
+  const outputDir = getOutputDir()
+  const [nodePath, nodePathA] = await Promise.all([
+    getNode(TEST_VERSION, outputDir),
+    getNode(TEST_VERSION, outputDir),
+  ])
+
+  t.is(nodePath, nodePathA)
+
+  await removeOutput(nodePath)
+})
+
 test('Writes atomically', async t => {
   const outputDir = getOutputDir()
 

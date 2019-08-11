@@ -41,7 +41,7 @@ const safeDownload = async function(version, outputDir, nodePath) {
   await downloadRuntime(version, tmpFile)
 
   await createOutputDir(outputDir)
-  await pRename(tmpFile, nodePath)
+  await moveFile(tmpFile, nodePath)
 }
 
 // Retrieve the Node binary from the Node website and persist it.
@@ -60,4 +60,13 @@ const createOutputDir = async function(outputDir) {
   }
 
   await makeDir(outputDir)
+}
+
+const moveFile = async function(tmpFile, nodePath) {
+  // Another parallel download might have been running
+  if (await pathExists(nodePath)) {
+    return
+  }
+
+  await pRename(tmpFile, nodePath)
 }

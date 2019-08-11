@@ -16,6 +16,7 @@ import {
 } from './helpers/main.js'
 
 const pExecFile = promisify(execFile)
+const pSetTimeout = promisify(setTimeout)
 
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
   test(`Downloads node | ${title}`, async t => {
@@ -27,9 +28,15 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
     const { stdout } = await pExecFile(nodePath, ['--version'])
     t.is(stdout.trim(), `v${TEST_VERSION}`)
 
+    await pSetTimeout(REMOVE_TIMEOUT)
+
     await removeOutput(nodePath)
   })
 })
+
+// We need to wait a little for Windows to release the lock on the `node`
+// executable before cleaning it
+const REMOVE_TIMEOUT = 1e3
 
 test('Returns filepath', async t => {
   const outputDir = getOutputDir()

@@ -67,7 +67,7 @@ NODE_MIRROR="https://npm.taobao.org/mirrors/node" get-node [VERSION] [OUTPUT_DIR
 # See also
 
 - [`nve`](https://github.com/ehmicky/nve): Run a specific Node.js version
-- [`normalize-node-version`](https://github.com/ehmicky/normalize-node-versions):
+- [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):
   Normalize and validate Node.js versions
 - [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all
   available Node.js versions

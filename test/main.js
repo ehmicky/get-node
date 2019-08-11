@@ -1,7 +1,5 @@
 import { promisify } from 'util'
-import { platform } from 'process'
 import { execFile } from 'child_process'
-import { join } from 'path'
 
 import test from 'ava'
 import pathExists from 'path-exists'
@@ -14,6 +12,7 @@ import {
   getOutputDir,
   removeOutput,
   getNodeCli,
+  getNodePath,
 } from './helpers/main.js'
 
 const pExecFile = promisify(execFile)
@@ -23,8 +22,8 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
     const outputDir = getOutputDir()
     await getNodeFunc(TEST_VERSION, outputDir)
 
-    const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
-    const nodePath = join(outputDir, TEST_VERSION, nodeFilename)
+    const nodePath = getNodePath(TEST_VERSION, outputDir)
+
     const { stdout } = await pExecFile(nodePath, ['--version'])
     t.is(stdout.trim(), `v${TEST_VERSION}`)
 

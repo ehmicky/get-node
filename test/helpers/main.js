@@ -1,8 +1,9 @@
 import { tmpdir } from 'os'
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
-import { resolve } from 'path'
+import { resolve, join } from 'path'
 import { execFile } from 'child_process'
+import { platform } from 'process'
 
 import { getBinPath } from 'get-bin-path'
 
@@ -30,4 +31,10 @@ export const removeOutputDir = async function(nodePath) {
 export const getNodeCli = async function(versionRange, outputDir) {
   const binPath = await getBinPath()
   await pExecFile('node', [binPath, versionRange, outputDir])
+}
+
+export const getNodePath = function(versionRange, outputDir) {
+  const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
+  const nodePath = join(outputDir, TEST_VERSION, nodeFilename)
+  return nodePath
 }

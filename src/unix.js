@@ -14,9 +14,10 @@ const pRmdir = promisify(rmdir)
 const pEndOfStream = promisify(endOfStream)
 
 // The Unix Node binary comes in a tar.gz folder
-export const downloadUnixNode = async function(version, tmpFile) {
+export const downloadUnixNode = async function(version, tmpFile, progress) {
   const { body } = await fetchNodeWebsite(
     `v${version}/node-v${version}-${platform}-${arch}.tar.gz`,
+    { progress },
   )
 
   const archive = body.pipe(createGunzip())

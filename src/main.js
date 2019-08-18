@@ -4,12 +4,16 @@ import { normalizeInput } from './input.js'
 import { download } from './download.js'
 
 // Download the Node.js binary for a specific `versionRange`
-const getNode = async function(versionRange, outputDir) {
+const getNode = async function(
+  versionRange,
+  outputDir,
+  { progress = true } = {},
+) {
   const [versionRangeA, outputDirA] = normalizeInput(versionRange, outputDir)
 
   const version = await normalizeNodeVersion(versionRangeA)
 
-  const nodePath = await download(version, outputDirA)
+  const nodePath = await download(version, outputDirA, progress)
   return nodePath
 }
 

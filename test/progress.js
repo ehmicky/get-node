@@ -7,12 +7,16 @@ import getNode from '../src/main.js'
 
 import { TEST_VERSION, getOutputDir, removeOutput } from './helpers/main.js'
 
+const getTempNode = async function(options) {
+  const outputDir = getOutputDir()
+  const nodePath = await getNode(TEST_VERSION, outputDir, options)
+  await removeOutput(nodePath)
+}
+
 test.serial('Do not show spinner if opts.progress false', async t => {
   const spy = sinon.spy(stderr, 'write')
 
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: false })
-  await removeOutput(nodePath)
+  await getTempNode({ progress: false })
 
   t.true(spy.notCalled)
 
@@ -22,9 +26,7 @@ test.serial('Do not show spinner if opts.progress false', async t => {
 test.serial('Show spinner if opts.progress true', async t => {
   const spy = sinon.spy(stderr, 'write')
 
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: true })
-  await removeOutput(nodePath)
+  await getTempNode({ progress: true })
 
   t.true(spy.called)
 
@@ -34,9 +36,7 @@ test.serial('Show spinner if opts.progress true', async t => {
 test.serial('Show spinner by default', async t => {
   const spy = sinon.spy(stderr, 'write')
 
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir)
-  await removeOutput(nodePath)
+  await getTempNode()
 
   t.true(spy.called)
 

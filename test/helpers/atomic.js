@@ -8,7 +8,7 @@ const pSetTimeout = promisify(setTimeout)
 const [, , versionRange, outputDir] = argv
 
 const launchThenAbort = async function() {
-  getNode(versionRange, outputDir)
+  getNode(versionRange, outputDir, { progress: false })
 
   await pSetTimeout(TIMEOUT)
   exit(0)

@@ -17,7 +17,7 @@ each(
   [[true, ''], ['not_a_version_range', ''], ['6', true], ['90', '']],
   ({ title }, [versionRange, outputDir]) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(getNode(versionRange, outputDir))
+      await t.throwsAsync(getNode(versionRange, outputDir, { progress: false }))
     })
   },
 )
@@ -28,8 +28,8 @@ test('Invalid arguments | CLI', async t => {
 
 test('Defaults version to *', async t => {
   const outputDir = getOutputDir()
-  const nodePath = await getNode('*', outputDir)
-  const nodePathA = await getNode(undefined, outputDir)
+  const nodePath = await getNode('*', outputDir, { progress: false })
+  const nodePathA = await getNode(undefined, outputDir, { progress: false })
 
   t.is(nodePath, nodePathA)
 

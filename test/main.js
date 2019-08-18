@@ -21,7 +21,7 @@ const pSetTimeout = promisify(setTimeout)
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
   test(`Downloads node | ${title}`, async t => {
     const outputDir = getOutputDir()
-    await getNodeFunc(TEST_VERSION, outputDir)
+    await getNodeFunc(TEST_VERSION, outputDir, { progress: false })
 
     const nodePath = getNodePath(TEST_VERSION, outputDir)
 
@@ -40,7 +40,7 @@ const REMOVE_TIMEOUT = 1e3
 
 test('Returns filepath', async t => {
   const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir)
+  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: false })
 
   t.true(await pathExists(nodePath))
 
@@ -49,7 +49,7 @@ test('Returns filepath', async t => {
 
 test('Can use version range', async t => {
   const outputDir = getOutputDir()
-  const nodePath = await getNode('6', outputDir)
+  const nodePath = await getNode('6', outputDir, { progress: false })
 
   t.true(await pathExists(nodePath))
 

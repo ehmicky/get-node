@@ -69,6 +69,7 @@
     "gulp": "^4.0.2",
     "gulp-shared-tasks": "^0.30.35",
     "husky": "^3.0.4",
+    "sinon": "^7.4.1",
     "test-each": "^1.7.2"
   },
   "engines": {

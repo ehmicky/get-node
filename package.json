@@ -55,7 +55,7 @@
   "dependencies": {
     "core-js": "^3.2.1",
     "end-of-stream": "^1.4.1",
-    "fetch-node-website": "^1.1.0",
+    "fetch-node-website": "^2.0.0",
     "move-file": "^1.2.0",
     "normalize-node-version": "^1.0.1",
     "path-exists": "^4.0.0",

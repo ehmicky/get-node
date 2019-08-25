@@ -63,6 +63,9 @@ get-node [VERSION] [OUTPUT_DIRECTORY]
 
 # Usage (JavaScript)
 
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
+
 ```js
 const getNode = require('get-node')
 

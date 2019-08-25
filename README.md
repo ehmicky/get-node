@@ -66,9 +66,8 @@ get-node [VERSION] [OUTPUT_DIRECTORY]
 ```js
 const getNode = require('get-node')
 
-const version = '12'
 const options = {}
-const { path, version } = await getNode(version, options)
+const { path, version } = await getNode('12', options)
 console.log(path) // /home/ehmicky/.cache/nve/12.9.1/node
 console.log(version) // 12.9.1
 ```

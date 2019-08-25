@@ -1,7 +1,6 @@
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
 import { resolve } from 'path'
-import { cwd } from 'process'
 
 import test from 'ava'
 import { each } from 'test-each'

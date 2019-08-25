@@ -1,3 +1,9 @@
+# 2.0.1
+
+## Interval
+
+- Internal changes
+
 # 2.0.0
 
 ## Features

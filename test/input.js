@@ -5,6 +5,7 @@ import { cwd } from 'process'
 
 import test from 'ava'
 import { each } from 'test-each'
+import globalCacheDir from 'global-cache-dir'
 
 import getNode from '../src/main.js'
 
@@ -47,10 +48,13 @@ test('Defaults version to *', async t => {
   await removeOutput(path)
 })
 
-test.serial('Defaults output to current directory', async t => {
-  const { path } = await getNode(TEST_VERSION)
+test.serial('Defaults output to cache directory', async t => {
+  const [{ path }, cacheDir] = await Promise.all([
+    getNode(TEST_VERSION),
+    globalCacheDir('nve'),
+  ])
 
-  t.is(resolve(path, '../..'), cwd())
+  t.is(resolve(path, '../..'), cacheDir)
 
   await pUnlink(path)
   await pRmdir(resolve(path, '..'))

@@ -5,7 +5,7 @@ import { download } from './download.js'
 
 // Download the Node.js binary for a specific `versionRange`
 const getNode = async function(versionRange, opts) {
-  const { versionRange: versionRangeA, output, progress } = getOpts({
+  const { versionRange: versionRangeA, output, progress } = await getOpts({
     ...opts,
     versionRange,
   })

@@ -57,7 +57,7 @@
     "end-of-stream": "^1.4.1",
     "fetch-node-website": "^2.0.0",
     "move-file": "^1.2.0",
-    "normalize-node-version": "^1.0.1",
+    "normalize-node-version": "^2.0.0",
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",

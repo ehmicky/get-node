@@ -16,16 +16,18 @@ Works on Linux/Mac/Windows.
 ```bash
 # Download Node.js latest release
 $ get-node
-$ ./12.8.0/node
-Welcome to Node.js v12.8.0.
+/home/ehmicky/.cache/nve/12.9.1/node
+$ /home/ehmicky/.cache/nve/12.9.1/node
+Welcome to Node.js v12.9.1.
 Type ".help" for more information.
 > .exit
 
 # Download a specific Node.js release
 $ get-node 8
-$ ./8.16.0/node
+/home/ehmicky/.cache/nve/8.16.1/node
+$ /home/ehmicky/.cache/nve/8.16.1/node
 > process.version
-'v8.16.0'
+'v8.16.1'
 > .exit
 
 # Any version range can be used
@@ -34,8 +36,8 @@ $ get-node '<7'
 
 # Specify the output directory
 $ get-node 12 ~/.cache/node_releases/
-$ ~/.cache/node_releases/12.8.0/node --version
-v12.8.0
+$ ~/.cache/node_releases/12.9.1/node --version
+v12.9.1
 ```
 
 # Install
@@ -46,7 +48,7 @@ npm install get-node
 
 `node >=8.12.0` must already be installed.
 
-# Usage
+# Usage (CLI)
 
 ```bash
 get-node [VERSION] [OUTPUT_DIRECTORY]
@@ -54,6 +56,36 @@ get-node [VERSION] [OUTPUT_DIRECTORY]
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
+
+`OUTPUT_DIRECTORY` defaults to a
+[global cache directory](https://github.com/ehmicky/global-cache-dir) such as
+`/home/ehmicky/.cache/nve/`.
+
+# Usage (JavaScript)
+
+```js
+const getNode = require('get-node')
+
+const version = '12'
+const options = {}
+const { path, version } = await getNode(version, options)
+console.log(path) // /home/ehmicky/.cache/nve/12.9.1/node
+console.log(version) // 12.9.1
+```
+
+## getNode(version, options?)
+
+`version`: `string`<br>`options`: `object`
+
+### options.output
+
+_Type_: `string`
+
+### options.progress
+
+_Type_: `boolean`<br> _Default_: `true`
+
+Whether to show a progress spinner.
 
 ## Node.js mirror
 

@@ -38,7 +38,13 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'node'
 const safeDownload = async function(version, nodePath, progress) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}` })
 
-  await downloadRuntime(version, tmpFile, progress)
+  try {
+    await downloadRuntime(version, tmpFile, progress)
+  } catch (error) {
+    // Errors should only be thrown on network failures
+    // istanbul ignore next
+    throw new Error(`Could not download Node.js ${version}: ${error.stack}`)
+  }
 
   await moveTmpFile(tmpFile, nodePath)
 }

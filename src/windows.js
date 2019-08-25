@@ -10,12 +10,12 @@ const pEndOfStream = promisify(endOfStream)
 
 // The Windows Node binary comes as a regular file
 export const downloadWindowsNode = async function(version, tmpFile, progress) {
-  const { body } = await fetchNodeWebsite(`v${version}/win-${arch}/node.exe`, {
+  const response = await fetchNodeWebsite(`v${version}/win-${arch}/node.exe`, {
     progress,
   })
 
   const writeStream = createWriteStream(tmpFile, { mode: NODE_MODE })
-  body.pipe(writeStream)
+  response.pipe(writeStream)
   await pEndOfStream(writeStream)
 }
 

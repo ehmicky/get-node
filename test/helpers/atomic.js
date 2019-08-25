@@ -5,10 +5,10 @@ import getNode from '../../src/main.js'
 
 const pSetTimeout = promisify(setTimeout)
 
-const [, , versionRange, outputDir] = argv
+const [, , versionRange, output] = argv
 
 const launchThenAbort = async function() {
-  getNode(versionRange, outputDir, { progress: false })
+  getNode(versionRange, { output, progress: false })
 
   await pSetTimeout(TIMEOUT)
   exit(0)

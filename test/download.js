@@ -10,7 +10,7 @@ import getNode from '../src/main.js'
 
 import {
   TEST_VERSION,
-  getOutputDir,
+  getOutput,
   removeOutput,
   removeOutputDir,
   getNodePath,
@@ -22,48 +22,53 @@ const pUnlink = promisify(unlink)
 const pExecFile = promisify(execFile)
 
 test('Caches download', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: false })
-  const nodePathA = await getNode(TEST_VERSION, outputDir, { progress: false })
+  const output = getOutput()
+  const { path } = await getNode(TEST_VERSION, { output, progress: false })
+  const { path: pathA } = await getNode(TEST_VERSION, {
+    output,
+    progress: false,
+  })
 
-  t.is(nodePath, nodePathA)
+  t.is(path, pathA)
 
-  await removeOutput(nodePath)
+  await removeOutput(path)
 })
 
-test('Can re-use same outputDir', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: false })
-  await pUnlink(nodePath)
+test('Can re-use same output', async t => {
+  const output = getOutput()
+  const { path } = await getNode(TEST_VERSION, { output, progress: false })
+  await pUnlink(path)
 
-  const nodePathA = await getNode(TEST_VERSION, outputDir, { progress: false })
-  await pUnlink(nodePathA)
+  const { path: pathA } = await getNode(TEST_VERSION, {
+    output,
+    progress: false,
+  })
+  await pUnlink(pathA)
 
-  t.is(resolve(nodePath, '..'), resolve(nodePathA, '..'))
+  t.is(resolve(path, '..'), resolve(pathA, '..'))
 
-  await removeOutputDir(nodePath)
+  await removeOutputDir(path)
 })
 
 test('Parallel downloads', async t => {
-  const outputDir = getOutputDir()
-  const [nodePath, nodePathA] = await Promise.all([
-    getNode(TEST_VERSION, outputDir, { progress: false }),
-    getNode(TEST_VERSION, outputDir, { progress: false }),
+  const output = getOutput()
+  const [{ path }, { path: pathA }] = await Promise.all([
+    getNode(TEST_VERSION, { output, progress: false }),
+    getNode(TEST_VERSION, { output, progress: false }),
   ])
 
-  t.is(nodePath, nodePathA)
+  t.is(path, pathA)
 
-  await removeOutput(nodePath)
+  await removeOutput(path)
 })
 
 test('Writes atomically', async t => {
-  const outputDir = getOutputDir()
+  const output = getOutput()
+  await pExecFile('node', [ATOMIC_PROCESS, TEST_VERSION, output])
 
-  await pExecFile('node', [ATOMIC_PROCESS, TEST_VERSION, outputDir])
+  const path = getNodePath(TEST_VERSION, output)
 
-  const nodePath = getNodePath(TEST_VERSION, outputDir)
-
-  t.false(await pathExists(nodePath))
-  t.false(await pathExists(resolve(nodePath, '..')))
-  t.false(await pathExists(resolve(nodePath, '../..')))
+  t.false(await pathExists(path))
+  t.false(await pathExists(resolve(path, '..')))
+  t.false(await pathExists(resolve(path, '../..')))
 })

@@ -9,10 +9,9 @@ import getNode from '../src/main.js'
 
 import {
   TEST_VERSION,
-  getOutputDir,
+  getOutput,
   removeOutput,
   getNodeCli,
-  getNodePath,
 } from './helpers/main.js'
 
 const pExecFile = promisify(execFile)
@@ -20,17 +19,18 @@ const pSetTimeout = promisify(setTimeout)
 
 each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
   test(`Downloads node | ${title}`, async t => {
-    const outputDir = getOutputDir()
-    await getNodeFunc(TEST_VERSION, outputDir, { progress: false })
+    const output = getOutput()
+    const { path, version } = await getNodeFunc(TEST_VERSION, {
+      output,
+      progress: false,
+    })
 
-    const nodePath = getNodePath(TEST_VERSION, outputDir)
-
-    const { stdout } = await pExecFile(nodePath, ['--version'])
-    t.is(stdout.trim(), `v${TEST_VERSION}`)
+    const { stdout } = await pExecFile(path, ['--version'])
+    t.is(stdout.trim(), `v${version}`)
 
     await pSetTimeout(REMOVE_TIMEOUT)
 
-    await removeOutput(nodePath)
+    await removeOutput(path)
   })
 })
 
@@ -38,20 +38,20 @@ each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
 // executable before cleaning it
 const REMOVE_TIMEOUT = 1e3
 
-test('Returns filepath', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, { progress: false })
+test('Returns filepath and version', async t => {
+  const output = getOutput()
+  const { path } = await getNode(TEST_VERSION, { output, progress: false })
 
-  t.true(await pathExists(nodePath))
+  t.true(await pathExists(path))
 
-  await removeOutput(nodePath)
+  await removeOutput(path)
 })
 
 test('Can use version range', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode('6', outputDir, { progress: false })
+  const output = getOutput()
+  const { path } = await getNode('6', { output, progress: false })
 
-  t.true(await pathExists(nodePath))
+  t.true(await pathExists(path))
 
-  await removeOutput(nodePath)
+  await removeOutput(path)
 })

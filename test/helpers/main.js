@@ -13,7 +13,7 @@ const pExecFile = promisify(execFile)
 
 export const TEST_VERSION = '6.0.0'
 
-export const getOutputDir = function() {
+export const getOutput = function() {
   const id = String(Math.random()).replace('.', '')
   return `${tmpdir()}/test-get-node-${id}`
 }
@@ -28,13 +28,18 @@ export const removeOutputDir = async function(nodePath) {
   await pRmdir(resolve(nodePath, '../..'))
 }
 
-export const getNodeCli = async function(versionRange, outputDir) {
+export const getNodeCli = async function(versionRange, { output = '' } = {}) {
   const binPath = await getBinPath()
-  await pExecFile('node', [binPath, versionRange, outputDir])
+  const returnValue = await pExecFile('node', [binPath, versionRange, output])
+  const path = returnValue.stdout.trim()
+  const [, version] = PATH_TO_VERSION_REGEXP.exec(path)
+  return { path, version }
 }
 
-export const getNodePath = function(versionRange, outputDir) {
+const PATH_TO_VERSION_REGEXP = /([\d.]+)\/[^/]+$/u
+
+export const getNodePath = function(versionRange, output) {
   const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
-  const nodePath = join(outputDir, TEST_VERSION, nodeFilename)
+  const nodePath = join(output, TEST_VERSION, nodeFilename)
   return nodePath
 }

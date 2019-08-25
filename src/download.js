@@ -10,8 +10,8 @@ import { downloadUnixNode } from './unix.js'
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
-export const download = async function(version, outputDir, progress) {
-  const nodePath = join(outputDir, version, NODE_FILENAME)
+export const download = async function(version, output, progress) {
+  const nodePath = join(output, version, NODE_FILENAME)
 
   if (await pathExists(nodePath)) {
     return nodePath

@@ -8,39 +8,50 @@ import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
-import { getOutputDir, removeOutput, getNodeCli } from './helpers/main.js'
+import {
+  TEST_VERSION,
+  getOutput,
+  removeOutput,
+  getNodeCli,
+} from './helpers/main.js'
 
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 
 each(
-  [[true, ''], ['not_a_version_range', ''], ['6', true], ['90', '']],
-  ({ title }, [versionRange, outputDir]) => {
+  [
+    { versionRange: true },
+    { versionRange: 'not_a_version_range' },
+    { versionRange: '90' },
+    { output: true },
+    { progress: 0 },
+  ],
+  ({ title }, { versionRange, ...opts }) => {
     test(`Invalid arguments | programmatic ${title}`, async t => {
-      await t.throwsAsync(getNode(versionRange, outputDir, { progress: false }))
+      await t.throwsAsync(getNode(versionRange, opts))
     })
   },
 )
 
 test('Invalid arguments | CLI', async t => {
-  await t.throwsAsync(getNodeCli('not_a_version_range', ''))
+  await t.throwsAsync(getNodeCli('not_a_version_range'))
 })
 
 test('Defaults version to *', async t => {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode('*', outputDir, { progress: false })
-  const nodePathA = await getNode(undefined, outputDir, { progress: false })
+  const output = getOutput()
+  const { path } = await getNode('*', { output, progress: false })
+  const { path: pathA } = await getNode(undefined, { output, progress: false })
 
-  t.is(nodePath, nodePathA)
+  t.is(path, pathA)
 
-  await removeOutput(nodePath)
+  await removeOutput(path)
 })
 
-test('Defaults outputDir to current directory', async t => {
-  const nodePath = await getNode()
+test.serial('Defaults output to current directory', async t => {
+  const { path } = await getNode(TEST_VERSION)
 
-  t.is(resolve(nodePath, '../..'), cwd())
+  t.is(resolve(path, '../..'), cwd())
 
-  await pUnlink(nodePath)
-  await pRmdir(resolve(nodePath, '..'))
+  await pUnlink(path)
+  await pRmdir(resolve(path, '..'))
 })

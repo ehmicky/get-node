@@ -2,43 +2,33 @@ import { stderr } from 'process'
 
 import test from 'ava'
 import sinon from 'sinon'
+import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
-import { TEST_VERSION, getOutputDir, removeOutput } from './helpers/main.js'
+import { TEST_VERSION, getOutput, removeOutput } from './helpers/main.js'
 
-const getTempNode = async function(options) {
-  const outputDir = getOutputDir()
-  const nodePath = await getNode(TEST_VERSION, outputDir, options)
-  await removeOutput(nodePath)
+const getTempNode = async function(opts) {
+  const output = getOutput()
+  const { path } = await getNode(TEST_VERSION, { ...opts, output })
+  await removeOutput(path)
 }
 
-test.serial('Do not show spinner if opts.progress false', async t => {
-  const spy = sinon.spy(stderr, 'write')
+each(
+  [
+    { progress: false, called: false },
+    { progress: true, called: true },
+    { called: true },
+  ],
+  ({ title }, { progress, called }) => {
+    test.serial(`Progress spinner | ${title}`, async t => {
+      const spy = sinon.spy(stderr, 'write')
 
-  await getTempNode({ progress: false })
+      await getTempNode({ progress })
 
-  t.true(spy.notCalled)
+      t.is(spy.called, called)
 
-  spy.restore()
-})
-
-test.serial('Show spinner if opts.progress true', async t => {
-  const spy = sinon.spy(stderr, 'write')
-
-  await getTempNode({ progress: true })
-
-  t.true(spy.called)
-
-  spy.restore()
-})
-
-test.serial('Show spinner by default', async t => {
-  const spy = sinon.spy(stderr, 'write')
-
-  await getTempNode()
-
-  t.true(spy.called)
-
-  spy.restore()
-})
+      spy.restore()
+    })
+  },
+)

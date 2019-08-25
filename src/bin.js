@@ -6,8 +6,9 @@ import getNode from './main.js'
 // Download the Node.js binary for a specific `versionRange`
 const runCli = async function() {
   try {
-    const [, , versionRange, outputDir] = argv
-    await getNode(versionRange, outputDir)
+    const [, , versionRange, output] = argv
+    const { path } = await getNode(versionRange, { output })
+    console.log(path)
   } catch (error) {
     console.error(error.message)
     exit(1)

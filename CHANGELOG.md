@@ -1,6 +1,6 @@
 # 2.0.1
 
-## Interval
+## Internal
 
 - Internal changes
 

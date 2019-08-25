@@ -36,7 +36,7 @@ export const getNodeCli = async function(versionRange, { output = '' } = {}) {
   return { path, version }
 }
 
-const PATH_TO_VERSION_REGEXP = /([\d.]+)\/[^/]+$/u
+const PATH_TO_VERSION_REGEXP = /([\d.]+)[/\\][^/\\]+$/u
 
 export const getNodePath = function(versionRange, output) {
   const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'

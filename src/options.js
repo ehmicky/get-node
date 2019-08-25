@@ -7,7 +7,7 @@ import { omitBy } from './utils.js'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
-export const getOpts = function(opts = {}) {
+export const getOpts = function(opts) {
   validate(opts, { exampleConfig: EXAMPLE_OPTS })
 
   const optsA = omitBy(opts, isUndefined)

@@ -1,3 +1,9 @@
+# 3.0.1
+
+## Bugs
+
+- Fix cache invalidation bug
+
 # 3.0.0
 
 ## Breaking changes

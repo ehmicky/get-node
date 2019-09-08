@@ -42,7 +42,7 @@ Command line options and/or configuration file, if any.
 Enter the following command in a terminal and copy/paste its output:
 
 ```bash
-npx envinfo --system --binaries --browsers --npmPackages get-node
+npx envinfo --system --binaries --browsers --npmPackages get-node --npmGlobalPackages get-node
 ```
 
 **Screenshots**

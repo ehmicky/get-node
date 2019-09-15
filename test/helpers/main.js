@@ -2,14 +2,13 @@ import { tmpdir } from 'os'
 import { promisify } from 'util'
 import { unlink, rmdir } from 'fs'
 import { resolve, join } from 'path'
-import { execFile } from 'child_process'
 import { platform } from 'process'
 
 import { getBinPath } from 'get-bin-path'
+import execa from 'execa'
 
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
-const pExecFile = promisify(execFile)
 
 export const TEST_VERSION = '6.0.0'
 
@@ -33,14 +32,10 @@ export const getNodeCli = async function(
   { output = '', mirror } = {},
 ) {
   const binPath = await getBinPath()
-  const flags = mirror === undefined ? [] : [`--mirror=${mirror}`]
-  const returnValue = await pExecFile('node', [
-    binPath,
-    ...flags,
-    versionRange,
-    output,
-  ])
-  const path = returnValue.stdout.trim()
+  const options = mirror === undefined ? '' : `--mirror=${mirror}`
+  const { stdout: path } = await execa.command(
+    `node ${binPath} ${options} ${versionRange} ${output}`,
+  )
   const [, version] = PATH_TO_VERSION_REGEXP.exec(path)
   return { path, version }
 }

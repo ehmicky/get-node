@@ -47,11 +47,13 @@ test('Returns filepath and version', async t => {
   await removeOutput(path)
 })
 
-test('Can use version range', async t => {
-  const output = getOutput()
-  const { path } = await getNode('6', { output, progress: false })
+each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
+  test(`Can use version range | ${title}`, async t => {
+    const output = getOutput()
+    const { path } = await getNodeFunc('6', { output, progress: false })
 
-  t.true(await pathExists(path))
+    t.true(await pathExists(path))
 
-  await removeOutput(path)
+    await removeOutput(path)
+  })
 })

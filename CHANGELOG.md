@@ -9,6 +9,10 @@
 - Add [`--mirror`](https://github.com/ehmicky/nve/blob/master/README.md#mirror)
   option
 
+## Bugs
+
+- Fix error messages not printed correctly (50128cd)
+
 # 3.1.0
 
 ## Features

@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Features
+
+- Add `--help` and `--version` CLI flags
+
 # 3.1.0
 
 ## Features

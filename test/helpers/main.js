@@ -27,17 +27,24 @@ export const removeOutputDir = async function(nodePath) {
   await pRmdir(resolve(nodePath, '../..'))
 }
 
-export const getNodeCli = async function(
-  versionRange,
-  { output = '', mirror } = {},
-) {
+export const getNodeCli = async function(versionRange, opts) {
   const binPath = await getBinPath()
-  const options = mirror === undefined ? '' : `--mirror=${mirror}`
+  const cliOpts = getCliOptions(opts)
   const { stdout: path } = await execa.command(
-    `node ${binPath} ${options} ${versionRange} ${output}`,
+    `node ${binPath} ${cliOpts} ${versionRange}`,
   )
   const [, version] = PATH_TO_VERSION_REGEXP.exec(path)
   return { path, version }
+}
+
+const getCliOptions = function(opts = {}) {
+  return Object.entries(opts)
+    .map(getCliOption)
+    .join(' ')
+}
+
+const getCliOption = function([name, value]) {
+  return `--${name}=${value}`
 }
 
 const PATH_TO_VERSION_REGEXP = /([\d.]+)[/\\][^/\\]+$/u

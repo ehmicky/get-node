@@ -10,6 +10,13 @@ export const defineCli = function() {
 }
 
 const CONFIG = {
+  output: {
+    alias: 'o',
+    string: true,
+    requiresArg: true,
+    describe: `Output directory for the 'node' executable.
+Defaults to a global cache directory such as /home/user/.cache/nve/.`,
+  },
   progress: {
     alias: 'p',
     boolean: true,
@@ -26,7 +33,7 @@ The following environment variables can also be used: NODE_MIRROR, NVM_NODEJS_OR
   },
 }
 
-const USAGE = `$0 [OPTIONS...] [VERSION] [OUTPUT_DIRECTORY]
+const USAGE = `$0 [OPTIONS...] [VERSION]
 
 Download a specific version of Node.js.
 The path to the Node.js executable is printed on stdout.`

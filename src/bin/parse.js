@@ -2,12 +2,12 @@ import { omitBy } from '../utils.js'
 
 export const parseOpts = function(yargs) {
   const {
-    _: [versionRange, output],
+    _: [versionRange],
     ...opts
   } = yargs.parse()
   const versionRangeA = parseVersionRange(versionRange)
   const optsA = omitBy(opts, isInternalKey)
-  return { ...optsA, versionRange: versionRangeA, output }
+  return { ...optsA, versionRange: versionRangeA }
 }
 
 // `yargs` parses major releases (e.g. `8`) as numbers

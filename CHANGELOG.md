@@ -1,12 +1,20 @@
-# 3.2.0
+# 4.0.0
+
+## Breaking changes
+
+- The output directory is now specified as
+  [an `--output` flag](https://github.com/ehmicky/nve/blob/master/README.md#--output)
+  instead of a positional argument on the CLI. This means
+  `get-node VERSION OUTPUT` should now be `get-node --output=OUTPUT VERSION`.
 
 ## Features
 
 - Add `--help` and `--version` CLI flags
 - Add
-  [`--progress`](https://github.com/ehmicky/nve/blob/master/README.md#progress)
+  [`--progress`](https://github.com/ehmicky/nve/blob/master/README.md#--progress)
   CLI flag
-- Add [`--mirror`](https://github.com/ehmicky/nve/blob/master/README.md#mirror)
+- Add
+  [`--mirror`](https://github.com/ehmicky/nve/blob/master/README.md#--mirror)
   option
 
 ## Bugs

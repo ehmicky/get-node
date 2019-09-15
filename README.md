@@ -35,9 +35,9 @@ $ get-node 8.12.0
 $ get-node '<7'
 
 # Specify the output directory
-$ get-node 12 ~/.cache/node_releases/
-$ ~/.cache/node_releases/12.10.0/node --version
-v12.10.0
+$ get-node --output=~/.cache/node_releases/ 8
+$ ~/.cache/node_releases/8.16.1/node --version
+v8.16.1
 
 # Use a mirror website
 $ get-node --mirror=https://npm.taobao.org/mirrors/node 8
@@ -55,27 +55,31 @@ npm install get-node
 # Usage (CLI)
 
 ```bash
-get-node [OPTIONS] [VERSION] [OUTPUT_DIRECTORY]
+get-node [OPTIONS] [VERSION]
 ```
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
-`OUTPUT_DIRECTORY` defaults to a
+## Options
+
+### --output
+
+_Alias_: `-o`<br> _Type_: `string`<br>_Default_:
 [global cache directory](https://github.com/ehmicky/global-cache-dir) such as
 `/home/ehmicky/.cache/nve/`.
 
-## Options
+Output directory for the `node` executable.
 
 ### --progress
 
-_Alias_: `-p`<br> _Type_: `boolean`<br> _Default_: `true`
+_Alias_: `-p`<br>_Type_: `boolean`<br>_Default_: `true`
 
 Whether to show a progress spinner.
 
 ### --mirror
 
-_Alias_: `-m`<br> _Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+_Alias_: `-m`<br>_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
 
 Base URL. Can be overridden (for example `https://npm.taobao.org/mirrors/node`).
 
@@ -100,8 +104,8 @@ console.log(version) // 12.10.0
 
 `version`: `string`<br>`options`: `object`
 
-`options` has the same members as the CLI options: `output`,
-[`progress`](#progress), [`mirror`](#mirror)
+`options` has the same members as the CLI options: [`output`](#--output),
+[`progress`](#--progress), [`mirror`](#--mirror)
 
 # See also
 

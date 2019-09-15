@@ -59,7 +59,7 @@
     "global-cache-dir": "^1.0.0",
     "jest-validate": "^24.9.0",
     "move-file": "^1.2.0",
-    "normalize-node-version": "^2.1.0",
+    "normalize-node-version": "^2.2.0",
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",

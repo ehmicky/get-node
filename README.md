@@ -71,7 +71,7 @@ get-node [OPTIONS] [VERSION]
 
 _Alias_: `-o`<br> _Type_: `string`<br>_Default_:
 [global cache directory](https://github.com/ehmicky/global-cache-dir) such as
-`/home/ehmicky/.cache/nve/`.
+`/home/user/.cache/nve/`.
 
 Output directory for the `node` executable.
 
@@ -106,10 +106,24 @@ console.log(version) // 12.10.0
 
 ## getNode(version, options?)
 
-`version`: `string`<br>`options`: `object`
+`version`: `string`<br>`options`: `object`<br>_Return value_: `Promise<object>`
 
 `options` has the same members as the CLI options: [`output`](#--output),
 [`progress`](#--progress), [`mirror`](#--mirror)
+
+The returned `Promise` resolves to an object with the following properties:
+
+### path
+
+_Type_: `string`
+
+Absolute path to the `node` executable.
+
+### version
+
+_Type_: `string`
+
+[Normalized](https://github.com/ehmicky/normalize-node-version) Node.js version.
 
 # See also
 

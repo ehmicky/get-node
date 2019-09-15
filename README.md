@@ -16,16 +16,16 @@ Works on Linux/Mac/Windows.
 ```bash
 # Download Node.js latest release
 $ get-node
-/home/ehmicky/.cache/nve/12.10.0/node
-$ /home/ehmicky/.cache/nve/12.10.0/node
+/home/user/.cache/nve/12.10.0/node
+$ /home/user/.cache/nve/12.10.0/node
 Welcome to Node.js v12.10.0.
 Type ".help" for more information.
 > .exit
 
 # Download a specific Node.js release
 $ get-node 8
-/home/ehmicky/.cache/nve/8.16.1/node
-$ /home/ehmicky/.cache/nve/8.16.1/node
+/home/user/.cache/nve/8.16.1/node
+$ /home/user/.cache/nve/8.16.1/node
 > process.version
 'v8.16.1'
 > .exit
@@ -41,7 +41,7 @@ v12.10.0
 
 # Use a mirror website
 $ get-node --mirror=https://npm.taobao.org/mirrors/node 8
-/home/ehmicky/.cache/nve/8.16.1/node
+/home/user/.cache/nve/8.16.1/node
 ```
 
 # Install
@@ -92,7 +92,7 @@ const getNode = require('get-node')
 
 const options = {}
 const { path, version } = await getNode('12', options)
-console.log(path) // /home/ehmicky/.cache/nve/12.10.0/node
+console.log(path) // /home/user/.cache/nve/12.10.0/node
 console.log(version) // 12.10.0
 ```
 

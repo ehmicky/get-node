@@ -65,7 +65,7 @@ get-node [OPTIONS] [VERSION] [OUTPUT_DIRECTORY]
 [global cache directory](https://github.com/ehmicky/global-cache-dir) such as
 `/home/ehmicky/.cache/nve/`.
 
-## options
+## Options
 
 ### --progress
 

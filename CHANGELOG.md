@@ -16,6 +16,7 @@
 - Add
   [`--mirror`](https://github.com/ehmicky/nve/blob/master/README.md#--mirror)
   option
+- Improve CLI spinner
 
 ## Bugs
 

@@ -63,7 +63,8 @@
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",
-    "tmp-promise": "^2.0.2"
+    "tmp-promise": "^2.0.2",
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.41",

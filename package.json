@@ -8,7 +8,7 @@
     "!~"
   ],
   "bin": {
-    "get-node": "build/src/bin.js"
+    "get-node": "build/src/bin/main.js"
   },
   "scripts": {
     "test": "gulp test"

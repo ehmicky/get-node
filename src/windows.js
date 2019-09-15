@@ -4,6 +4,7 @@ import { promisify } from 'util'
 
 import endOfStream from 'end-of-stream'
 import fetchNodeWebsite from 'fetch-node-website'
+import pEvent from 'p-event'
 
 // TODO: replace with Stream.finished() after dropping support for Node 8/9
 const pEndOfStream = promisify(endOfStream)
@@ -17,7 +18,9 @@ export const downloadWindowsNode = async function(version, tmpFile, opts) {
 
   const writeStream = createWriteStream(tmpFile, { mode: NODE_MODE })
   response.pipe(writeStream)
-  await pEndOfStream(writeStream)
+
+  // Rejects either on `writeStream` `error` or on `response` `error`
+  await Promise.race([pEndOfStream(writeStream), pEvent(response, [])])
 }
 
 const NODE_MODE = 0o755

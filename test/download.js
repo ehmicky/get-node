@@ -14,6 +14,7 @@ import {
   removeOutput,
   removeOutputDir,
   getNodePath,
+  getNodeCli,
 } from './helpers/main.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
@@ -72,3 +73,19 @@ test('Writes atomically', async t => {
   t.false(await pathExists(resolve(path, '..')))
   t.false(await pathExists(resolve(path, '../..')))
 })
+
+test(`HTTP errors | programmatic`, async t => {
+  await t.throwsAsync(
+    getNode(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
+  )
+})
+
+test(`HTTP errors | CLI`, async t => {
+  const error = await t.throwsAsync(
+    getNodeCli(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
+  )
+  t.notRegex(error.message, STACK_TRACE_REGEXP)
+})
+
+const INVALID_MIRROR = 'https://example.com'
+const STACK_TRACE_REGEXP = /^\s*at/mu

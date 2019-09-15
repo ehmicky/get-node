@@ -6,6 +6,7 @@ import { rename, rmdir } from 'fs'
 import { extract as tarExtract } from 'tar-fs'
 import endOfStream from 'end-of-stream'
 import fetchNodeWebsite from 'fetch-node-website'
+import pEvent from 'p-event'
 
 const pRename = promisify(rename)
 const pRmdir = promisify(rmdir)
@@ -22,7 +23,8 @@ export const downloadUnixNode = async function(version, tmpFile, opts) {
 
   const archive = response.pipe(createGunzip())
 
-  await unarchive(archive, tmpFile)
+  // Rejects either on `archive` `error` or on `response` `error`
+  await Promise.race([unarchive(archive, tmpFile), pEvent(response, [])])
 
   await moveFile(tmpFile)
 }

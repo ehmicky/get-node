@@ -28,9 +28,18 @@ export const removeOutputDir = async function(nodePath) {
   await pRmdir(resolve(nodePath, '../..'))
 }
 
-export const getNodeCli = async function(versionRange, { output = '' } = {}) {
+export const getNodeCli = async function(
+  versionRange,
+  { output = '', mirror } = {},
+) {
   const binPath = await getBinPath()
-  const returnValue = await pExecFile('node', [binPath, versionRange, output])
+  const flags = mirror === undefined ? [] : [`--mirror=${mirror}`]
+  const returnValue = await pExecFile('node', [
+    binPath,
+    ...flags,
+    versionRange,
+    output,
+  ])
   const path = returnValue.stdout.trim()
   const [, version] = PATH_TO_VERSION_REGEXP.exec(path)
   return { path, version }

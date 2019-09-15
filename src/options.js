@@ -27,7 +27,6 @@ const isUndefined = function(key, value) {
 const CACHE_DIR = 'nve'
 
 const DEFAULT_OPTS = {
-  progress: true,
   versionRange: '*',
 }
 
@@ -35,6 +34,8 @@ const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
   output: getCwd(),
   versionRange: '8',
+  progress: true,
+  mirror: 'https://nodejs.org/dist',
 }
 
 const validateVersionRange = function({ versionRange }) {

@@ -5,9 +5,18 @@ export const parseOpts = function(yargs) {
     _: [versionRange, output],
     ...opts
   } = yargs.parse()
-  const versionRangeA = String(versionRange)
+  const versionRangeA = parseVersionRange(versionRange)
   const optsA = omitBy(opts, isInternalKey)
   return { ...optsA, versionRange: versionRangeA, output }
+}
+
+// `yargs` parses major releases (e.g. `8`) as numbers
+const parseVersionRange = function(versionRange) {
+  if (!Number.isInteger(versionRange)) {
+    return versionRange
+  }
+
+  return String(versionRange)
 }
 
 // Remove `yargs`-specific options, shortcuts and dash-cased

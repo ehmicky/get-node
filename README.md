@@ -16,9 +16,9 @@ Works on Linux/Mac/Windows.
 ```bash
 # Download Node.js latest release
 $ get-node
-/home/ehmicky/.cache/nve/12.9.1/node
-$ /home/ehmicky/.cache/nve/12.9.1/node
-Welcome to Node.js v12.9.1.
+/home/ehmicky/.cache/nve/12.10.0/node
+$ /home/ehmicky/.cache/nve/12.10.0/node
+Welcome to Node.js v12.10.0.
 Type ".help" for more information.
 > .exit
 
@@ -36,8 +36,12 @@ $ get-node '<7'
 
 # Specify the output directory
 $ get-node 12 ~/.cache/node_releases/
-$ ~/.cache/node_releases/12.9.1/node --version
-v12.9.1
+$ ~/.cache/node_releases/12.10.0/node --version
+v12.10.0
+
+# Use a mirror website
+$ get-node --mirror=https://npm.taobao.org/mirrors/node 8
+/home/ehmicky/.cache/nve/8.16.1/node
 ```
 
 # Install
@@ -51,7 +55,7 @@ npm install get-node
 # Usage (CLI)
 
 ```bash
-get-node [VERSION] [OUTPUT_DIRECTORY]
+get-node [OPTIONS] [VERSION] [OUTPUT_DIRECTORY]
 ```
 
 `VERSION` can be any [version range](https://github.com/npm/node-semver) such as
@@ -60,6 +64,23 @@ get-node [VERSION] [OUTPUT_DIRECTORY]
 `OUTPUT_DIRECTORY` defaults to a
 [global cache directory](https://github.com/ehmicky/global-cache-dir) such as
 `/home/ehmicky/.cache/nve/`.
+
+## options
+
+### --progress
+
+_Alias_: `-p`<br> _Type_: `boolean`<br> _Default_: `true`
+
+Whether to show a progress spinner.
+
+### --mirror
+
+_Alias_: `-m`<br> _Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+
+Base URL. Can be overridden (for example `https://npm.taobao.org/mirrors/node`).
+
+The following environment variables can also be used: `NODE_MIRROR`,
+`NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.
 
 # Usage (JavaScript)
 
@@ -71,32 +92,16 @@ const getNode = require('get-node')
 
 const options = {}
 const { path, version } = await getNode('12', options)
-console.log(path) // /home/ehmicky/.cache/nve/12.9.1/node
-console.log(version) // 12.9.1
+console.log(path) // /home/ehmicky/.cache/nve/12.10.0/node
+console.log(version) // 12.10.0
 ```
 
 ## getNode(version, options?)
 
 `version`: `string`<br>`options`: `object`
 
-### options.output
-
-_Type_: `string`
-
-### options.progress
-
-_Type_: `boolean`<br> _Default_: `true`
-
-Whether to show a progress spinner.
-
-## Node.js mirror
-
-The binary is downloaded from `https://nodejs.org/dist`. You can specify a
-mirror website using the environment variable `NODE_MIRROR`.
-
-```bash
-NODE_MIRROR="https://npm.taobao.org/mirrors/node" get-node [VERSION] [OUTPUT_DIRECTORY]
-```
+`options` has the same members as the CLI options: `output`,
+[`progress`](#progress), [`mirror`](#mirror)
 
 # See also
 

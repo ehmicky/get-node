@@ -3,6 +3,11 @@
 ## Features
 
 - Add `--help` and `--version` CLI flags
+- Add
+  [`--progress`](https://github.com/ehmicky/nve/blob/master/README.md#progress)
+  CLI flag
+- Add [`--mirror`](https://github.com/ehmicky/nve/blob/master/README.md#mirror)
+  option
 
 # 3.1.0
 

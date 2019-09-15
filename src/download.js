@@ -10,14 +10,14 @@ import { downloadUnixNode } from './unix.js'
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
-export const download = async function(version, output, progress) {
+export const download = async function(version, output, opts) {
   const nodePath = join(output, version, NODE_FILENAME)
 
   if (await pathExists(nodePath)) {
     return nodePath
   }
 
-  await safeDownload(version, nodePath, progress)
+  await safeDownload(version, nodePath, opts)
 
   return nodePath
 }
@@ -35,11 +35,11 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'node'
 //  - this means the file might be on a different partition
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
-const safeDownload = async function(version, nodePath, progress) {
+const safeDownload = async function(version, nodePath, opts) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}` })
 
   try {
-    await downloadRuntime(version, tmpFile, progress)
+    await downloadRuntime(version, tmpFile, opts)
   } catch (error) {
     // Errors should only be thrown on network failures
     // istanbul ignore next
@@ -51,12 +51,12 @@ const safeDownload = async function(version, nodePath, progress) {
 
 // Retrieve the Node binary from the Node website and persist it.
 // The URL depends on the current OS and CPU architecture.
-const downloadRuntime = function(version, tmpFile, progress) {
+const downloadRuntime = function(version, tmpFile, opts) {
   if (platform === 'win32') {
-    return downloadWindowsNode(version, tmpFile, progress)
+    return downloadWindowsNode(version, tmpFile, opts)
   }
 
-  return downloadUnixNode(version, tmpFile, progress)
+  return downloadUnixNode(version, tmpFile, opts)
 }
 
 const moveTmpFile = async function(tmpFile, nodePath) {

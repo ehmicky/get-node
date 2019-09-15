@@ -11,7 +11,8 @@
 
 ## Bugs
 
-- Fix error messages not printed correctly (50128cd)
+- Fix error messages not printed correctly
+  ([50128cd](https://github.com/ehmicky/get-node/commit/3a1e347f9d1e355679858a99393218cd96f1d1d2))
 
 # 3.1.0
 

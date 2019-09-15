@@ -17,6 +17,7 @@ Works on Linux/Mac/Windows.
 # Download Node.js latest release
 $ get-node
 /home/user/.cache/nve/12.10.0/node
+
 $ /home/user/.cache/nve/12.10.0/node
 Welcome to Node.js v12.10.0.
 Type ".help" for more information.
@@ -25,6 +26,7 @@ Type ".help" for more information.
 # Download a specific Node.js release
 $ get-node 8
 /home/user/.cache/nve/8.16.1/node
+
 $ /home/user/.cache/nve/8.16.1/node
 > process.version
 'v8.16.1'
@@ -35,8 +37,10 @@ $ get-node 8.12.0
 $ get-node '<7'
 
 # Specify the output directory
-$ get-node --output=~/.cache/node_releases/ 8
-$ ~/.cache/node_releases/8.16.1/node --version
+$ get-node --output=/home/user/.cache/node_releases/ 8
+/home/user/.cache/node_releases/8.16.1/node
+
+$ /home/user/.cache/node_releases/8.16.1/node --version
 v8.16.1
 
 # Use a mirror website

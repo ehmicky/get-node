@@ -1,4 +1,4 @@
-import { omitBy } from '../utils.js'
+import filterObj from 'filter-obj'
 
 export const parseOpts = function(yargs) {
   const {
@@ -6,7 +6,7 @@ export const parseOpts = function(yargs) {
     ...opts
   } = yargs.parse()
   const versionRangeA = parseVersionRange(versionRange)
-  const optsA = omitBy(opts, isInternalKey)
+  const optsA = filterObj(opts, isUserOpt)
   return { ...optsA, versionRange: versionRangeA }
 }
 
@@ -20,12 +20,12 @@ const parseVersionRange = function(versionRange) {
 }
 
 // Remove `yargs`-specific options, shortcuts and dash-cased
-const isInternalKey = function(key, value) {
+const isUserOpt = function(key, value) {
   return (
-    value === undefined ||
-    INTERNAL_KEYS.includes(key) ||
-    key.length === 1 ||
-    key.includes('-')
+    value !== undefined &&
+    !INTERNAL_KEYS.includes(key) &&
+    key.length !== 1 &&
+    !key.includes('-')
   )
 }
 

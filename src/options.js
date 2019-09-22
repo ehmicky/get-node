@@ -3,8 +3,7 @@ import { cwd as getCwd } from 'process'
 import globalCacheDir from 'global-cache-dir'
 import { validRange } from 'semver'
 import { validate } from 'jest-validate'
-
-import { omitBy } from './utils.js'
+import filterObj from 'filter-obj'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
@@ -12,7 +11,7 @@ export const getOpts = async function(opts) {
   validate(opts, { exampleConfig: EXAMPLE_OPTS })
 
   const output = await globalCacheDir(CACHE_DIR)
-  const optsA = omitBy(opts, isUndefined)
+  const optsA = filterObj(opts, isDefined)
   const optsB = { ...DEFAULT_OPTS, output, ...optsA }
 
   validateVersionRange(optsB)
@@ -20,8 +19,8 @@ export const getOpts = async function(opts) {
   return optsB
 }
 
-const isUndefined = function(key, value) {
-  return value === undefined
+const isDefined = function(key, value) {
+  return value !== undefined
 }
 
 const CACHE_DIR = 'nve'

@@ -27,6 +27,7 @@ export const downloadUnixNode = async function(version, tmpFile, opts) {
   const archive = response.pipe(createGunzip())
 
   // Rejects either on `archive` `error` or on `response` `error`
+  // TODO: use `require('events').once()` after dropping support for Node 8/9
   await Promise.race([unarchive(archive, tmpFile), pEvent(response, [])])
 
   await moveFile(tmpFile)

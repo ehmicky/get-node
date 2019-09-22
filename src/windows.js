@@ -23,6 +23,7 @@ export const downloadWindowsNode = async function(version, tmpFile, opts) {
   response.pipe(writeStream)
 
   // Rejects either on `writeStream` `error` or on `response` `error`
+  // TODO: use `require('events').once()` after dropping support for Node 8/9
   await Promise.race([pEndOfStream(writeStream), pEvent(response, [])])
 }
 

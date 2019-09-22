@@ -10,6 +10,9 @@ import pEvent from 'p-event'
 const pEndOfStream = promisify(endOfStream)
 
 // The Windows Node binary comes as a regular file
+// Node provides with .7z that are much smaller. However we don't use those
+// because of the lack of Node.js 7z/LZMA libraries that support streaming and
+// do not use native modules.
 export const downloadWindowsNode = async function(version, tmpFile, opts) {
   const response = await fetchNodeWebsite(
     `v${version}/win-${arch}/node.exe`,

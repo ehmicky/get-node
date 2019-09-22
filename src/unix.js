@@ -14,7 +14,10 @@ const pRmdir = promisify(rmdir)
 // TODO: replace with Stream.finished() after dropping support for Node 8/9
 const pEndOfStream = promisify(endOfStream)
 
-// The Unix Node binary comes in a tar.gz folder
+// The Unix Node binary comes in a .tar.gz archive.
+// Node provides with .tar.xz that are twice smaller. However we don't use those
+// because of the lack of Node.js xz/LZMA libraries that support streaming and
+// do not use native modules.
 export const downloadUnixNode = async function(version, tmpFile, opts) {
   const response = await fetchNodeWebsite(
     `v${version}/node-v${version}-${platform}-${arch}.tar.gz`,

@@ -1,3 +1,9 @@
+# 4.0.1
+
+## Bugs
+
+- Fix `CTRL-C` not working
+
 # 4.0.0
 
 ## Breaking changes

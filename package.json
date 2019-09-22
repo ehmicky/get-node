@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "core-js": "^3.2.1",
-    "end-of-stream": "^1.4.1",
+    "end-of-stream": "^1.4.2",
     "fetch-node-website": "^2.2.2",
     "global-cache-dir": "^1.0.0",
     "jest-validate": "^24.9.0",

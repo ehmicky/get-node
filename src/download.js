@@ -41,9 +41,7 @@ const safeDownload = async function(version, nodePath, opts) {
   try {
     await downloadRuntime(version, tmpFile, opts)
   } catch (error) {
-    // Errors should only be thrown on network failures
-    // istanbul ignore next
-    throw new Error(`Could not download Node.js ${version}: ${error.stack}`)
+    throw new Error(`Could not download Node.js ${version}: ${error.message}`)
   }
 
   await moveTmpFile(tmpFile, nodePath)

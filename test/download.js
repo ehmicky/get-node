@@ -5,6 +5,7 @@ import { execFile } from 'child_process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
+import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
@@ -74,18 +75,12 @@ test('Writes atomically', async t => {
   t.false(await pathExists(resolve(path, '../..')))
 })
 
-test(`HTTP errors | programmatic`, async t => {
-  await t.throwsAsync(
-    getNode(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
-  )
-})
-
-test(`HTTP errors | CLI`, async t => {
-  const error = await t.throwsAsync(
-    getNodeCli(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
-  )
-  t.notRegex(error.message, STACK_TRACE_REGEXP)
+each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
+  test(`HTTP errors | ${title}`, async t => {
+    await t.throwsAsync(
+      getNodeFunc(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
+    )
+  })
 })
 
 const INVALID_MIRROR = 'https://example.com'
-const STACK_TRACE_REGEXP = /^\s*at/mu

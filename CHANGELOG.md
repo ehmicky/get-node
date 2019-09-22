@@ -1,3 +1,9 @@
+# 4.0.2
+
+## Bugs
+
+- Improve error messages
+
 # 4.0.1
 
 ## Bugs

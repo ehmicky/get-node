@@ -10,8 +10,8 @@ import { parseOpts } from './parse.js'
 const runCli = async function() {
   try {
     const yargs = defineCli()
-    const { versionRange, output, ...opts } = parseOpts(yargs)
-    const { path } = await getNode(versionRange, { output, ...opts })
+    const { versionRange, ...opts } = parseOpts(yargs)
+    const { path } = await getNode(versionRange, { progress: true, ...opts })
     console.log(path)
   } catch (error) {
     console.error(error.message)

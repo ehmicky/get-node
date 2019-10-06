@@ -18,7 +18,7 @@ each(
   [
     { progress: false, called: false },
     { progress: true, called: true },
-    { called: true },
+    { called: false },
   ],
   ({ title }, { progress, called }) => {
     test.serial(`Progress spinner | ${title}`, async t => {

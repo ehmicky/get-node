@@ -108,8 +108,11 @@ console.log(version) // 12.10.0
 
 `version`: `string`<br>`options`: `object`<br>_Return value_: `Promise<object>`
 
-`options` has the same members as the CLI options: [`output`](#--output),
-[`progress`](#--progress), [`mirror`](#--mirror)
+`options` has the same members as the CLI options:
+
+- [`output`](#--output)
+- [`progress`](#--progress) (default: `false`)
+- [`mirror`](#--mirror)
 
 The returned `Promise` resolves to an object with the following properties:
 

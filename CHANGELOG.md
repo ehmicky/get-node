@@ -1,3 +1,13 @@
+# 5.0.0
+
+## Breaking changes
+
+- Change the
+  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options)
+  default value from `true` to `false` when called programmatically. The
+  [`--progress` CLI option](https://github.com/ehmicky/get-node/blob/master/README.md#--progress)
+  still defaults to `true`.
+
 # 4.0.3
 
 ## Internal

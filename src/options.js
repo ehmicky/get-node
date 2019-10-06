@@ -27,13 +27,13 @@ const CACHE_DIR = 'nve'
 
 const DEFAULT_OPTS = {
   versionRange: '*',
+  progress: false,
 }
 
 const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
   output: getCwd(),
   versionRange: '8',
-  progress: true,
   mirror: 'https://nodejs.org/dist',
 }
 

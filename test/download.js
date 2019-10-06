@@ -25,11 +25,8 @@ const pExecFile = promisify(execFile)
 
 test('Caches download', async t => {
   const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output, progress: false })
-  const { path: pathA } = await getNode(TEST_VERSION, {
-    output,
-    progress: false,
-  })
+  const { path } = await getNode(TEST_VERSION, { output })
+  const { path: pathA } = await getNode(TEST_VERSION, { output })
 
   t.is(path, pathA)
 
@@ -38,13 +35,10 @@ test('Caches download', async t => {
 
 test('Can re-use same output', async t => {
   const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output, progress: false })
+  const { path } = await getNode(TEST_VERSION, { output })
   await pUnlink(path)
 
-  const { path: pathA } = await getNode(TEST_VERSION, {
-    output,
-    progress: false,
-  })
+  const { path: pathA } = await getNode(TEST_VERSION, { output })
   await pUnlink(pathA)
 
   t.is(resolve(path, '..'), resolve(pathA, '..'))
@@ -55,8 +49,8 @@ test('Can re-use same output', async t => {
 test('Parallel downloads', async t => {
   const output = getOutput()
   const [{ path }, { path: pathA }] = await Promise.all([
-    getNode(TEST_VERSION, { output, progress: false }),
-    getNode(TEST_VERSION, { output, progress: false }),
+    getNode(TEST_VERSION, { output }),
+    getNode(TEST_VERSION, { output }),
   ])
 
   t.is(path, pathA)

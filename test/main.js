@@ -40,7 +40,7 @@ const REMOVE_TIMEOUT = 1e3
 
 test('Returns filepath and version', async t => {
   const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output, progress: false })
+  const { path } = await getNode(TEST_VERSION, { output })
 
   t.true(await pathExists(path))
 

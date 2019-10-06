@@ -39,8 +39,8 @@ test('Invalid arguments | CLI', async t => {
 
 test('Defaults version to *', async t => {
   const output = getOutput()
-  const { path } = await getNode('*', { output, progress: false })
-  const { path: pathA } = await getNode(undefined, { output, progress: false })
+  const { path } = await getNode('*', { output })
+  const { path: pathA } = await getNode(undefined, { output })
 
   t.is(path, pathA)
 

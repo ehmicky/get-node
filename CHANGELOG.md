@@ -1,3 +1,9 @@
+# 5.4.1
+
+## Bug fixes
+
+- Fix progress bar jitter.
+
 # 5.4.0
 
 ## Features

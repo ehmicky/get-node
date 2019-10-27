@@ -1,3 +1,10 @@
+# 5.4.0
+
+## Features
+
+- Improve the appearance of the progress bar with the
+  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options).
+
 # 5.3.0
 
 ## Features

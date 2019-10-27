@@ -79,7 +79,7 @@ Output directory for the `node` executable.
 
 _Alias_: `-p`<br>_Type_: `boolean`<br>_Default_: `true`
 
-Whether to show a progress spinner.
+Whether to show a progress bar.
 
 ### --mirror
 

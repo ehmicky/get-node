@@ -20,7 +20,7 @@ Defaults to a global cache directory such as /home/user/.cache/nve/.`,
   progress: {
     alias: 'p',
     boolean: true,
-    describe: `Show a loading spinner. Default: true`,
+    describe: `Show a progress bar. Default: true`,
   },
   mirror: {
     alias: 'm',

@@ -1,3 +1,11 @@
+# 5.3.0
+
+## Features
+
+- The
+  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options)
+  now displays a progress bar instead of a spinner.
+
 # 5.2.0
 
 ## Features

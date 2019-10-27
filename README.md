@@ -137,7 +137,8 @@ _Type_: `string`
   available Node.js versions
 - [`fetch-node-website`](https://github.com/ehmicky/fetch-node-website): Fetch
   releases on nodejs.org
-- [`execa`](https://github.com/sindresorhus/execa): Process execution for humans
+- [`global-cache-dir`](https://github.com/ehmicky/global-cache-dir): Get the
+  global cache directory
 
 # Support
 

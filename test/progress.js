@@ -16,8 +16,8 @@ const getTempNode = async function(opts) {
 
 each(
   [
+    ...(stderr.isTTY ? [{ progress: true, called: true }] : []),
     { progress: false, called: false },
-    { progress: true, called: true },
     { called: false },
   ],
   ({ title }, { progress, called }) => {

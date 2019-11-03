@@ -25,19 +25,19 @@ console.log(path) // /home/user/.cache/nve/8.16.2/node
 console.log(version) // 8.16.2
 
 // Download Node.js latest release
-const { path, version } = await getNode('*)
+const { path, version } = await getNode('*')
 console.log(path) // /home/user/.cache/nve/13.0.1/node
 console.log(version) // 13.0.1
+
+// Any version range can be used
+await getNode('8.12.0')
+await getNode('<7')
 
 // Specify the output directory
 const { path } = await getNode('8', {
   output: '/home/user/.cache/node_releases/',
 })
 console.log(path) // /home/user/.cache/node_releases/13.0.1/node
-
-// Any version range can be used
-await getNode('8.12.0')
-await getNode('<7')
 
 // Use a mirror website
 await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
@@ -53,6 +53,8 @@ npm install get-node
 
 To use this module as a CLI instead, please check
 [`get-node-cli`](https://github.com/ehmicky/get-node-cli).
+
+# Usage
 
 ## getNode(version, options?)
 
@@ -90,13 +92,13 @@ The following environment variables can also be used: `NODE_MIRROR`,
 
 The returned `Promise` resolves to an object with the following properties.
 
-### path
+#### path
 
 _Type_: `string`
 
 Absolute path to the `node` executable.
 
-### version
+#### version
 
 _Type_: `string`
 

@@ -1,3 +1,10 @@
+# 6.2.0
+
+## Features
+
+- Ensure Node.js binaries are not corrupted by checking their
+  [checksums](https://github.com/nodejs/node#verifying-binaries)
+
 # 6.1.0
 
 ## Features

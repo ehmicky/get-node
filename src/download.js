@@ -1,4 +1,4 @@
-import { platform } from 'process'
+import { platform, arch } from 'process'
 import { join } from 'path'
 
 import pathExists from 'path-exists'
@@ -41,7 +41,7 @@ const safeDownload = async function(version, nodePath, opts) {
   try {
     await downloadRuntime(version, tmpFile, opts)
   } catch (error) {
-    throw new Error(`Could not download Node.js ${version}: ${error.message}`)
+    throw new Error(getDownloadError(error.message, version, opts))
   }
 
   await moveTmpFile(tmpFile, nodePath)
@@ -67,6 +67,20 @@ const downloadRuntime = function(version, tmpFile, opts) {
 }
 
 const SUPPORTED_UNIX = ['linux', 'darwin', 'aix', 'sunos']
+
+const getDownloadError = function(message, version, { mirror }) {
+  if (message.includes('getaddrinfo')) {
+    return `Could not connect to ${mirror}`
+  }
+
+  if (message.includes('404')) {
+    return `No Node.js binaries available for ${version} on ${platform} ${arch}`
+  }
+
+  // Testing other HTTP errors is hard in CI.
+  // istanbul ignore next
+  return `Could not download Node.js ${version}: ${message}`
+}
 
 const moveTmpFile = async function(tmpFile, nodePath) {
   // Another parallel download might have been running

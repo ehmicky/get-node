@@ -1,3 +1,9 @@
+# 6.0.1
+
+## Dependencies
+
+- Reduce the number of dependencies
+
 # 6.0.0
 
 ## Breaking changes

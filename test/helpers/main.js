@@ -1,13 +1,10 @@
 import { tmpdir } from 'os'
 import { promisify } from 'util'
-import { unlink, rmdir } from 'fs'
-import { resolve, join } from 'path'
+import { dirname } from 'path'
 import { platform } from 'process'
 
-import { TEST_VERSION } from './versions.js'
+import del from 'del'
 
-const pUnlink = promisify(unlink)
-const pRmdir = promisify(rmdir)
 const pSetTimeout = promisify(setTimeout)
 
 export const getOutput = function() {
@@ -17,21 +14,19 @@ export const getOutput = function() {
 
 export const removeOutput = async function(nodePath) {
   await pSetTimeout(REMOVE_TIMEOUT)
-  await pUnlink(nodePath)
-  await removeOutputDir(nodePath)
+
+  const nodeDir = getNodeDir(nodePath)
+  await del(dirname(nodeDir), { force: true })
 }
 
 // We need to wait a little for Windows to release the lock on the `node`
 // executable before cleaning it
 const REMOVE_TIMEOUT = 1e3
 
-export const removeOutputDir = async function(nodePath) {
-  await pRmdir(resolve(nodePath, '..'))
-  await pRmdir(resolve(nodePath, '../..'))
-}
+export const getNodeDir = function(nodePath) {
+  if (platform === 'win32') {
+    return dirname(nodePath)
+  }
 
-export const getNodePath = function(versionRange, output) {
-  const nodeFilename = platform === 'win32' ? 'node.exe' : 'node'
-  const nodePath = join(output, TEST_VERSION, nodeFilename)
-  return nodePath
+  return dirname(dirname(nodePath))
 }

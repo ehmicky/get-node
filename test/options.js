@@ -22,8 +22,10 @@ each(
 
 test('Defaults version to *', async t => {
   const output = getOutput()
-  const { path } = await getNode('*', { output })
-  const { path: pathA } = await getNode(undefined, { output })
+  const [{ path }, { path: pathA }] = await Promise.all([
+    getNode('*', { output }),
+    getNode(undefined, { output }),
+  ])
 
   t.is(path, pathA)
 

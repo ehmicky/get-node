@@ -1,13 +1,12 @@
-import { resolve } from 'path'
-
 import test from 'ava'
 import { each } from 'test-each'
 import pathExists from 'path-exists'
 import execa from 'execa'
+import normalizeNodeVersion from 'normalize-node-version'
 
 import getNode from '../src/main.js'
 
-import { getOutput, removeOutput, getNodePath } from './helpers/main.js'
+import { getOutput, removeOutput } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
@@ -38,11 +37,7 @@ test('Writes atomically', async t => {
   const output = getOutput()
   await execa('node', [ATOMIC_PROCESS, TEST_VERSION, output])
 
-  const path = getNodePath(TEST_VERSION, output)
-
-  t.false(await pathExists(path))
-  t.false(await pathExists(resolve(path, '..')))
-  t.false(await pathExists(resolve(path, '../..')))
+  t.false(await pathExists(output))
 })
 
 each(
@@ -57,10 +52,13 @@ each(
   ({ title }, { mirror, message }, version) => {
     test(`HTTP error | ${title}`, async t => {
       // Ensure normalize-node-version is cached
-      await getNode(version)
+      await normalizeNodeVersion(version)
 
-      const output = getOutput()
-      await t.throwsAsync(getNode(version, { output, mirror }), message)
+      const outputA = getOutput()
+      await t.throwsAsync(
+        getNode(version, { output: outputA, mirror }),
+        message,
+      )
     })
   },
 )

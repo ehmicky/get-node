@@ -1,4 +1,3 @@
-import { env } from 'process'
 import { promisify } from 'util'
 import { unlink } from 'fs'
 import { resolve } from 'path'
@@ -7,7 +6,6 @@ import test from 'ava'
 import { each } from 'test-each'
 import pathExists from 'path-exists'
 import execa from 'execa'
-import pathKey from 'path-key'
 
 import getNode from '../src/main.js'
 
@@ -17,7 +15,6 @@ import {
   removeOutputDir,
   getNodePath,
 } from './helpers/main.js'
-// eslint-disable-next-line import/max-dependencies
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
@@ -89,21 +86,3 @@ each(
     })
   },
 )
-
-test.serial('Works when no xz binary exists', async t => {
-  const pathEnv = env[PATH_KEY]
-  // eslint-disable-next-line fp/no-mutation
-  env[PATH_KEY] = ''
-
-  const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output })
-
-  t.true(await pathExists(path))
-
-  await removeOutput(path)
-
-  // eslint-disable-next-line fp/no-mutation, require-atomic-updates
-  env[PATH_KEY] = pathEnv
-})
-
-const PATH_KEY = pathKey()

@@ -14,9 +14,8 @@ test.serial('Checks checksums', async t => {
       ? `abcdef  win-${arch}/node.exe`
       : `abcdef  node-v${TEST_VERSION}-${platform}-${arch}.tar.xz`
 
-  const output = getOutput()
-
   try {
+    const output = getOutput()
     await t.throwsAsync(
       getNode(TEST_VERSION, { output }),
       /checksum did not match/u,
@@ -31,9 +30,8 @@ test.serial('Throws on corrupted checksums', async t => {
   // eslint-disable-next-line fp/no-mutation
   env.TEST_CHECKSUMS = ''
 
-  const output = getOutput()
-
   try {
+    const output = getOutput()
     await t.throwsAsync(getNode(TEST_VERSION, { output }), /checksum:/u)
   } finally {
     // eslint-disable-next-line fp/no-delete

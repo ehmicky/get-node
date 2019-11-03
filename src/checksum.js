@@ -5,6 +5,7 @@ import getStream from 'get-stream'
 
 // Verify Node.js binary checksum.
 // Checksums are available for every Node.js release.
+// This never throws, which allows it not to be awaited right away.
 export const checkChecksum = async function(version, filepath, response) {
   try {
     const [expectedChecksum, actualChecksum] = await Promise.all([
@@ -17,13 +18,18 @@ export const checkChecksum = async function(version, filepath, response) {
     if (actualChecksum !== expectedChecksum) {
       return `Could not download Node.js ${version}: checksum did not match`
     }
-    // This should only happen during a network error
+    // This should only happen during a network error, or when using an
+    // unsupported platform or CPU architecture
   } catch (error) {
     return `Could not download Node.js ${version} checksum: ${error.message}`
   }
 }
 
 // Retrieve expected checksum for this Node.js binary
+// Checksums are delivered as a newline separated list like this:
+//   3ca24...23380  node-v6.12.3-aix-ppc64.tar.gz
+//   4e731...4278f  node-v6.12.3-darwin-x64.tar.gz
+//   etc.
 const getExpectedChecksum = async function(version, filepath) {
   const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`)
   const rawChecksums = await getStream(response)

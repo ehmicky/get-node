@@ -6,8 +6,8 @@ import { each } from 'test-each'
 import getNode from '../src/main.js'
 
 import {
-  VERY_OLD_VERSION,
-  OLD_VERSION,
+  NO_BIN_VERSION,
+  NO_XZ_VERSION,
   TEST_VERSION,
   TEST_VERSION_RANGE,
   getOutput,
@@ -15,7 +15,7 @@ import {
 } from './helpers/main.js'
 
 each(
-  [OLD_VERSION, TEST_VERSION, TEST_VERSION_RANGE],
+  [NO_XZ_VERSION, TEST_VERSION, TEST_VERSION_RANGE],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async t => {
       const output = getOutput()
@@ -31,5 +31,5 @@ each(
 )
 
 test('Does not work on very old versions', async t => {
-  await t.throwsAsync(getNode(VERY_OLD_VERSION))
+  await t.throwsAsync(getNode(NO_BIN_VERSION))
 })

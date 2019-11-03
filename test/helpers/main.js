@@ -8,8 +8,8 @@ const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 const pSetTimeout = promisify(setTimeout)
 
-export const VERY_OLD_VERSION = '0.8.5'
-export const OLD_VERSION = '0.12.0'
+export const NO_BIN_VERSION = '0.8.5'
+export const NO_XZ_VERSION = '0.12.0'
 export const TEST_VERSION = '6.0.0'
 export const TEST_VERSION_RANGE = '6'
 

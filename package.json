@@ -54,6 +54,7 @@
     "execa": "^3.2.0",
     "fetch-node-website": "^4.0.0",
     "filter-obj": "^2.0.1",
+    "get-stream": "^5.1.0",
     "global-cache-dir": "^1.0.1",
     "jest-validate": "^24.9.0",
     "moize": "^5.4.4",

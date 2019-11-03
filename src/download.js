@@ -17,7 +17,14 @@ export const download = async function(version, output, opts) {
     return nodePath
   }
 
-  await safeDownload(version, nodePath, opts)
+  const checksumError = await downloadFile(version, nodePath, opts)
+
+  // We throw checksum errors only after everything else worked, so that errors
+  // due to wrong platform, connectivity or wrong `mirror` option are shown
+  // instead of the checksum error.
+  if (checksumError !== undefined) {
+    throw new Error(checksumError)
+  }
 
   return nodePath
 }
@@ -35,16 +42,23 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'node'
 //  - this means the file might be on a different partition
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
-const safeDownload = async function(version, nodePath, opts) {
+const downloadFile = async function(version, nodePath, opts) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}` })
 
+  const checksumError = await safeDownload(version, tmpFile, opts)
+
+  await moveTmpFile(tmpFile, nodePath)
+
+  return checksumError
+}
+
+const safeDownload = async function(version, tmpFile, opts) {
   try {
-    await downloadRuntime(version, tmpFile, opts)
+    const checksumError = await downloadRuntime(version, tmpFile, opts)
+    return checksumError
   } catch (error) {
     throw new Error(getDownloadError(error.message, version, opts))
   }
-
-  await moveTmpFile(tmpFile, nodePath)
 }
 
 // Retrieve the Node binary from the Node website and persist it.

@@ -1,10 +1,11 @@
 import { platform, arch } from 'process'
 import { cpus } from 'os'
 
-import fetchNodeWebsite from 'fetch-node-website'
 import execa from 'execa'
 import moize from 'moize'
 import { satisfies } from 'semver'
+
+import { fetchNodeUrl } from '../fetch.js'
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.
@@ -32,13 +33,14 @@ const mHasXzBinary = async function() {
 const hasXzBinary = moize(mHasXzBinary)
 
 export const downloadXz = async function(version, opts) {
-  const response = await fetchNodeWebsite(
-    `v${version}/node-v${version}-${platform}-${arch}.tar.xz`,
+  const { response, checksumError } = await fetchNodeUrl(
+    version,
+    `node-v${version}-${platform}-${arch}.tar.xz`,
     opts,
   )
   const { stdout: archive, cancel } = execa.command(
     `xz --decompress --stdout --threads=${cpus().length}`,
     { input: response, stdout: 'pipe', stderr: 'ignore', buffer: false },
   )
-  return { response, archive, cancel }
+  return { response, checksumError, archive, cancel }
 }

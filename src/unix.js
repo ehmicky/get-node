@@ -13,12 +13,17 @@ const pRmdir = promisify(rmdir)
 
 // The Unix Node binary comes in a .tar.gz or .tar.xz archive.
 export const downloadUnixNode = async function(version, tmpFile, opts) {
-  const { response, archive, cancel } = await downloadArchive(version, opts)
+  const { response, checksumError, archive, cancel } = await downloadArchive(
+    version,
+    opts,
+  )
 
   const promise = untar(archive, tmpFile)
   await handleError(promise, response, cancel)
 
   await moveFile(tmpFile)
+
+  return checksumError
 }
 
 const downloadArchive = async function(version, opts) {

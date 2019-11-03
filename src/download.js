@@ -60,6 +60,7 @@ const downloadRuntime = function(version, tmpFile, opts) {
 
   // TODO: support android, freebsd and openbsd.
   // https://nodejs.org/dist does not deliver binaries for those platforms.
+  // istanbul ignore next
   throw new Error(`Unsupported platform: ${platform}`)
 }
 

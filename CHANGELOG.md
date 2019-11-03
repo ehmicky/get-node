@@ -1,3 +1,11 @@
+# 6.0.0
+
+## Breaking changes
+
+- Separate the CLI into its own repository and npm package
+  [`get-node-cli`](https://github.com/ehmicky/get-node-cli) to reduce the number
+  of dependencies.
+
 # 5.5.0
 
 ## Dependencies

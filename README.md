@@ -130,7 +130,9 @@ _Type_: `string`
 
 # See also
 
-- [`nve`](https://github.com/ehmicky/nve): Run a specific Node.js version
+- [`nve`](https://github.com/ehmicky/nve): Run a specific Node.js version (CLI)
+- [`nvexeca`](https://github.com/ehmicky/nve): Run a specific Node.js version
+  (programmatic)
 - [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):
   Normalize and validate Node.js versions
 - [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all

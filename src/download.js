@@ -1,5 +1,7 @@
 import { platform, arch } from 'process'
 import { join } from 'path'
+import { unlink } from 'fs'
+import { promisify } from 'util'
 
 import pathExists from 'path-exists'
 import { tmpName } from 'tmp-promise'
@@ -7,6 +9,8 @@ import moveFile from 'move-file'
 
 import { downloadWindowsNode } from './windows.js'
 import { downloadUnixNode } from './unix.js'
+
+const pUnlink = promisify(unlink)
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
@@ -43,6 +47,15 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 const downloadFile = async function(version, nodePath, opts) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}` })
 
+  try {
+    await tmpDownload(version, tmpFile, opts)
+    await moveTmpFile(tmpFile, nodePath)
+  } finally {
+    await cleanTmpFile(tmpFile)
+  }
+}
+
+const tmpDownload = async function(version, tmpFile, opts) {
   const checksumError = await safeDownload(version, tmpFile, opts)
 
   // We throw checksum errors only after everything else worked, so that errors
@@ -51,8 +64,6 @@ const downloadFile = async function(version, nodePath, opts) {
   if (checksumError !== undefined) {
     throw new Error(await checksumError)
   }
-
-  await moveTmpFile(tmpFile, nodePath)
 }
 
 const safeDownload = async function(version, tmpFile, opts) {
@@ -106,4 +117,15 @@ const moveTmpFile = async function(tmpFile, nodePath) {
   }
 
   await moveFile(tmpFile, nodePath)
+}
+
+// The temporary file might still exist if:
+//  - another parallel download was running
+//  - an error was thrown
+const cleanTmpFile = async function(tmpFile) {
+  if (!(await pathExists(tmpFile))) {
+    return
+  }
+
+  await pUnlink(tmpFile)
 }

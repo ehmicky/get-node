@@ -15,7 +15,10 @@ export const shouldUseXz = function(version) {
 
 // Check if there is a xz binary
 const mHasXz = async function() {
-  const { failed } = await execa.command('xz --version', { reject: false })
+  const { failed } = await execa.command('xz --version', {
+    reject: false,
+    stdio: 'ignore',
+  })
   return !failed
 }
 

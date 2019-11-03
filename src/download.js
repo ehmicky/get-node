@@ -73,6 +73,7 @@ const getDownloadError = function(message, version, { mirror }) {
     return `Could not connect to ${mirror}`
   }
 
+  // istanbul ignore else
   if (message.includes('404')) {
     return `No Node.js binaries available for ${version} on ${platform} ${arch}`
   }

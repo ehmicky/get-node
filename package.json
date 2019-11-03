@@ -51,10 +51,12 @@
   "dependencies": {
     "core-js": "^3.3.6",
     "end-of-stream": "^1.4.4",
+    "execa": "^3.2.0",
     "fetch-node-website": "^4.0.0",
     "filter-obj": "^2.0.1",
     "global-cache-dir": "^1.0.1",
     "jest-validate": "^24.9.0",
+    "moize": "^5.4.4",
     "move-file": "^1.2.0",
     "normalize-node-version": "^5.1.1",
     "p-event": "^4.1.0",
@@ -66,7 +68,6 @@
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.52",
     "ava": "^2.4.0",
-    "execa": "^3.2.0",
     "gulp": "^4.0.2",
     "husky": "^3.0.9",
     "sinon": "^7.5.0",

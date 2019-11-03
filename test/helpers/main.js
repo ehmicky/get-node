@@ -8,6 +8,7 @@ const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 const pSetTimeout = promisify(setTimeout)
 
+export const OLD_VERSION = '0.12.0'
 export const TEST_VERSION = '6.0.0'
 export const TEST_VERSION_RANGE = '6'
 

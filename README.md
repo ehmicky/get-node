@@ -13,39 +13,34 @@ Works on Linux/Mac/Windows.
 
 # Example
 
-```bash
-# Download Node.js latest release
-$ get-node
-/home/user/.cache/nve/12.10.0/node
+<!-- Remove 'eslint-skip' once estree supports top-level await -->
+<!-- eslint-skip -->
 
-$ /home/user/.cache/nve/12.10.0/node
-Welcome to Node.js v12.10.0.
-Type ".help" for more information.
-> .exit
+```js
+const getNode = require('get-node')
 
-# Download a specific Node.js release
-$ get-node 8
-/home/user/.cache/nve/8.16.1/node
+// Download a specific Node.js release
+const { path, version } = await getNode('8')
+console.log(path) // /home/user/.cache/nve/8.16.2/node
+console.log(version) // 8.16.2
 
-$ /home/user/.cache/nve/8.16.1/node
-> process.version
-'v8.16.1'
-> .exit
+// Download Node.js latest release
+const { path, version } = await getNode('*)
+console.log(path) // /home/user/.cache/nve/13.0.1/node
+console.log(version) // 13.0.1
 
-# Any version range can be used
-$ get-node 8.12.0
-$ get-node '<7'
+// Specify the output directory
+const { path } = await getNode('8', {
+  output: '/home/user/.cache/node_releases/',
+})
+console.log(path) // /home/user/.cache/node_releases/13.0.1/node
 
-# Specify the output directory
-$ get-node --output=/home/user/.cache/node_releases/ 8
-/home/user/.cache/node_releases/8.16.1/node
+// Any version range can be used
+await getNode('8.12.0')
+await getNode('<7')
 
-$ /home/user/.cache/node_releases/8.16.1/node --version
-v8.16.1
-
-# Use a mirror website
-$ get-node --mirror=https://npm.taobao.org/mirrors/node 8
-/home/user/.cache/nve/8.16.1/node
+// Use a mirror website
+await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
 ```
 
 # Install
@@ -56,65 +51,44 @@ npm install get-node
 
 `node >=8.12.0` must already be installed.
 
-# Usage (CLI)
+To use this module as a CLI instead, please check
+[`get-node-cli`](https://github.com/ehmicky/get-node-cli).
 
-```bash
-get-node [OPTIONS] [VERSION]
-```
+## getNode(version, options?)
 
-`VERSION` can be any [version range](https://github.com/npm/node-semver) such as
+`version`: `string`<br>`options`: `object?`<br>_Return value_: `Promise<object>`
+
+`version` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
 
-## Options
+### Options
 
-### --output
+#### output
 
-_Alias_: `-o`<br> _Type_: `string`<br>_Default_:
+_Type_: `string`<br>_Default_:
 [global cache directory](https://github.com/ehmicky/global-cache-dir) such as
 `/home/user/.cache/nve/`.
 
 Output directory for the `node` executable.
 
-### --progress
+#### progress
 
-_Alias_: `-p`<br>_Type_: `boolean`<br>_Default_: `true`
+_Type_: `boolean` _Default_: `false`
 
 Whether to show a progress bar.
 
-### --mirror
+#### mirror
 
-_Alias_: `-m`<br>_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
 
 Base URL. Can be overridden (for example `https://npm.taobao.org/mirrors/node`).
 
 The following environment variables can also be used: `NODE_MIRROR`,
 `NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.
 
-# Usage (JavaScript)
+### Return value
 
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
-```js
-const getNode = require('get-node')
-
-const options = {}
-const { path, version } = await getNode('12', options)
-console.log(path) // /home/user/.cache/nve/12.10.0/node
-console.log(version) // 12.10.0
-```
-
-## getNode(version, options?)
-
-`version`: `string`<br>`options`: `object`<br>_Return value_: `Promise<object>`
-
-`options` has the same members as the CLI options:
-
-- [`output`](#--output)
-- [`progress`](#--progress) (default: `false`)
-- [`mirror`](#--mirror)
-
-The returned `Promise` resolves to an object with the following properties:
+The returned `Promise` resolves to an object with the following properties.
 
 ### path
 
@@ -130,6 +104,7 @@ _Type_: `string`
 
 # See also
 
+- [`get-node-cli`](https://github.com/ehmicky/get-node-cli): `get-node` as a CLI
 - [`nve`](https://github.com/ehmicky/nve): Run a specific Node.js version (CLI)
 - [`nvexeca`](https://github.com/ehmicky/nve): Run a specific Node.js version
   (programmatic)

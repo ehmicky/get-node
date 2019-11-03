@@ -36,9 +36,9 @@ export const downloadXz = async function(version, opts) {
     `v${version}/node-v${version}-${platform}-${arch}.tar.xz`,
     opts,
   )
-  const { stdout: archive } = execa.command(
+  const { stdout: archive, cancel } = execa.command(
     `xz --decompress --stdout --threads=${cpus().length}`,
     { input: response, stdout: 'pipe', stderr: 'ignore', buffer: false },
   )
-  return { response, archive }
+  return { response, archive, cancel }
 }

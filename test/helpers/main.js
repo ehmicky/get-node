@@ -4,14 +4,11 @@ import { unlink, rmdir } from 'fs'
 import { resolve, join } from 'path'
 import { platform } from 'process'
 
+import { TEST_VERSION } from './versions.js'
+
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
 const pSetTimeout = promisify(setTimeout)
-
-export const NO_BIN_VERSION = '0.8.5'
-export const NO_XZ_VERSION = '0.12.0'
-export const TEST_VERSION = '6.0.0'
-export const TEST_VERSION_RANGE = '6'
 
 export const getOutput = function() {
   const id = String(Math.random()).replace('.', '')

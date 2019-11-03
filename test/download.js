@@ -11,12 +11,13 @@ import pathKey from 'path-key'
 import getNode from '../src/main.js'
 
 import {
-  TEST_VERSION,
   getOutput,
   removeOutput,
   removeOutputDir,
   getNodePath,
 } from './helpers/main.js'
+// eslint-disable-next-line import/max-dependencies
+import { TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
 

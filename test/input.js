@@ -8,7 +8,8 @@ import globalCacheDir from 'global-cache-dir'
 
 import getNode from '../src/main.js'
 
-import { TEST_VERSION, getOutput, removeOutput } from './helpers/main.js'
+import { getOutput, removeOutput } from './helpers/main.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)

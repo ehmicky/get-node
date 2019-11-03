@@ -6,7 +6,8 @@ import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
-import { TEST_VERSION, getOutput, removeOutput } from './helpers/main.js'
+import { getOutput, removeOutput } from './helpers/main.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 each(
   [

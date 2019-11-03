@@ -5,17 +5,24 @@ import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 
+import { getOutput, removeOutput } from './helpers/main.js'
 import {
   NO_BIN_VERSION,
+  OLDEST_VERSION,
   NO_XZ_VERSION,
+  OLD_WIN_VERSION,
   TEST_VERSION,
   TEST_VERSION_RANGE,
-  getOutput,
-  removeOutput,
-} from './helpers/main.js'
+} from './helpers/versions.js'
 
 each(
-  [NO_XZ_VERSION, TEST_VERSION, TEST_VERSION_RANGE],
+  [
+    OLDEST_VERSION,
+    NO_XZ_VERSION,
+    OLD_WIN_VERSION,
+    TEST_VERSION,
+    TEST_VERSION_RANGE,
+  ],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async t => {
       const output = getOutput()

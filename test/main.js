@@ -1,14 +1,12 @@
-import { env } from 'process'
-
 import test from 'ava'
 import pathExists from 'path-exists'
 import execa from 'execa'
 import { each } from 'test-each'
-import pathKey from 'path-key'
 
 import getNode from '../src/main.js'
 
 import {
+  VERY_OLD_VERSION,
   OLD_VERSION,
   TEST_VERSION,
   TEST_VERSION_RANGE,
@@ -32,20 +30,6 @@ each(
   },
 )
 
-test.serial('Works when no xz binary exists', async t => {
-  const pathEnv = env[PATH_KEY]
-  // eslint-disable-next-line fp/no-mutation
-  env[PATH_KEY] = ''
-
-  const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output })
-
-  t.true(await pathExists(path))
-
-  await removeOutput(path)
-
-  // eslint-disable-next-line fp/no-mutation, require-atomic-updates
-  env[PATH_KEY] = pathEnv
+test('Does not work on very old versions', async t => {
+  await t.throwsAsync(getNode(VERY_OLD_VERSION))
 })
-
-const PATH_KEY = pathKey()

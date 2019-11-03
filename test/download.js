@@ -1,3 +1,4 @@
+import { env } from 'process'
 import { promisify } from 'util'
 import { unlink } from 'fs'
 import { resolve } from 'path'
@@ -5,6 +6,7 @@ import { resolve } from 'path'
 import test from 'ava'
 import pathExists from 'path-exists'
 import execa from 'execa'
+import pathKey from 'path-key'
 
 import getNode from '../src/main.js'
 
@@ -78,3 +80,21 @@ test('HTTP errors', async t => {
 })
 
 const INVALID_MIRROR = 'https://example.com'
+
+test.serial('Works when no xz binary exists', async t => {
+  const pathEnv = env[PATH_KEY]
+  // eslint-disable-next-line fp/no-mutation
+  env[PATH_KEY] = ''
+
+  const output = getOutput()
+  const { path } = await getNode(TEST_VERSION, { output })
+
+  t.true(await pathExists(path))
+
+  await removeOutput(path)
+
+  // eslint-disable-next-line fp/no-mutation, require-atomic-updates
+  env[PATH_KEY] = pathEnv
+})
+
+const PATH_KEY = pathKey()

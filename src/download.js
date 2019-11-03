@@ -54,8 +54,16 @@ const downloadRuntime = function(version, tmpFile, opts) {
     return downloadWindowsNode(version, tmpFile, opts)
   }
 
-  return downloadUnixNode(version, tmpFile, opts)
+  if (SUPPORTED_UNIX.includes(platform)) {
+    return downloadUnixNode(version, tmpFile, opts)
+  }
+
+  // TODO: support android, freebsd and openbsd.
+  // https://nodejs.org/dist does not deliver binaries for those platforms.
+  throw new Error(`Unsupported platform: ${platform}`)
 }
+
+const SUPPORTED_UNIX = ['linux', 'darwin', 'aix', 'sunos']
 
 const moveTmpFile = async function(tmpFile, nodePath) {
   // Another parallel download might have been running

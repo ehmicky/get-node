@@ -1,6 +1,6 @@
 {
   "name": "get-node",
-  "version": "6.3.0",
+  "version": "6.4.0",
   "main": "build/src/main.js",
   "files": [
     "build/src",

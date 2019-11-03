@@ -22,7 +22,12 @@ export const download = async function(version, output, opts) {
   return nodePath
 }
 
-const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'node'
+// On Unix, `node` binaries are usually installed inside a `bin` directory.
+// This is for example how `nvm` works. Some tools assume this convention and
+// use `process.execPath` accordingly. For example `npm` or `yarn` do this to
+// find out the global Node directory (aka `prefix`).
+// However, on Windows, the directory is flat and the executable has `*.exe`.
+const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 
 // Downloading the file should be atomic, so we don't leave partially written
 // corrupted file executables. We cannot use libraries like `write-file-atomic`

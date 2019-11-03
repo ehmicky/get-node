@@ -1,18 +1,9 @@
-import { promisify } from 'util'
-import { unlink, rmdir } from 'fs'
-import { resolve } from 'path'
-
 import test from 'ava'
 import { each } from 'test-each'
-import globalCacheDir from 'global-cache-dir'
 
 import getNode from '../src/main.js'
 
 import { getOutput, removeOutput } from './helpers/main.js'
-import { TEST_VERSION } from './helpers/versions.js'
-
-const pUnlink = promisify(unlink)
-const pRmdir = promisify(rmdir)
 
 each(
   [
@@ -37,16 +28,4 @@ test('Defaults version to *', async t => {
   t.is(path, pathA)
 
   await removeOutput(path)
-})
-
-test.serial('Defaults output to cache directory', async t => {
-  const [{ path }, cacheDir] = await Promise.all([
-    getNode(TEST_VERSION),
-    globalCacheDir('nve'),
-  ])
-
-  t.is(resolve(path, '../..'), cacheDir)
-
-  await pUnlink(path)
-  await pRmdir(resolve(path, '..'))
 })

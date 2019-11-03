@@ -1,5 +1,3 @@
-import { promisify } from 'util'
-import { unlink } from 'fs'
 import { resolve } from 'path'
 
 import test from 'ava'
@@ -9,17 +7,10 @@ import execa from 'execa'
 
 import getNode from '../src/main.js'
 
-import {
-  getOutput,
-  removeOutput,
-  removeOutputDir,
-  getNodePath,
-} from './helpers/main.js'
+import { getOutput, removeOutput, getNodePath } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
-
-const pUnlink = promisify(unlink)
 
 test('Caches download', async t => {
   const output = getOutput()
@@ -29,19 +20,6 @@ test('Caches download', async t => {
   t.is(path, pathA)
 
   await removeOutput(path)
-})
-
-test('Can re-use same output', async t => {
-  const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output })
-  await pUnlink(path)
-
-  const { path: pathA } = await getNode(TEST_VERSION, { output })
-  await pUnlink(pathA)
-
-  t.is(resolve(path, '..'), resolve(pathA, '..'))
-
-  await removeOutputDir(path)
 })
 
 test('Parallel downloads', async t => {

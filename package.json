@@ -4,12 +4,8 @@
   "main": "build/src/main.js",
   "files": [
     "build/src",
-    "examples",
     "!~"
   ],
-  "bin": {
-    "get-node": "build/src/bin/main.js"
-  },
   "scripts": {
     "test": "gulp test"
   },
@@ -65,14 +61,12 @@
     "path-exists": "^4.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",
-    "tmp-promise": "^2.0.2",
-    "yargs": "^14.2.0"
+    "tmp-promise": "^2.0.2"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.30.52",
     "ava": "^2.4.0",
     "execa": "^3.2.0",
-    "get-bin-path": "^4.0.0",
     "gulp": "^4.0.2",
     "husky": "^3.0.9",
     "sinon": "^7.5.0",

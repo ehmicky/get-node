@@ -8,12 +8,6 @@ import getNode from '../src/main.js'
 
 import { TEST_VERSION, getOutput, removeOutput } from './helpers/main.js'
 
-const getTempNode = async function(opts) {
-  const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { ...opts, output })
-  await removeOutput(path)
-}
-
 each(
   [
     ...(stderr.isTTY ? [{ progress: true, called: true }] : []),
@@ -24,7 +18,9 @@ each(
     test.serial(`Progress bar | ${title}`, async t => {
       const spy = sinon.spy(stderr, 'write')
 
-      await getTempNode({ progress })
+      const output = getOutput()
+      const { path } = await getNode(TEST_VERSION, { progress, output })
+      await removeOutput(path)
 
       t.is(spy.called, called)
 

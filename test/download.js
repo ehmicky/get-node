@@ -1,11 +1,10 @@
 import { promisify } from 'util'
 import { unlink } from 'fs'
 import { resolve } from 'path'
-import { execFile } from 'child_process'
 
 import test from 'ava'
 import pathExists from 'path-exists'
-import { each } from 'test-each'
+import execa from 'execa'
 
 import getNode from '../src/main.js'
 
@@ -15,13 +14,11 @@ import {
   removeOutput,
   removeOutputDir,
   getNodePath,
-  getNodeCli,
 } from './helpers/main.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
 
 const pUnlink = promisify(unlink)
-const pExecFile = promisify(execFile)
 
 test('Caches download', async t => {
   const output = getOutput()
@@ -60,7 +57,7 @@ test('Parallel downloads', async t => {
 
 test('Writes atomically', async t => {
   const output = getOutput()
-  await pExecFile('node', [ATOMIC_PROCESS, TEST_VERSION, output])
+  await execa('node', [ATOMIC_PROCESS, TEST_VERSION, output])
 
   const path = getNodePath(TEST_VERSION, output)
 
@@ -69,12 +66,10 @@ test('Writes atomically', async t => {
   t.false(await pathExists(resolve(path, '../..')))
 })
 
-each([getNode, getNodeCli], ({ title }, getNodeFunc) => {
-  test(`HTTP errors | ${title}`, async t => {
-    await t.throwsAsync(
-      getNodeFunc(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
-    )
-  })
+test('HTTP errors', async t => {
+  await t.throwsAsync(
+    getNode(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
+  )
 })
 
 const INVALID_MIRROR = 'https://example.com'

@@ -8,12 +8,7 @@ import globalCacheDir from 'global-cache-dir'
 
 import getNode from '../src/main.js'
 
-import {
-  TEST_VERSION,
-  getOutput,
-  removeOutput,
-  getNodeCli,
-} from './helpers/main.js'
+import { TEST_VERSION, getOutput, removeOutput } from './helpers/main.js'
 
 const pUnlink = promisify(unlink)
 const pRmdir = promisify(rmdir)
@@ -27,15 +22,11 @@ each(
     { progress: 0 },
   ],
   ({ title }, { versionRange, ...opts }) => {
-    test(`Invalid arguments | programmatic ${title}`, async t => {
+    test(`Invalid arguments | ${title}`, async t => {
       await t.throwsAsync(getNode(versionRange, opts))
     })
   },
 )
-
-test('Invalid arguments | CLI', async t => {
-  await t.throwsAsync(getNodeCli('not_a_version_range'))
-})
 
 test('Defaults version to *', async t => {
   const output = getOutput()

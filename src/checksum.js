@@ -1,3 +1,4 @@
+import { env } from 'process'
 import { createHash } from 'crypto'
 
 import fetchNodeWebsite from 'fetch-node-website'
@@ -31,13 +32,25 @@ export const checkChecksum = async function(version, filepath, response) {
 //   4e731...4278f  node-v6.12.3-darwin-x64.tar.gz
 //   etc.
 const getExpectedChecksum = async function(version, filepath) {
-  const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`)
-  const checksumLines = await getStream(response)
+  const checksumLines = await getChecksumLines(version)
   const [expectedChecksum] = checksumLines
     .split('\n')
     .map(parseChecksumLine)
     .find(([, expectedFilepath]) => expectedFilepath === filepath)
   return expectedChecksum
+}
+
+const getChecksumLines = async function(version) {
+  // We set this environment variable during tests. Otherwise there are no ways
+  // to test checksums since they are always supposed to match unlike there is
+  // a network error
+  if (env.TEST_CHECKSUMS !== undefined) {
+    return env.TEST_CHECKSUMS
+  }
+
+  const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`)
+  const checksumLines = await getStream(response)
+  return checksumLines
 }
 
 const parseChecksumLine = function(checksumLine) {

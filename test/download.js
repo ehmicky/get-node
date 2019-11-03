@@ -67,8 +67,13 @@ test('Writes atomically', async t => {
 })
 
 test('HTTP errors', async t => {
+  // Ensure normalize-node-version is cached
+  await getNode(TEST_VERSION)
+
+  const output = getOutput()
   await t.throwsAsync(
-    getNode(TEST_VERSION, { progress: false, mirror: INVALID_MIRROR }),
+    getNode(TEST_VERSION, { output, mirror: INVALID_MIRROR }),
+    /Could not download/u,
   )
 })
 

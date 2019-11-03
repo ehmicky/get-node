@@ -13,6 +13,7 @@ export const shouldUseXz = function(version) {
   return !version.startsWith('0.') && platform !== 'aix' && hasXz()
 }
 
+// Check if there is a xz binary
 const mHasXz = async function() {
   const { failed } = await execa.command('xz --version', { reject: false })
   return !failed

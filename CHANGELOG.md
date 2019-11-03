@@ -1,3 +1,10 @@
+# 5.5.0
+
+## Dependencies
+
+- Upgrade `fetch-node-website` to `4.0.0`
+- Upgrade `normalize-node-version` to `5.1.0`
+
 # 5.4.1
 
 ## Bug fixes

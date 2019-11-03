@@ -32,10 +32,13 @@ const getBinaryUrl = function(version) {
     return `v${version}/win-${arch}/node.exe`
   }
 
+  // We currently only run CI tests on Windows x64
+  // istanbul ignore else
   if (arch === 'x64') {
     return `v${version}/x64/node.exe`
   }
 
+  // istanbul ignore next
   return `v${version}/node.exe`
 }
 

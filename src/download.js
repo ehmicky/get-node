@@ -54,12 +54,14 @@ const downloadRuntime = function(version, tmpFile, opts) {
     return downloadWindowsNode(version, tmpFile, opts)
   }
 
+  // istanbul ignore else
   if (SUPPORTED_UNIX.includes(platform)) {
     return downloadUnixNode(version, tmpFile, opts)
   }
 
   // TODO: support android, freebsd and openbsd.
   // https://nodejs.org/dist does not deliver binaries for those platforms.
+  // We currently do not run CI tests on those platforms
   // istanbul ignore next
   throw new Error(`Unsupported platform: ${platform}`)
 }

@@ -1,3 +1,10 @@
+# 6.4.0
+
+## Features
+
+- Improve the internal directory structure used to cache the Node.js binary
+- Cleanup temporary files when Node.js download fails
+
 # 6.3.0
 
 ## Features

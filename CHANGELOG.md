@@ -1,3 +1,9 @@
+# 6.3.0
+
+## Features
+
+- Improve the appearance of the progress bar
+
 # 6.2.0
 
 ## Features

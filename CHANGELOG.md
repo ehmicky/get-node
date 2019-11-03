@@ -1,3 +1,14 @@
+# 6.1.0
+
+## Features
+
+- Make Node.js binary download twice faster on Linux and MacOS
+- Improve error messages
+
+## Bug fixes
+
+- Fix downloading Node.js `0.12` and below on Windows
+
 # 6.0.1
 
 ## Dependencies

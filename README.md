@@ -6,10 +6,30 @@
 
 Download a specific version of Node.js.
 
-This is cached: if the output directory already has a `node` executable, no
-download will be performed.
+The Node.js release is downloaded, uncompressed and untared to an executable
+file ready to run.
 
-Works on Linux/Mac/Windows.
+Fast:
+
+- the download is cached
+- the best compression algorithm available on your machine is used
+- everything is streamed
+
+Reliable:
+
+- the binary is checked against
+  [official checksums](https://github.com/nodejs/node#verifying-binaries)
+- can be safely run concurrently
+- atomic writes
+
+Features include:
+
+- Linux/Mac/Windows support
+- works with old Node.js versions
+- [progress bar](#progress)
+- using [version ranges](#getnodeversion-options)
+- specifying [a mirror website](#mirror) for nodejs.org
+- helpful error messages
 
 # Example
 
@@ -49,7 +69,8 @@ await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
 npm install get-node
 ```
 
-`node >=8.12.0` must already be installed.
+`node >=8.12.0` must be globally installed. However any Node version can be
+downloaded.
 
 To use this module as a CLI instead, please check
 [`get-node-cli`](https://github.com/ehmicky/get-node-cli).
@@ -72,6 +93,9 @@ _Type_: `string`<br>_Default_:
 `/home/user/.cache/nve/`.
 
 Output directory for the `node` executable.
+
+It the directory already has a `node` executable, no download is performed. This
+enables caching.
 
 #### progress
 

@@ -32,19 +32,19 @@ export const checkChecksum = async function(version, filepath, response) {
 //   etc.
 const getExpectedChecksum = async function(version, filepath) {
   const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`)
-  const rawChecksums = await getStream(response)
-  const [expectedChecksum] = rawChecksums
+  const checksumLines = await getStream(response)
+  const [expectedChecksum] = checksumLines
     .split('\n')
-    .map(parseRawChecksum)
+    .map(parseChecksumLine)
     .find(([, expectedFilepath]) => expectedFilepath === filepath)
   return expectedChecksum
 }
 
-const parseRawChecksum = function(rawChecksum) {
-  return rawChecksum.trim().split(RAW_CHECKSUM_DELIMITER)
+const parseChecksumLine = function(checksumLine) {
+  return checksumLine.trim().split(CHECKSUM_LINE_DELIMITER)
 }
 
-const RAW_CHECKSUM_DELIMITER = /\s+/u
+const CHECKSUM_LINE_DELIMITER = /\s+/u
 
 // Calculate actual checksum for this Node.js binary
 const getActualChecksum = async function(response) {

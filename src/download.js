@@ -17,14 +17,7 @@ export const download = async function(version, output, opts) {
     return nodePath
   }
 
-  const checksumError = await downloadFile(version, nodePath, opts)
-
-  // We throw checksum errors only after everything else worked, so that errors
-  // due to wrong platform, connectivity or wrong `mirror` option are shown
-  // instead of the checksum error.
-  if (checksumError !== undefined) {
-    throw new Error(checksumError)
-  }
+  await downloadFile(version, nodePath, opts)
 
   return nodePath
 }
@@ -47,15 +40,19 @@ const downloadFile = async function(version, nodePath, opts) {
 
   const checksumError = await safeDownload(version, tmpFile, opts)
 
-  await moveTmpFile(tmpFile, nodePath)
+  // We throw checksum errors only after everything else worked, so that errors
+  // due to wrong platform, connectivity or wrong `mirror` option are shown
+  // instead of the checksum error.
+  if (checksumError !== undefined) {
+    throw new Error(await checksumError)
+  }
 
-  return checksumError
+  await moveTmpFile(tmpFile, nodePath)
 }
 
 const safeDownload = async function(version, tmpFile, opts) {
   try {
-    const checksumError = await downloadRuntime(version, tmpFile, opts)
-    return checksumError
+    return await downloadRuntime(version, tmpFile, opts)
   } catch (error) {
     throw new Error(getDownloadError(error.message, version, opts))
   }

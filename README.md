@@ -79,7 +79,9 @@ To use this module as a CLI instead, please check
 
 ## getNode(version, options?)
 
-`version`: `string`<br>`options`: `object?`<br>_Return value_: `Promise<object>`
+`version`: `string`\
+`options`: `object?`\
+_Return value_: `Promise<object>`
 
 `version` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`.
@@ -88,9 +90,9 @@ To use this module as a CLI instead, please check
 
 #### output
 
-_Type_: `string`<br>_Default_:
-[global cache directory](https://github.com/ehmicky/global-cache-dir) such as
-`/home/user/.cache/nve/`.
+_Type_: `string`\
+_Default_: [global cache directory](https://github.com/ehmicky/global-cache-dir)
+such as `/home/user/.cache/nve/`.
 
 Output directory for the `node` executable.
 
@@ -105,7 +107,8 @@ Whether to show a progress bar.
 
 #### mirror
 
-_Type_: `string`<br>_Default_: `https://nodejs.org/dist`
+_Type_: `string`\
+_Default_: `https://nodejs.org/dist`
 
 Base URL. Can be overridden (for example `https://npm.taobao.org/mirrors/node`).
 

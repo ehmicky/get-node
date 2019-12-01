@@ -5,7 +5,7 @@ export const getArch = function() {
   const archA = PLATFORMS[arch]
 
   // We currently only run CI tests on supported CPU architectures
-  // istanbul ignore
+  // istanbul ignore next
   if (archA === undefined) {
     throw new Error(`Unsupported CPU architecture: ${arch}`)
   }
@@ -18,6 +18,7 @@ const PLATFORMS = {
   arm64: 'arm64',
   ia32: 'x64',
   ppc: 'ppc64le',
+  // istanbul ignore next
   ppc64: platform === 'aix' ? 'ppc64' : 'ppc64le',
   s390: 's390x',
   s390x: 's390x',

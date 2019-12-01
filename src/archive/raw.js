@@ -1,8 +1,7 @@
-import { arch } from 'process'
-
 import { gte as gteVersion } from 'semver'
 
 import { fetchNodeUrl } from '../fetch.js'
+import { getArch } from '../arch.js'
 
 // On Windows, when no zip archive is available (old Node.js versions), download
 // the raw `node.exe` file available for download instead.
@@ -18,6 +17,8 @@ export const downloadRaw = async function(version, opts) {
 
 // Before Node.js 4.0.0, the URL to the node.exe was different
 const getFilepath = function(version) {
+  const arch = getArch()
+
   if (gteVersion(version, NEW_URL_VERSION)) {
     return `win-${arch}/node.exe`
   }

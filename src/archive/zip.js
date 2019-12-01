@@ -1,10 +1,9 @@
-import { arch } from 'process'
-
 import { satisfies } from 'semver'
 import getStream from 'get-stream'
 import { loadAsync } from 'jszip'
 
 import { fetchNodeUrl } from '../fetch.js'
+import { getArch } from '../arch.js'
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 export const shouldUseZip = function(version) {
@@ -26,14 +25,8 @@ export const downloadZip = async function(version, opts) {
 }
 
 const getZipFilepath = function(version) {
-  // We currently only run CI tests on Windows x64
-  // istanbul ignore else
-  if (arch === 'x64') {
-    return `node-v${version}-win-x64`
-  }
-
-  // istanbul ignore next
-  return `node-v${version}-win-x86`
+  const arch = getArch()
+  return `node-v${version}-win-${arch}`
 }
 
 // `jszip` does not allow streaming with `loadAsync()` so we need to wait for

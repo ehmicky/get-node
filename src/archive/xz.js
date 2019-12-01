@@ -1,4 +1,4 @@
-import { platform, arch } from 'process'
+import { platform } from 'process'
 import { cpus } from 'os'
 
 import execa from 'execa'
@@ -6,6 +6,7 @@ import moize from 'moize'
 import { satisfies } from 'semver'
 
 import { fetchNodeUrl } from '../fetch.js'
+import { getArch } from '../arch.js'
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.
@@ -35,7 +36,7 @@ const hasXzBinary = moize(mHasXzBinary)
 export const downloadXz = async function(version, opts) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
-    `node-v${version}-${platform}-${arch}.tar.xz`,
+    `node-v${version}-${platform}-${getArch()}.tar.xz`,
     opts,
   )
   const { stdout: archive, cancel } = execa.command(

@@ -1,3 +1,13 @@
+# 6.5.0
+
+## Features
+
+- Node.js binary download is now twice faster on Windows
+
+## Bug fixes
+
+- Fix ARM, PowerPC, S390 support
+
 # 6.4.0
 
 ## Features

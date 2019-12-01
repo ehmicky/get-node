@@ -7,8 +7,7 @@ import pathExists from 'path-exists'
 import { tmpName } from 'tmp-promise'
 import moveFile from 'move-file'
 
-import { downloadWindowsNode } from './windows.js'
-import { downloadUnixNode } from './unix.js'
+import { downloadRuntime } from './archive/main.js'
 
 const pUnlink = promisify(unlink)
 
@@ -73,27 +72,6 @@ const safeDownload = async function(version, tmpFile, opts) {
     throw new Error(getDownloadError(error.message, version, opts))
   }
 }
-
-// Retrieve the Node binary from the Node website and persist it.
-// The URL depends on the current OS and CPU architecture.
-const downloadRuntime = function(version, tmpFile, opts) {
-  if (platform === 'win32') {
-    return downloadWindowsNode(version, tmpFile, opts)
-  }
-
-  // istanbul ignore else
-  if (SUPPORTED_UNIX.includes(platform)) {
-    return downloadUnixNode(version, tmpFile, opts)
-  }
-
-  // TODO: support android, freebsd and openbsd.
-  // https://nodejs.org/dist does not deliver binaries for those platforms.
-  // We currently do not run CI tests on those platforms
-  // istanbul ignore next
-  throw new Error(`Unsupported platform: ${platform}`)
-}
-
-const SUPPORTED_UNIX = ['linux', 'darwin', 'aix', 'sunos']
 
 const getDownloadError = function(message, version, { mirror }) {
   if (message.includes('getaddrinfo')) {

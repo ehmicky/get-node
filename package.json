@@ -50,7 +50,6 @@
   },
   "dependencies": {
     "core-js": "^3.4.7",
-    "end-of-stream": "^1.4.4",
     "execa": "^3.4.0",
     "fetch-node-website": "^4.1.1",
     "filter-obj": "^2.0.1",
@@ -62,8 +61,9 @@
     "move-file": "^1.2.0",
     "normalize-node-version": "^6.1.1",
     "p-event": "^4.1.0",
-    "p-finally": "^2.0.1",
     "path-exists": "^4.0.0",
+    "path-key": "^3.1.1",
+    "pump": "^3.0.0",
     "semver": "^6.3.0",
     "tar-fs": "^2.0.0",
     "tmp-promise": "^2.0.2"
@@ -74,7 +74,6 @@
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "husky": "^3.1.0",
-    "path-key": "^3.1.1",
     "sinon": "^7.5.0",
     "test-each": "^1.8.0"
   },

@@ -1,17 +1,30 @@
 import { platform } from 'process'
 import { createGunzip } from 'zlib'
+import { promisify } from 'util'
 
-import { fetchNodeUrl } from '../fetch.js'
+// TODO: use `require('stream').pipeline` after dropping support for Node 8/9
+import pump from 'pump'
+
+import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 import { getArch } from '../arch.js'
 
+import { untar, moveTar } from './tar.js'
+
+const pPump = promisify(pump)
+
 // Downloads .tar.gz archive and extract it
-export const downloadGz = async function(version, opts) {
+export const downloadGz = async function(version, tmpFile, opts) {
   const arch = getArch()
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `node-v${version}-${platform}-${arch}.tar.gz`,
     opts,
   )
-  const archive = response.pipe(createGunzip())
-  return { response, checksumError, archive }
+  const promise = pPump(response, createGunzip(), untar(tmpFile))
+
+  await promiseOrFetchError(promise, response)
+
+  await moveTar(tmpFile)
+
+  return checksumError
 }

@@ -1,12 +1,19 @@
 import { platform } from 'process'
 import { cpus } from 'os'
+import { promisify } from 'util'
 
 import execa from 'execa'
 import moize from 'moize'
 import { satisfies } from 'semver'
+// TODO: use `require('stream').pipeline` after dropping support for Node 8/9
+import pump from 'pump'
 
-import { fetchNodeUrl } from '../fetch.js'
+import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 import { getArch } from '../arch.js'
+
+import { untar, moveTar } from './tar.js'
+
+const pPump = promisify(pump)
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.
@@ -33,13 +40,13 @@ const mHasXzBinary = async function() {
 
 const hasXzBinary = moize(mHasXzBinary)
 
-export const downloadXz = async function(version, opts) {
+export const downloadXz = async function(version, tmpFile, opts) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `node-v${version}-${platform}-${getArch()}.tar.xz`,
     opts,
   )
-  const { stdout: archive, cancel } = execa.command(
+  const { stdout, cancel } = execa.command(
     `xz --decompress --stdout --threads=${cpus().length}`,
     {
       input: response,
@@ -48,5 +55,15 @@ export const downloadXz = async function(version, opts) {
       buffer: false,
     },
   )
-  return { response, checksumError, archive, cancel }
+  const promise = pPump(stdout, untar(tmpFile))
+
+  try {
+    await promiseOrFetchError(promise, response)
+  } finally {
+    cancel()
+  }
+
+  await moveTar(tmpFile)
+
+  return checksumError
 }

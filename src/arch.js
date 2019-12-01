@@ -2,6 +2,11 @@ import { platform, arch } from 'process'
 
 // Retrieve the CPU architecture as used in binary filenames
 export const getArch = function() {
+  // istanbul ignore next
+  if (platform === 'aix') {
+    return 'ppc64'
+  }
+
   const archA = PLATFORMS[arch]
 
   // We currently only run CI tests on supported CPU architectures
@@ -13,15 +18,12 @@ export const getArch = function() {
   return archA
 }
 
-// istanbul ignore next
-const PPC64_PLATFORM = platform === 'aix' ? 'ppc64' : 'ppc64le'
-
 const PLATFORMS = {
   arm: 'armv7l',
   arm64: 'arm64',
   ia32: 'x64',
   ppc: 'ppc64le',
-  ppc64: PPC64_PLATFORM,
+  ppc64: 'ppc64le',
   s390: 's390x',
   s390x: 's390x',
   x32: 'x86',

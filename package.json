@@ -52,7 +52,7 @@
     "core-js": "^3.4.7",
     "end-of-stream": "^1.4.4",
     "execa": "^3.4.0",
-    "fetch-node-website": "^4.1.0",
+    "fetch-node-website": "^4.1.1",
     "filter-obj": "^2.0.1",
     "get-stream": "^5.1.0",
     "global-cache-dir": "^1.0.1",

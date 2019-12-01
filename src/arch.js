@@ -13,13 +13,15 @@ export const getArch = function() {
   return archA
 }
 
+// istanbul ignore next
+const PPC64_PLATFORM = platform === 'aix' ? 'ppc64' : 'ppc64le'
+
 const PLATFORMS = {
   arm: 'armv7l',
   arm64: 'arm64',
   ia32: 'x64',
   ppc: 'ppc64le',
-  // istanbul ignore if
-  ppc64: platform === 'aix' ? 'ppc64' : 'ppc64le',
+  ppc64: PPC64_PLATFORM,
   s390: 's390x',
   s390x: 's390x',
   x32: 'x86',

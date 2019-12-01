@@ -18,7 +18,7 @@ const PLATFORMS = {
   arm64: 'arm64',
   ia32: 'x64',
   ppc: 'ppc64le',
-  // istanbul ignore next
+  // istanbul ignore if
   ppc64: platform === 'aix' ? 'ppc64' : 'ppc64le',
   s390: 's390x',
   s390x: 's390x',

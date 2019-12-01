@@ -1,3 +1,13 @@
+# 6.6.0
+
+## Features
+
+- Node.js binary download is now 50% faster on Windows
+
+## Bug fixes
+
+- Fix crash when Node.js binary URL is invalid
+
 # 6.5.0
 
 ## Features

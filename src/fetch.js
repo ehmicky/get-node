@@ -1,7 +1,8 @@
 import { createWriteStream } from 'fs'
+// eslint-disable-next-line fp/no-events
+import { once } from 'events'
 
 import fetchNodeWebsite from 'fetch-node-website'
-import pEvent from 'p-event'
 
 import { checkChecksum } from './checksum.js'
 
@@ -16,8 +17,12 @@ export const fetchNodeUrl = async function(version, filepath, opts) {
 // `response` `error` events do not necessarily make piped streams error, so we
 // need to await either.
 export const promiseOrFetchError = async function(promise, response) {
-  // TODO: use `require('events').once()` after dropping support for Node 8/9
-  await Promise.race([promise, pEvent(response, [])])
+  await Promise.race([promise, throwOnFetchError(response)])
+}
+
+const throwOnFetchError = async function(response) {
+  const [error] = await once(response, 'error')
+  throw error
 }
 
 // Persist stream to a `node[.exe]` file

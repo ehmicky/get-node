@@ -1,19 +1,18 @@
 import { platform } from 'process'
 import { cpus } from 'os'
 import { promisify } from 'util'
+import { pipeline } from 'stream'
 
 import execa from 'execa'
 import moize from 'moize'
 import { satisfies } from 'semver'
-// TODO: use `require('stream').pipeline` after dropping support for Node 8/9
-import pump from 'pump'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 import { getArch } from '../arch.js'
 
 import { untar, moveTar } from './tar.js'
 
-const pPump = promisify(pump)
+const pPipeline = promisify(pipeline)
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.
@@ -55,7 +54,7 @@ export const downloadXz = async function(version, tmpFile, opts) {
       buffer: false,
     },
   )
-  const promise = pPump(stdout, untar(tmpFile))
+  const promise = pPipeline(stdout, untar(tmpFile))
 
   try {
     await promiseOrFetchError(promise, response)

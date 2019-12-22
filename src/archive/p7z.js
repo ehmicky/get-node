@@ -2,20 +2,18 @@ import { env } from 'process'
 import { delimiter, normalize } from 'path'
 import { promisify } from 'util'
 import { createWriteStream, unlink } from 'fs'
+import { pipeline } from 'stream'
 
 import execa from 'execa'
 import moize from 'moize'
 import { satisfies } from 'semver'
 import pathKey from 'path-key'
-// TODO: use `require('stream').pipeline` after dropping support for Node 8/9
-import pump from 'pump'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 // eslint-disable-next-line import/max-dependencies
 import { getArch } from '../arch.js'
 
-// TODO: replace with Stream.finished() after dropping support for Node 8/9
-const pPump = promisify(pump)
+const pPipeline = promisify(pipeline)
 const pUnlink = promisify(unlink)
 
 // .7z Node binaries for Windows were added in Node 4.5.0 and 6.2.1
@@ -55,7 +53,7 @@ export const download7z = async function(version, tmpFile, opts) {
     `${filepath}.7z`,
     opts,
   )
-  await pPump(response, createWriteStream(tmp7zFile))
+  await pPipeline(response, createWriteStream(tmp7zFile))
   const { stdout, cancel } = execa(
     '7z',
     ['x', '-so', `-i!${filepath}/node.exe`, tmp7zFile],
@@ -67,7 +65,7 @@ export const download7z = async function(version, tmpFile, opts) {
       env: getEnv(),
     },
   )
-  const promise = pPump(stdout, writeNodeBinary(tmpFile))
+  const promise = pPipeline(stdout, writeNodeBinary(tmpFile))
 
   try {
     await promiseOrFetchError(promise, response)

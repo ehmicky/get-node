@@ -1,13 +1,12 @@
 import { promisify } from 'util'
+import { pipeline } from 'stream'
 
 import { gte as gteVersion } from 'semver'
-// TODO: use `require('stream').pipeline` after dropping support for Node 8/9
-import pump from 'pump'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 import { getArch } from '../arch.js'
 
-const pPump = promisify(pump)
+const pPipeline = promisify(pipeline)
 
 // On Windows, when no zip archive is available (old Node.js versions), download
 // the raw `node.exe` file available for download instead.
@@ -18,7 +17,7 @@ export const downloadRaw = async function(version, tmpFile, opts) {
     filepath,
     opts,
   )
-  const promise = pPump(response, writeNodeBinary(tmpFile))
+  const promise = pPipeline(response, writeNodeBinary(tmpFile))
 
   await promiseOrFetchError(promise, response)
 

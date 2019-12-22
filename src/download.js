@@ -1,15 +1,12 @@
 import { platform, arch } from 'process'
 import { join } from 'path'
-import { unlink } from 'fs'
-import { promisify } from 'util'
+import { promises } from 'fs'
 
 import pathExists from 'path-exists'
 import { tmpName } from 'tmp-promise'
 import moveFile from 'move-file'
 
 import { downloadRuntime } from './archive/main.js'
-
-const pUnlink = promisify(unlink)
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
@@ -105,5 +102,5 @@ const cleanTmpFile = async function(tmpFile) {
     return
   }
 
-  await pUnlink(tmpFile)
+  await promises.unlink(tmpFile)
 }

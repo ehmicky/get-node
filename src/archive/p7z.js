@@ -1,7 +1,7 @@
 import { env } from 'process'
 import { delimiter, normalize } from 'path'
 import { promisify } from 'util'
-import { createWriteStream, unlink } from 'fs'
+import { createWriteStream, promises } from 'fs'
 import { pipeline } from 'stream'
 
 import execa from 'execa'
@@ -14,7 +14,6 @@ import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 import { getArch } from '../arch.js'
 
 const pPipeline = promisify(pipeline)
-const pUnlink = promisify(unlink)
 
 // .7z Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 // We try those first since they are smaller. However they require 7zip to be
@@ -91,6 +90,6 @@ const P7Z_PATH = normalize('/Program Files/7-Zip')
 const PATH_KEY = pathKey()
 
 const cleanup = async function(tmp7zFile, cancel) {
-  await pUnlink(tmp7zFile)
+  await promises.unlink(tmp7zFile)
   cancel()
 }

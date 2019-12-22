@@ -1,10 +1,6 @@
-import { promisify } from 'util'
-import { rename, rmdir } from 'fs'
+import { promises } from 'fs'
 
 import { extract as tarExtract } from 'tar-fs'
-
-const pRename = promisify(rename)
-const pRmdir = promisify(rmdir)
 
 // Extract .tar.gz and .tar.xz archive
 export const untar = function(tmpFile) {
@@ -22,7 +18,7 @@ const shouldExclude = function(path) {
 // remove it right away.
 export const moveTar = async function(tmpFile) {
   const intermediateFile = `${tmpFile}-${Math.random()}`
-  await pRename(`${tmpFile}/node`, intermediateFile)
-  await pRmdir(tmpFile)
-  await pRename(intermediateFile, tmpFile)
+  await promises.rename(`${tmpFile}/node`, intermediateFile)
+  await promises.rmdir(tmpFile)
+  await promises.rename(intermediateFile, tmpFile)
 }

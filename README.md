@@ -69,7 +69,7 @@ await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
 npm install get-node
 ```
 
-`node >=8.12.0` must be globally installed. However any Node version can be
+`node >=10.17.0` must be globally installed. However any Node version can be
 downloaded.
 
 To use this module as a CLI instead, please check

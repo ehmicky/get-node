@@ -17,10 +17,9 @@ test.serial('Checks checksums', async t => {
 
   try {
     const output = getOutput()
-    await t.throwsAsync(
-      getNode(TEST_VERSION, { output }),
-      /checksum did not match/u,
-    )
+    await t.throwsAsync(getNode(TEST_VERSION, { output }), {
+      message: /checksum did not match/u,
+    })
   } finally {
     // eslint-disable-next-line fp/no-delete
     delete env.TEST_CHECKSUMS
@@ -33,7 +32,9 @@ test.serial('Throws on corrupted checksums', async t => {
 
   try {
     const output = getOutput()
-    await t.throwsAsync(getNode(TEST_VERSION, { output }), /checksum:/u)
+    await t.throwsAsync(getNode(TEST_VERSION, { output }), {
+      message: /checksum:/u,
+    })
   } finally {
     // eslint-disable-next-line fp/no-delete
     delete env.TEST_CHECKSUMS

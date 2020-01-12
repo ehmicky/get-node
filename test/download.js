@@ -55,10 +55,9 @@ each(
       await normalizeNodeVersion(version)
 
       const outputA = getOutput()
-      await t.throwsAsync(
-        getNode(version, { output: outputA, mirror }),
+      await t.throwsAsync(getNode(version, { output: outputA, mirror }), {
         message,
-      )
+      })
     })
   },
 )

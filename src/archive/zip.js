@@ -6,7 +6,6 @@ import getStream from 'get-stream'
 import { loadAsync } from 'jszip'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
-import { getArch } from '../arch.js'
 
 const pPipeline = promisify(pipeline)
 
@@ -21,8 +20,8 @@ const ZIP_VERSION_RANGE = '^4.5.0 || >=6.2.1'
 // `jszip` does not allow streaming with `loadAsync()` so we need to wait for
 // the HTTP request to complete before starting unzipping.
 // However we can stream the file unzipping with the file writing.
-export const downloadZip = async function(version, tmpFile, opts) {
-  const filepath = getZipFilepath(version)
+export const downloadZip = async function({ version, tmpFile, arch, opts }) {
+  const filepath = getZipFilepath(version, arch)
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `${filepath}.zip`,
@@ -37,8 +36,7 @@ export const downloadZip = async function(version, tmpFile, opts) {
   return checksumError
 }
 
-const getZipFilepath = function(version) {
-  const arch = getArch()
+const getZipFilepath = function(version, arch) {
   return `node-v${version}-win-${arch}`
 }
 

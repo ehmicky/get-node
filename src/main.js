@@ -6,10 +6,12 @@ import { download } from './download.js'
 
 // Download the Node.js binary for a specific `versionRange`
 const getNode = async function(versionRange, opts) {
-  const { versionRange: versionRangeA, output, ...optsA } = await getOpts({
-    ...opts,
-    versionRange,
-  })
+  const {
+    versionRange: versionRangeA,
+    output,
+    arch,
+    ...optsA
+  } = await getOpts({ ...opts, versionRange })
 
   const version = await normalizeNodeVersion(versionRangeA, {
     ...optsA,
@@ -17,7 +19,7 @@ const getNode = async function(versionRange, opts) {
   })
   checkVersion(version)
 
-  const nodePath = await download(version, output, optsA)
+  const nodePath = await download({ version, output, arch, opts: optsA })
   return { version, path: nodePath }
 }
 

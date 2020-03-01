@@ -10,8 +10,6 @@ import { satisfies } from 'semver'
 import pathKey from 'path-key'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
-// eslint-disable-next-line import/max-dependencies
-import { getArch } from '../arch.js'
 
 const pPipeline = promisify(pipeline)
 
@@ -43,8 +41,8 @@ const has7zBinary = moize(mHas7zBinary)
 // 7zip does not support stdin streaming with *.7z but it supports stdout
 // streaming. So we first download the archive to a temporary file, then extract
 // it in streaming mode.
-export const download7z = async function(version, tmpFile, opts) {
-  const filepath = get7zFilepath(version)
+export const download7z = async function({ version, tmpFile, arch, opts }) {
+  const filepath = get7zFilepath(version, arch)
   const tmp7zFile = `${tmpFile}.7z`
 
   const { response, checksumError } = await fetchNodeUrl(
@@ -75,8 +73,7 @@ export const download7z = async function(version, tmpFile, opts) {
   return checksumError
 }
 
-const get7zFilepath = function(version) {
-  const arch = getArch()
+const get7zFilepath = function(version, arch) {
   return `node-v${version}-win-${arch}`
 }
 

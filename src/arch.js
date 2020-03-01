@@ -1,7 +1,8 @@
-import { platform, arch } from 'process'
+import { platform } from 'process'
 
-// Retrieve the CPU architecture as used in binary filenames
-export const getArch = function() {
+// Retrieve the CPU architecture as used in binary filenames.
+// Can be changed with the `arch` option.
+export const getArch = function(arch) {
   // istanbul ignore next
   if (platform === 'aix') {
     return 'ppc64'
@@ -9,8 +10,6 @@ export const getArch = function() {
 
   const archA = PLATFORMS[arch]
 
-  // We currently only run CI tests on supported CPU architectures
-  // istanbul ignore next
   if (archA === undefined) {
     throw new Error(`Unsupported CPU architecture: ${arch}`)
   }

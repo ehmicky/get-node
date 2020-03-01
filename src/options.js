@@ -1,4 +1,4 @@
-import { cwd as getCwd } from 'process'
+import { cwd as getCwd, arch } from 'process'
 
 import { validRange } from 'semver'
 import { validate } from 'jest-validate'
@@ -28,6 +28,7 @@ const isDefined = function(key, value) {
 const DEFAULT_OPTS = {
   versionRange: '*',
   progress: false,
+  arch,
 }
 
 const EXAMPLE_OPTS = {

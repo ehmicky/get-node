@@ -115,6 +115,18 @@ Base URL. Can be overridden (for example `https://npm.taobao.org/mirrors/node`).
 The following environment variables can also be used: `NODE_MIRROR`,
 `NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.
 
+#### arch
+
+_Type_: `string`\
+_Default_: [`process.arch`](https://nodejs.org/api/process.html#process_process_arch)
+
+Node.js binary's CPU architecture. This is useful for example when you're on x64
+but would like to run Node.js x32.
+
+All the values from
+[`process.arch`](https://nodejs.org/api/process.html#process_process_arch) are
+allowed except `mips` and `mipsel`.
+
 ### Return value
 
 The returned `Promise` resolves to an object with the following properties.

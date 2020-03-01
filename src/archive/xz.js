@@ -8,7 +8,6 @@ import moize from 'moize'
 import { satisfies } from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
-import { getArch } from '../arch.js'
 
 import { untar, moveTar } from './tar.js'
 
@@ -39,10 +38,10 @@ const mHasXzBinary = async function() {
 
 const hasXzBinary = moize(mHasXzBinary)
 
-export const downloadXz = async function(version, tmpFile, opts) {
+export const downloadXz = async function({ version, tmpFile, arch, opts }) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
-    `node-v${version}-${platform}-${getArch()}.tar.xz`,
+    `node-v${version}-${platform}-${arch}.tar.xz`,
     opts,
   )
   const { stdout, cancel } = execa.command(

@@ -13,7 +13,7 @@ import { downloadRuntime } from './archive/main.js'
 // If the file already exists, do nothing. This allows caching.
 export const download = async function({ version, output, arch, opts }) {
   const archA = getArch(arch)
-  const nodePath = join(output, version, NODE_FILENAME)
+  const nodePath = join(output, version, archA, NODE_FILENAME)
 
   if (await pathExists(nodePath)) {
     return nodePath
@@ -43,7 +43,7 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
 const downloadFile = async function({ version, nodePath, arch, opts }) {
-  const tmpFile = await tmpName({ prefix: `get-node-${version}` })
+  const tmpFile = await tmpName({ prefix: `get-node-${version}-${arch}` })
 
   try {
     await tmpDownload({ version, tmpFile, arch, opts })

@@ -1,3 +1,10 @@
+# 7.1.0
+
+## Features
+
+- Add [`arch` option](https://github.com/ehmicky/get-node#arch) to specify the
+  CPU architecture.
+
 # 7.0.0
 
 ## Breaking changes

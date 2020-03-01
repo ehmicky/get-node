@@ -61,6 +61,9 @@ console.log(path) // /home/user/.cache/node_releases/13.0.1/node
 
 // Use a mirror website
 await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
+
+// Specify the CPU architecture
+await getNode('8', { arch: 'x32' })
 ```
 
 # Install

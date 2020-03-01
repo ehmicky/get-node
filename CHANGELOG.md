@@ -1,3 +1,9 @@
+# 7.1.1
+
+## Bug fixes
+
+- Fix [`arch` option](https://github.com/ehmicky/get-node#arch)
+
 # 7.1.0
 
 ## Features

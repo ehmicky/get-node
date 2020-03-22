@@ -67,7 +67,7 @@
     "tmp-promise": "^2.0.2"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.31.23",
+    "@ehmicky/dev-tasks": "^0.31.24",
     "ava": "^3.5.1",
     "del": "^5.1.0",
     "gulp": "^4.0.2",

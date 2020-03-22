@@ -14,7 +14,7 @@ export const downloadRuntime = function ({ version, tmpFile, arch, opts }) {
   }
 
   // istanbul ignore else
-  if (SUPPORTED_UNIX.includes(platform)) {
+  if (SUPPORTED_UNIX.has(platform)) {
     return downloadUnixNode({ version, tmpFile, arch, opts })
   }
 
@@ -25,7 +25,7 @@ export const downloadRuntime = function ({ version, tmpFile, arch, opts }) {
   throw new Error(`Unsupported platform: ${platform}`)
 }
 
-const SUPPORTED_UNIX = ['linux', 'darwin', 'aix', 'sunos']
+const SUPPORTED_UNIX = new Set(['linux', 'darwin', 'aix', 'sunos'])
 
 // The Windows Node binary comes as a regular file or as a .zip file. We try
 // to use the fastest method.

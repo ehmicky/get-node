@@ -8,7 +8,7 @@ import { addOutput } from './output.js'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
-export const getOpts = async function(opts) {
+export const getOpts = async function (opts) {
   validate(opts, { exampleConfig: EXAMPLE_OPTS })
 
   const optsA = filterObj(opts, isDefined)
@@ -21,7 +21,7 @@ export const getOpts = async function(opts) {
   return optsC
 }
 
-const isDefined = function(key, value) {
+const isDefined = function (key, value) {
   return value !== undefined
 }
 
@@ -38,7 +38,7 @@ const EXAMPLE_OPTS = {
   mirror: 'https://nodejs.org/dist',
 }
 
-const validateVersionRange = function({ versionRange }) {
+const validateVersionRange = function ({ versionRange }) {
   if (validRange(versionRange) === null) {
     throw new TypeError(`Not a valid Node version range: ${versionRange}`)
   }

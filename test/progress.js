@@ -16,7 +16,7 @@ each(
     { called: false },
   ],
   ({ title }, { progress, called }) => {
-    test.serial(`Progress bar | ${title}`, async t => {
+    test.serial(`Progress bar | ${title}`, async (t) => {
       const spy = sinon.spy(stderr, 'write')
 
       const output = getOutput()

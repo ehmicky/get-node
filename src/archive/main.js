@@ -8,7 +8,7 @@ import { downloadRaw } from './raw.js'
 
 // Retrieve the Node binary from the Node website and persist it.
 // The URL depends on the current OS and CPU architecture.
-export const downloadRuntime = function({ version, tmpFile, arch, opts }) {
+export const downloadRuntime = function ({ version, tmpFile, arch, opts }) {
   if (platform === 'win32') {
     return downloadWindowsNode({ version, tmpFile, arch, opts })
   }
@@ -29,7 +29,7 @@ const SUPPORTED_UNIX = ['linux', 'darwin', 'aix', 'sunos']
 
 // The Windows Node binary comes as a regular file or as a .zip file. We try
 // to use the fastest method.
-export const downloadWindowsNode = async function({
+export const downloadWindowsNode = async function ({
   version,
   tmpFile,
   arch,
@@ -47,7 +47,7 @@ export const downloadWindowsNode = async function({
 }
 
 // The Unix Node binary comes in a .tar.gz or .tar.xz archive.
-export const downloadUnixNode = async function({
+export const downloadUnixNode = async function ({
   version,
   tmpFile,
   arch,

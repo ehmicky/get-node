@@ -8,7 +8,7 @@ import { getOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
 // When run on Windows, the tests require '7z' to be installed globally
-test.serial('Checks checksums', async t => {
+test.serial('Checks checksums', async (t) => {
   // eslint-disable-next-line fp/no-mutation
   env.TEST_CHECKSUMS =
     platform === 'win32'
@@ -26,7 +26,7 @@ test.serial('Checks checksums', async t => {
   }
 })
 
-test.serial('Throws on corrupted checksums', async t => {
+test.serial('Throws on corrupted checksums', async (t) => {
   // eslint-disable-next-line fp/no-mutation
   env.TEST_CHECKSUMS = ''
 

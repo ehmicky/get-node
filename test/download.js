@@ -11,7 +11,7 @@ import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
 
-test('Caches download', async t => {
+test('Caches download', async (t) => {
   const output = getOutput()
   const { path } = await getNode(TEST_VERSION, { output })
   const { path: pathA } = await getNode(TEST_VERSION, { output })
@@ -21,7 +21,7 @@ test('Caches download', async t => {
   await removeOutput(path)
 })
 
-test('Parallel downloads', async t => {
+test('Parallel downloads', async (t) => {
   const output = getOutput()
   const [{ path }, { path: pathA }] = await Promise.all([
     getNode(TEST_VERSION, { output }),
@@ -33,7 +33,7 @@ test('Parallel downloads', async t => {
   await removeOutput(path)
 })
 
-test('Writes atomically', async t => {
+test('Writes atomically', async (t) => {
   const output = getOutput()
   await execa('node', [ATOMIC_PROCESS, TEST_VERSION, output])
 
@@ -50,7 +50,7 @@ each(
   ],
   [NO_XZ_VERSION, TEST_VERSION],
   ({ title }, { mirror, message }, version) => {
-    test(`HTTP error | ${title}`, async t => {
+    test(`HTTP error | ${title}`, async (t) => {
       // Ensure normalize-node-version is cached
       await normalizeNodeVersion(version)
 

@@ -10,7 +10,7 @@ import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
 const pPipeline = promisify(pipeline)
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1
-export const shouldUseZip = function(version) {
+export const shouldUseZip = function (version) {
   return satisfies(version, ZIP_VERSION_RANGE)
 }
 
@@ -20,7 +20,7 @@ const ZIP_VERSION_RANGE = '^4.5.0 || >=6.2.1'
 // `jszip` does not allow streaming with `loadAsync()` so we need to wait for
 // the HTTP request to complete before starting unzipping.
 // However we can stream the file unzipping with the file writing.
-export const downloadZip = async function({ version, tmpFile, arch, opts }) {
+export const downloadZip = async function ({ version, tmpFile, arch, opts }) {
   const filepath = getZipFilepath(version, arch)
   const { response, checksumError } = await fetchNodeUrl(
     version,
@@ -36,11 +36,11 @@ export const downloadZip = async function({ version, tmpFile, arch, opts }) {
   return checksumError
 }
 
-const getZipFilepath = function(version, arch) {
+const getZipFilepath = function (version, arch) {
   return `node-v${version}-win-${arch}`
 }
 
-const getZipStream = async function(zipContent, filepath) {
+const getZipStream = async function (zipContent, filepath) {
   const archive = await loadAsync(zipContent, JSZIP_OPTIONS)
   const file = archive.file(`${filepath}/node.exe`)
   const zipStream = file.nodeStream('nodebuffer')

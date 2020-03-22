@@ -14,13 +14,13 @@ each(
     { progress: 0 },
   ],
   ({ title }, { versionRange, ...opts }) => {
-    test(`Invalid arguments | ${title}`, async t => {
+    test(`Invalid arguments | ${title}`, async (t) => {
       await t.throwsAsync(getNode(versionRange, opts))
     })
   },
 )
 
-test('Defaults version to *', async t => {
+test('Defaults version to *', async (t) => {
   const output = getOutput()
   const [{ path }, { path: pathA }] = await Promise.all([
     getNode('*', { output }),

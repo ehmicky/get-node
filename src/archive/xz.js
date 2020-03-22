@@ -17,18 +17,18 @@ const pPipeline = promisify(pipeline)
 // Those are not available for AIX nor 0.*.* versions.
 // All existing xz/LZMA libraries require native modules, so we use the `xz`
 // binary instead, when available.
-export const shouldUseXz = function(version) {
+export const shouldUseXz = function (version) {
   return versionHasXz(version) && platform !== 'aix' && hasXzBinary()
 }
 
 // Older Node.js versions only shipped .tar.gz not .tar.xz
-const versionHasXz = function(version) {
+const versionHasXz = function (version) {
   return satisfies(version, XZ_VERSION_RANGE)
 }
 
 const XZ_VERSION_RANGE = '^0.10.42 || >=0.12.10'
 
-const mHasXzBinary = async function() {
+const mHasXzBinary = async function () {
   const { failed } = await execa.command('xz --version', {
     reject: false,
     stdio: 'ignore',
@@ -38,7 +38,7 @@ const mHasXzBinary = async function() {
 
 const hasXzBinary = moize(mHasXzBinary)
 
-export const downloadXz = async function({ version, tmpFile, arch, opts }) {
+export const downloadXz = async function ({ version, tmpFile, arch, opts }) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `node-v${version}-${platform}-${arch}.tar.xz`,

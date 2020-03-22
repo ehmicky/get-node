@@ -7,7 +7,7 @@ const pSetTimeout = promisify(setTimeout)
 
 const [, , versionRange, output] = argv
 
-const launchThenAbort = async function() {
+const launchThenAbort = async function () {
   getNode(versionRange, { output, progress: false })
 
   await pSetTimeout(TIMEOUT)

@@ -10,7 +10,7 @@ import getNode from '../src/main.js'
 import { getOutput, getNodeDir, removeOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
-test.serial('Defaults output to cache directory', async t => {
+test.serial('Defaults output to cache directory', async (t) => {
   const cacheDir = await globalCacheDir('nve')
   const nodeDir = resolve(cacheDir, TEST_VERSION, arch)
   await del(nodeDir, { force: true })
@@ -20,7 +20,7 @@ test.serial('Defaults output to cache directory', async t => {
   t.is(getNodeDir(path), nodeDir)
 })
 
-test('Can use output option', async t => {
+test('Can use output option', async (t) => {
   const output = getOutput()
   const { path } = await getNode(TEST_VERSION, { output })
 

@@ -28,7 +28,7 @@ each(
     LAST_VERSION,
   ],
   ({ title }, versionInput) => {
-    test(`Downloads node | ${title}`, async t => {
+    test(`Downloads node | ${title}`, async (t) => {
       const output = getOutput()
       const { path, version } = await getNode(versionInput, { output })
 
@@ -41,6 +41,6 @@ each(
   },
 )
 
-test('Does not work on very old versions', async t => {
+test('Does not work on very old versions', async (t) => {
   await t.throwsAsync(getNode(NO_BIN_VERSION))
 })

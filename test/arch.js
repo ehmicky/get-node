@@ -9,7 +9,7 @@ import getNode from '../src/main.js'
 import { getOutput, removeOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
-test('--arch current', async t => {
+test('--arch current', async (t) => {
   const output = getOutput()
   const { path, version } = await getNode(TEST_VERSION, { output, arch })
 
@@ -20,7 +20,7 @@ test('--arch current', async t => {
 })
 
 if (platform === 'linux') {
-  test('--arch other', async t => {
+  test('--arch other', async (t) => {
     const output = getOutput()
     const { path } = await getNode(TEST_VERSION, { output, arch: 'arm64' })
 
@@ -31,6 +31,6 @@ if (platform === 'linux') {
   })
 }
 
-test('--arch invalid', async t => {
+test('--arch invalid', async (t) => {
   await t.throwsAsync(getNode(TEST_VERSION, { arch: 'invalid' }))
 })

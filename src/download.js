@@ -11,7 +11,7 @@ import { downloadRuntime } from './archive/main.js'
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
-export const download = async function({ version, output, arch, opts }) {
+export const download = async function ({ version, output, arch, opts }) {
   const archA = getArch(arch)
   const nodePath = join(output, version, archA, NODE_FILENAME)
 
@@ -42,7 +42,7 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 //  - this means the file might be on a different partition
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
-const downloadFile = async function({ version, nodePath, arch, opts }) {
+const downloadFile = async function ({ version, nodePath, arch, opts }) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}-${arch}` })
 
   try {
@@ -53,7 +53,7 @@ const downloadFile = async function({ version, nodePath, arch, opts }) {
   }
 }
 
-const tmpDownload = async function({ version, tmpFile, arch, opts }) {
+const tmpDownload = async function ({ version, tmpFile, arch, opts }) {
   const checksumError = await safeDownload({ version, tmpFile, arch, opts })
 
   // We throw checksum errors only after everything else worked, so that errors
@@ -64,7 +64,7 @@ const tmpDownload = async function({ version, tmpFile, arch, opts }) {
   }
 }
 
-const safeDownload = async function({ version, tmpFile, arch, opts }) {
+const safeDownload = async function ({ version, tmpFile, arch, opts }) {
   try {
     return await downloadRuntime({ version, tmpFile, arch, opts })
   } catch (error) {
@@ -74,7 +74,7 @@ const safeDownload = async function({ version, tmpFile, arch, opts }) {
   }
 }
 
-const getDownloadError = function({
+const getDownloadError = function ({
   message,
   version,
   arch,
@@ -94,7 +94,7 @@ const getDownloadError = function({
   return `Could not download Node.js ${version}: ${message}`
 }
 
-const moveTmpFile = async function(tmpFile, nodePath) {
+const moveTmpFile = async function (tmpFile, nodePath) {
   // Another parallel download might have been running
   if (await pathExists(nodePath)) {
     return
@@ -106,7 +106,7 @@ const moveTmpFile = async function(tmpFile, nodePath) {
 // The temporary file might still exist if:
 //  - another parallel download was running
 //  - an error was thrown
-const cleanTmpFile = async function(tmpFile) {
+const cleanTmpFile = async function (tmpFile) {
   if (!(await pathExists(tmpFile))) {
     return
   }

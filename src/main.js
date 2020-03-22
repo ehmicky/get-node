@@ -5,7 +5,7 @@ import { getOpts } from './options.js'
 import { download } from './download.js'
 
 // Download the Node.js binary for a specific `versionRange`
-const getNode = async function(versionRange, opts) {
+const getNode = async function (versionRange, opts) {
   const {
     versionRange: versionRangeA,
     output,
@@ -25,7 +25,7 @@ const getNode = async function(versionRange, opts) {
 
 // Node <0.8.6 only shipped source code for Unix. We don't want to support
 // building from sources, so we can't support those very old versions.
-const checkVersion = function(version) {
+const checkVersion = function (version) {
   if (ltVersion(version, MINIMUM_VERSION)) {
     throw new Error(
       `Unsupported Node.js version: ${version}. Must be >= 0.8.6.`,

@@ -1,5 +1,5 @@
-import { promisify } from 'util'
 import { pipeline } from 'stream'
+import { promisify } from 'util'
 
 import { gte as gteVersion } from 'semver'
 

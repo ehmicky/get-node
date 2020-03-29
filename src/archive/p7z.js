@@ -1,13 +1,13 @@
-import { env } from 'process'
-import { delimiter, normalize } from 'path'
-import { promisify } from 'util'
 import { createWriteStream, promises } from 'fs'
+import { delimiter, normalize } from 'path'
+import { env } from 'process'
 import { pipeline } from 'stream'
+import { promisify } from 'util'
 
 import execa from 'execa'
 import moize from 'moize'
-import { satisfies } from 'semver'
 import pathKey from 'path-key'
+import { satisfies } from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 

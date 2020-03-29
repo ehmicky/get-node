@@ -1,8 +1,8 @@
 import { env } from 'process'
 
 import test from 'ava'
-import pathKey from 'path-key'
 import pathExists from 'path-exists'
+import pathKey from 'path-key'
 
 import getNode from '../src/main.js'
 

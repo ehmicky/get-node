@@ -1,7 +1,7 @@
 import { platform } from 'process'
-import { createGunzip } from 'zlib'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
+import { createGunzip } from 'zlib'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 

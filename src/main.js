@@ -1,8 +1,8 @@
 import normalizeNodeVersion from 'normalize-node-version'
 import { lt as ltVersion } from 'semver'
 
-import { getOpts } from './options.js'
 import { download } from './download.js'
+import { getOpts } from './options.js'
 
 // Download the Node.js binary for a specific `versionRange`
 const getNode = async function (versionRange, opts) {

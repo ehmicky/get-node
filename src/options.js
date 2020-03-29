@@ -1,8 +1,8 @@
 import { cwd as getCwd, arch } from 'process'
 
-import { validRange } from 'semver'
-import { validate } from 'jest-validate'
 import filterObj from 'filter-obj'
+import { validate } from 'jest-validate'
+import { validRange } from 'semver'
 
 import { addOutput } from './output.js'
 

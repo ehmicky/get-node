@@ -1,9 +1,9 @@
-import { arch } from 'process'
 import { dirname, resolve, normalize } from 'path'
+import { arch } from 'process'
 
 import test from 'ava'
-import globalCacheDir from 'global-cache-dir'
 import del from 'del'
+import globalCacheDir from 'global-cache-dir'
 
 import getNode from '../src/main.js'
 

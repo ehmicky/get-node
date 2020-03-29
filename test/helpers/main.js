@@ -1,7 +1,7 @@
 import { tmpdir } from 'os'
-import { promisify } from 'util'
 import { dirname } from 'path'
 import { platform } from 'process'
+import { promisify } from 'util'
 
 import del from 'del'
 

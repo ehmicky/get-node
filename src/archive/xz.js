@@ -1,7 +1,7 @@
-import { platform } from 'process'
 import { cpus } from 'os'
-import { promisify } from 'util'
+import { platform } from 'process'
 import { pipeline } from 'stream'
+import { promisify } from 'util'
 
 import execa from 'execa'
 import moize from 'moize'

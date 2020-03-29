@@ -1,6 +1,6 @@
 import test from 'ava'
-import pathExists from 'path-exists'
 import execa from 'execa'
+import pathExists from 'path-exists'
 import { each } from 'test-each'
 
 import getNode from '../src/main.js'

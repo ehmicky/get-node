@@ -1,10 +1,10 @@
-import { platform } from 'process'
-import { join } from 'path'
 import { promises } from 'fs'
+import { join } from 'path'
+import { platform } from 'process'
 
+import moveFile from 'move-file'
 import pathExists from 'path-exists'
 import { tmpName } from 'tmp-promise'
-import moveFile from 'move-file'
 
 import { getArch } from './arch.js'
 import { downloadRuntime } from './archive/main.js'

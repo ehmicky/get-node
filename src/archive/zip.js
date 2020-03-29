@@ -1,9 +1,9 @@
-import { promisify } from 'util'
 import { pipeline } from 'stream'
+import { promisify } from 'util'
 
-import { satisfies } from 'semver'
 import getStream from 'get-stream'
 import { loadAsync } from 'jszip'
+import { satisfies } from 'semver'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
 

@@ -1,8 +1,8 @@
 import test from 'ava'
-import { each } from 'test-each'
-import pathExists from 'path-exists'
 import execa from 'execa'
 import normalizeNodeVersion from 'normalize-node-version'
+import pathExists from 'path-exists'
+import { each } from 'test-each'
 
 import getNode from '../src/main.js'
 

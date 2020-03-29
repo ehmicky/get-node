@@ -55,7 +55,7 @@
     "filter-obj": "^2.0.1",
     "get-stream": "^5.1.0",
     "global-cache-dir": "^2.0.0",
-    "jest-validate": "^25.2.3",
+    "jest-validate": "^25.2.6",
     "jszip": "^3.2.2",
     "moize": "^5.4.5",
     "move-file": "^1.2.0",

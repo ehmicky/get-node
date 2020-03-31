@@ -30,6 +30,7 @@ Features include:
 - using [version ranges](#getnodeversion-options)
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
+- support `.nvmrc` file with the `nvmrc` pseudo version
 
 # Example
 

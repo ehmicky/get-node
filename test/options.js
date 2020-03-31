@@ -1,3 +1,5 @@
+import { join } from 'path'
+
 import test from 'ava'
 import { each } from 'test-each'
 
@@ -30,4 +32,21 @@ test('Defaults version to *', async (t) => {
   t.is(path, pathA)
 
   await removeOutput(path)
+})
+
+test('Resolve nvmrc pseudo version', async (t) => {
+  const output = getOutput()
+  const { path } = await getNode('nvmrc', { output, cwd: __dirname })
+
+  t.true(path.includes('12.12.', 'nvmrc version not resolved'))
+
+  await removeOutput(path)
+})
+
+test('Throw error if nvmrc not found', async (t) => {
+  const output = getOutput()
+  await t.throwsAsync(
+    getNode('nvmrc', { output, cwd: join(__dirname, '..', 'src') }),
+    { message: '.nvmrc file not found' },
+  )
 })

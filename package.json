@@ -11,7 +11,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "gulp check --full"
+      "pre-push": "gulp -LL check --full"
     }
   },
   "description": "Download a specific version of Node.js",

@@ -1,3 +1,14 @@
+# 7.2.0
+
+## Features
+
+- Can use the `_` alias to refer to the
+  [current process's Node.js version](/README.md##getnodeversion-options)
+- Can use the `.` alias to refer to the
+  [current project's Node.js version](/README.md##getnodeversion-options) using
+  its `.nvmrc`, `.node-version` or `.naverc`. The current directory can be
+  changed using the [`cwd` option](/README.md#cwd).
+
 # 7.1.2
 
 ## Bug fixes

@@ -1,3 +1,9 @@
+# 7.2.2
+
+## Bug fixes
+
+- Fix `cwd` option
+
 # 7.2.1
 
 ## Bug fixes

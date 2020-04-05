@@ -46,7 +46,7 @@ each(
     // We cannot test this since all the OS/architecture tested in CI have
     // Node.js binaries. So we simulate it by using a `mirror` to an existing
     // website, leading to a 404.
-    { mirror: 'https://example.com', message: /No Node\.js binaries/u },
+    { mirror: 'https://redash.io', message: /No Node\.js binaries/u },
   ],
   [NO_XZ_VERSION, TEST_VERSION],
   ({ title }, { mirror, message }, version) => {

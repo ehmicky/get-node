@@ -42,7 +42,9 @@ const EXAMPLE_OPTS = {
 }
 
 const validateVersionRange = function ({ versionRange }) {
-  if (validRange(versionRange) === null) {
+  if (!ALIASES.has(versionRange) && validRange(versionRange) === null) {
     throw new TypeError(`Not a valid Node version range: ${versionRange}`)
   }
 }
+
+const ALIASES = new Set(['.', '_'])

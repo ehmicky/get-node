@@ -10,11 +10,13 @@ const getNode = async function (versionRange, opts) {
     versionRange: versionRangeA,
     output,
     arch,
+    cwd,
     ...optsA
   } = await getOpts({ ...opts, versionRange })
 
   const version = await normalizeNodeVersion(versionRangeA, {
     ...optsA,
+    cwd,
     cache: true,
   })
   checkVersion(version)

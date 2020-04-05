@@ -35,6 +35,9 @@ const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
   output: getCwd(),
   versionRange: '8',
+  // Passed to normalize-node-version
+  cwd: getCwd(),
+  // Passed to fetch-node-website
   mirror: 'https://nodejs.org/dist',
 }
 

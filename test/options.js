@@ -12,6 +12,7 @@ each(
     { versionRange: '90' },
     { output: true },
     { progress: 0 },
+    { cwd: true },
   ],
   ({ title }, { versionRange, ...opts }) => {
     test(`Invalid arguments | ${title}`, async (t) => {

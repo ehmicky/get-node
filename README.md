@@ -30,6 +30,8 @@ Features include:
 - using [version ranges](#getnodeversion-options)
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
+- can guess the current project's version using its
+  [`.nvmrc`](#supported-aliases)
 
 # Example
 
@@ -52,6 +54,12 @@ console.log(version) // 13.0.1
 // Any version range can be used
 await getNode('8.12.0')
 await getNode('<7')
+
+// Download current project's Node.js version using its `.nvmrc`
+await getNode('.')
+
+// Download current process's Node.js version
+await getNode('_')
 
 // Specify the output directory
 const { path } = await getNode('8', {
@@ -87,7 +95,12 @@ To use this module as a CLI instead, please check
 _Return value_: `Promise<object>`
 
 `version` can be any [version range](https://github.com/npm/node-semver) such as
-`12`, `12.6.0` or `<12`.
+`12`, `12.6.0` or `<12`, or one of the following aliases:
+
+- `_` : Current process's Node.js version
+- `.` : Node version from a `.nvmrc`, `.node-version` or `.naverc` file in the
+  current directory or any parent directory. Defaults to the current process's
+  Node.js version
 
 ### Options
 
@@ -129,6 +142,14 @@ but would like to run Node.js x32.
 All the values from
 [`process.arch`](https://nodejs.org/api/process.html#process_process_arch) are
 allowed except `mips` and `mipsel`.
+
+#### cwd
+
+_Type_: `string`\
+_Default_: `process.cwd()`
+
+When using the [`.` alias](##getnodeversion-options), start looking for a
+Node.js version file from this directory.
 
 ### Return value
 

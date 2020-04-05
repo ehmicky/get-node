@@ -1,3 +1,9 @@
+# 7.2.1
+
+## Bug fixes
+
+- Fix `_` and `.` aliases not working
+
 # 7.2.0
 
 ## Features

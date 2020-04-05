@@ -31,7 +31,7 @@ Features include:
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
 - can guess the current project's version using its
-  [`.nvmrc`](#supported-aliases)
+  [`.nvmrc`](#getnodeversion-options)
 
 # Example
 
@@ -148,8 +148,8 @@ allowed except `mips` and `mipsel`.
 _Type_: `string`\
 _Default_: `process.cwd()`
 
-When using the [`.` alias](##getnodeversion-options), start looking for a
-Node.js version file from this directory.
+When using the [`.` alias](#getnodeversion-options), start looking for a Node.js
+version file from this directory.
 
 ### Return value
 

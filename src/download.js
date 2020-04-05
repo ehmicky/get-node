@@ -1,4 +1,4 @@
-import { promises } from 'fs'
+import { promises as fs } from 'fs'
 import { join } from 'path'
 import { platform } from 'process'
 
@@ -111,5 +111,5 @@ const cleanTmpFile = async function (tmpFile) {
     return
   }
 
-  await promises.unlink(tmpFile)
+  await fs.unlink(tmpFile)
 }

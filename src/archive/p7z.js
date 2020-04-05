@@ -1,4 +1,4 @@
-import { createWriteStream, promises } from 'fs'
+import { createWriteStream, promises as fs } from 'fs'
 import { delimiter, normalize } from 'path'
 import { env } from 'process'
 import { pipeline } from 'stream'
@@ -87,6 +87,6 @@ const P7Z_PATH = normalize('/Program Files/7-Zip')
 const PATH_KEY = pathKey()
 
 const cleanup = async function (tmp7zFile, cancel) {
-  await promises.unlink(tmp7zFile)
+  await fs.unlink(tmp7zFile)
   cancel()
 }

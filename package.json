@@ -58,7 +58,7 @@
     "jszip": "^3.3.0",
     "moize": "^5.4.5",
     "move-file": "^1.2.0",
-    "normalize-node-version": "^8.0.1",
+    "normalize-node-version": "^9.0.0",
     "path-exists": "^4.0.0",
     "path-key": "^3.1.1",
     "semver": "^7.2.2",

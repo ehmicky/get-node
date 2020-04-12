@@ -1,3 +1,13 @@
+# 7.3.0
+
+## Features
+
+- Add [`fetch` option](/README.md#fetch) to control caching
+
+## Bug fixes
+
+- Checksum checks were not working when the `mirror` option was used
+
 # 7.2.2
 
 ## Bug fixes

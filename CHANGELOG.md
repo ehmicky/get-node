@@ -2,8 +2,8 @@
 
 ## Breaking changes
 
-- Rename `*` alias to [`latest` or `l`](/README.md#supported-aliases)
-- Rename `.` alias to [`current` or `c`](/README.md#supported-aliases)
+- Rename `*` alias to [`latest` or `l`](/README.md#getnodeversion-options)
+- Rename `.` alias to [`current` or `c`](/README.md#getnodeversion-options)
 - Remove `_` alias
 
 # 7.3.1

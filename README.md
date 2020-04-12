@@ -55,7 +55,7 @@ console.log(version) // 13.0.1
 await getNode('8.12.0')
 await getNode('<7')
 
-// Download current project's Node.js version using its `.nvmrc`
+// Download current project's Node.js version using its `.nvmrc` or `package.json`
 await getNode('.')
 
 // Download current process's Node.js version
@@ -97,10 +97,11 @@ _Return value_: `Promise<object>`
 `version` can be any [version range](https://github.com/npm/node-semver) such as
 `12`, `12.6.0` or `<12`, or one of the following aliases:
 
-- `_` : Current process's Node.js version
+- `*`: Latest available Node version
 - `.` : Node version from a `.nvmrc`, `.node-version` or `.naverc` file in the
   current directory or any parent directory. Defaults to the current process's
-  Node.js version
+  Node version
+- `_` : Current process's Node version
 
 ### Options
 

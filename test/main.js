@@ -14,10 +14,9 @@ import {
   NO_ZIP_VERSION,
   TEST_VERSION,
   TEST_VERSION_RANGE,
-  LAST_VERSION,
+  LATEST_VERSION,
+  CURRENT_VERSION,
 } from './helpers/versions.js'
-
-const ALIASES = ['.', '_']
 
 each(
   [
@@ -27,8 +26,8 @@ each(
     NO_ZIP_VERSION,
     TEST_VERSION,
     TEST_VERSION_RANGE,
-    LAST_VERSION,
-    ...ALIASES,
+    LATEST_VERSION,
+    CURRENT_VERSION,
   ],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async (t) => {

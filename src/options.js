@@ -52,4 +52,4 @@ const validateVersionRange = function ({ versionRange }) {
   }
 }
 
-const ALIASES = new Set(['latest', 'current'])
+const ALIASES = new Set(['latest', 'l', 'current', 'c'])

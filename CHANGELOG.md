@@ -8,6 +8,10 @@
 
 - Checksum checks were not working when the `mirror` option was used
 
+## Dependencies
+
+- Remove `core-js`
+
 # 7.2.2
 
 ## Bug fixes

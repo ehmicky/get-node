@@ -1,3 +1,9 @@
+# 7.3.1
+
+## Dependencies
+
+- Fix removing `core-js`
+
 # 7.3.0
 
 ## Features

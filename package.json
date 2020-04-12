@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "execa": "^4.0.0",
-    "fetch-node-website": "^5.0.2",
+    "fetch-node-website": "^5.0.3",
     "filter-obj": "^2.0.1",
     "get-stream": "^5.1.0",
     "global-cache-dir": "^2.0.0",

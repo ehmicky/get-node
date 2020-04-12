@@ -10,18 +10,14 @@ const getNode = async function (versionRange, opts) {
     versionRange: versionRangeA,
     output,
     arch,
-    cwd,
-    ...optsA
+    normalizeOpts,
+    fetchOpts,
   } = await getOpts({ ...opts, versionRange })
 
-  const version = await normalizeNodeVersion(versionRangeA, {
-    ...optsA,
-    cwd,
-    cache: true,
-  })
+  const version = await normalizeNodeVersion(versionRangeA, normalizeOpts)
   checkVersion(version)
 
-  const nodePath = await download({ version, output, arch, opts: optsA })
+  const nodePath = await download({ version, output, arch, fetchOpts })
   return { version, path: nodePath }
 }
 

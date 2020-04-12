@@ -18,7 +18,10 @@ export const getOpts = async function (opts) {
 
   validateVersionRange(optsC)
 
-  return optsC
+  const { cwd, fetch, mirror, progress, ...optsD } = optsC
+  const normalizeOpts = { cwd, fetch, mirror }
+  const fetchOpts = { mirror, progress }
+  return { ...optsD, normalizeOpts, fetchOpts }
 }
 
 const isDefined = function (key, value) {
@@ -37,6 +40,8 @@ const EXAMPLE_OPTS = {
   versionRange: '8',
   // Passed to normalize-node-version
   cwd: getCwd(),
+  // Passed to all-node-versions
+  fetch: true,
   // Passed to fetch-node-website
   mirror: 'https://nodejs.org/dist',
 }

@@ -41,14 +41,19 @@ const has7zBinary = moize(mHas7zBinary)
 // 7zip does not support stdin streaming with *.7z but it supports stdout
 // streaming. So we first download the archive to a temporary file, then extract
 // it in streaming mode.
-export const download7z = async function ({ version, tmpFile, arch, opts }) {
+export const download7z = async function ({
+  version,
+  tmpFile,
+  arch,
+  fetchOpts,
+}) {
   const filepath = get7zFilepath(version, arch)
   const tmp7zFile = `${tmpFile}.7z`
 
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `${filepath}.7z`,
-    opts,
+    fetchOpts,
   )
   await pPipeline(response, createWriteStream(tmp7zFile))
   const { stdout, cancel } = execa(

@@ -20,12 +20,17 @@ const ZIP_VERSION_RANGE = '^4.5.0 || >=6.2.1'
 // `jszip` does not allow streaming with `loadAsync()` so we need to wait for
 // the HTTP request to complete before starting unzipping.
 // However we can stream the file unzipping with the file writing.
-export const downloadZip = async function ({ version, tmpFile, arch, opts }) {
+export const downloadZip = async function ({
+  version,
+  tmpFile,
+  arch,
+  fetchOpts,
+}) {
   const filepath = getZipFilepath(version, arch)
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `${filepath}.zip`,
-    opts,
+    fetchOpts,
   )
   const zipContent = await getStream.buffer(response)
   const zipStream = await getZipStream(zipContent, filepath)

@@ -8,14 +8,19 @@ import { shouldUseZip, downloadZip } from './zip.js'
 
 // Retrieve the Node binary from the Node website and persist it.
 // The URL depends on the current OS and CPU architecture.
-export const downloadRuntime = function ({ version, tmpFile, arch, opts }) {
+export const downloadRuntime = function ({
+  version,
+  tmpFile,
+  arch,
+  fetchOpts,
+}) {
   if (platform === 'win32') {
-    return downloadWindowsNode({ version, tmpFile, arch, opts })
+    return downloadWindowsNode({ version, tmpFile, arch, fetchOpts })
   }
 
   // istanbul ignore else
   if (SUPPORTED_UNIX.has(platform)) {
-    return downloadUnixNode({ version, tmpFile, arch, opts })
+    return downloadUnixNode({ version, tmpFile, arch, fetchOpts })
   }
 
   // TODO: support android, freebsd and openbsd.
@@ -33,17 +38,17 @@ export const downloadWindowsNode = async function ({
   version,
   tmpFile,
   arch,
-  opts,
+  fetchOpts,
 }) {
   if (await shouldUse7z(version)) {
-    return download7z({ version, tmpFile, arch, opts })
+    return download7z({ version, tmpFile, arch, fetchOpts })
   }
 
   if (shouldUseZip(version)) {
-    return downloadZip({ version, tmpFile, arch, opts })
+    return downloadZip({ version, tmpFile, arch, fetchOpts })
   }
 
-  return downloadRaw({ version, tmpFile, arch, opts })
+  return downloadRaw({ version, tmpFile, arch, fetchOpts })
 }
 
 // The Unix Node binary comes in a .tar.gz or .tar.xz archive.
@@ -51,11 +56,11 @@ export const downloadUnixNode = async function ({
   version,
   tmpFile,
   arch,
-  opts,
+  fetchOpts,
 }) {
   if (await shouldUseXz(version)) {
-    return downloadXz({ version, tmpFile, arch, opts })
+    return downloadXz({ version, tmpFile, arch, fetchOpts })
   }
 
-  return downloadGz({ version, tmpFile, arch, opts })
+  return downloadGz({ version, tmpFile, arch, fetchOpts })
 }

@@ -10,11 +10,16 @@ import { untar, moveTar } from './tar.js'
 const pPipeline = promisify(pipeline)
 
 // Downloads .tar.gz archive and extract it
-export const downloadGz = async function ({ version, arch, tmpFile, opts }) {
+export const downloadGz = async function ({
+  version,
+  arch,
+  tmpFile,
+  fetchOpts,
+}) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `node-v${version}-${platform}-${arch}.tar.gz`,
-    opts,
+    fetchOpts,
   )
   const promise = pPipeline(response, createGunzip(), untar(tmpFile))
 

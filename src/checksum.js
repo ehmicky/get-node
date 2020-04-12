@@ -7,10 +7,15 @@ import getStream from 'get-stream'
 // Verify Node.js binary checksum.
 // Checksums are available for every Node.js release.
 // This never throws, which allows it not to be awaited right away.
-export const checkChecksum = async function (version, filepath, response) {
+export const checkChecksum = async function ({
+  version,
+  filepath,
+  response,
+  fetchOpts,
+}) {
   try {
     const [expectedChecksum, actualChecksum] = await Promise.all([
-      getExpectedChecksum(version, filepath),
+      getExpectedChecksum(version, filepath, fetchOpts),
       getActualChecksum(response),
     ])
 
@@ -31,8 +36,8 @@ export const checkChecksum = async function (version, filepath, response) {
 //   3ca24...23380  node-v6.12.3-aix-ppc64.tar.gz
 //   4e731...4278f  node-v6.12.3-darwin-x64.tar.gz
 //   etc.
-const getExpectedChecksum = async function (version, filepath) {
-  const checksumLines = await getChecksumLines(version)
+const getExpectedChecksum = async function (version, filepath, fetchOpts) {
+  const checksumLines = await getChecksumLines(version, fetchOpts)
   const [expectedChecksum] = checksumLines
     .split('\n')
     .map(parseChecksumLine)
@@ -40,7 +45,7 @@ const getExpectedChecksum = async function (version, filepath) {
   return expectedChecksum
 }
 
-const getChecksumLines = async function (version) {
+const getChecksumLines = async function (version, fetchOpts) {
   // We set this environment variable during tests. Otherwise there are no ways
   // to test checksums since they are always supposed to match unlike there is
   // a network error
@@ -48,7 +53,10 @@ const getChecksumLines = async function (version) {
     return env.TEST_CHECKSUMS
   }
 
-  const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`)
+  const response = await fetchNodeWebsite(`v${version}/SHASUMS256.txt`, {
+    ...fetchOpts,
+    progress: false,
+  })
   const checksumLines = await getStream(response)
   return checksumLines
 }

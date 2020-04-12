@@ -38,11 +38,16 @@ const mHasXzBinary = async function () {
 
 const hasXzBinary = moize(mHasXzBinary)
 
-export const downloadXz = async function ({ version, tmpFile, arch, opts }) {
+export const downloadXz = async function ({
+  version,
+  tmpFile,
+  arch,
+  fetchOpts,
+}) {
   const { response, checksumError } = await fetchNodeUrl(
     version,
     `node-v${version}-${platform}-${arch}.tar.xz`,
-    opts,
+    fetchOpts,
   )
   const { stdout, cancel } = execa.command(
     `xz --decompress --stdout --threads=${cpus().length}`,

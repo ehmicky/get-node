@@ -9,12 +9,17 @@ const pPipeline = promisify(pipeline)
 
 // On Windows, when no zip archive is available (old Node.js versions), download
 // the raw `node.exe` file available for download instead.
-export const downloadRaw = async function ({ version, tmpFile, arch, opts }) {
+export const downloadRaw = async function ({
+  version,
+  tmpFile,
+  arch,
+  fetchOpts,
+}) {
   const filepath = getFilepath(version, arch)
   const { response, checksumError } = await fetchNodeUrl(
     version,
     filepath,
-    opts,
+    fetchOpts,
   )
   const promise = pPipeline(response, writeNodeBinary(tmpFile))
 

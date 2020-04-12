@@ -11,7 +11,7 @@ import { downloadRuntime } from './archive/main.js'
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
-export const download = async function ({ version, output, arch, opts }) {
+export const download = async function ({ version, output, arch, fetchOpts }) {
   const archA = getArch(arch)
   const nodePath = join(output, version, archA, NODE_FILENAME)
 
@@ -19,7 +19,7 @@ export const download = async function ({ version, output, arch, opts }) {
     return nodePath
   }
 
-  await downloadFile({ version, nodePath, arch: archA, opts })
+  await downloadFile({ version, nodePath, arch: archA, fetchOpts })
 
   return nodePath
 }
@@ -42,19 +42,24 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 //  - this means the file might be on a different partition
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
-const downloadFile = async function ({ version, nodePath, arch, opts }) {
+const downloadFile = async function ({ version, nodePath, arch, fetchOpts }) {
   const tmpFile = await tmpName({ prefix: `get-node-${version}-${arch}` })
 
   try {
-    await tmpDownload({ version, tmpFile, arch, opts })
+    await tmpDownload({ version, tmpFile, arch, fetchOpts })
     await moveTmpFile(tmpFile, nodePath)
   } finally {
     await cleanTmpFile(tmpFile)
   }
 }
 
-const tmpDownload = async function ({ version, tmpFile, arch, opts }) {
-  const checksumError = await safeDownload({ version, tmpFile, arch, opts })
+const tmpDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
+  const checksumError = await safeDownload({
+    version,
+    tmpFile,
+    arch,
+    fetchOpts,
+  })
 
   // We throw checksum errors only after everything else worked, so that errors
   // due to wrong platform, connectivity or wrong `mirror` option are shown
@@ -64,12 +69,12 @@ const tmpDownload = async function ({ version, tmpFile, arch, opts }) {
   }
 }
 
-const safeDownload = async function ({ version, tmpFile, arch, opts }) {
+const safeDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
   try {
-    return await downloadRuntime({ version, tmpFile, arch, opts })
+    return await downloadRuntime({ version, tmpFile, arch, fetchOpts })
   } catch (error) {
     throw new Error(
-      getDownloadError({ message: error.message, version, arch, opts }),
+      getDownloadError({ message: error.message, version, arch, fetchOpts }),
     )
   }
 }
@@ -78,7 +83,7 @@ const getDownloadError = function ({
   message,
   version,
   arch,
-  opts: { mirror },
+  fetchOpts: { mirror },
 }) {
   if (message.includes('getaddrinfo')) {
     return `Could not connect to ${mirror}`

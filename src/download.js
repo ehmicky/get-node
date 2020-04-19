@@ -1,7 +1,7 @@
-import { promises as fs } from 'fs'
 import { join } from 'path'
 import { platform } from 'process'
 
+import del from 'del'
 import moveFile from 'move-file'
 import pathExists from 'path-exists'
 import { tmpName } from 'tmp-promise'
@@ -116,5 +116,8 @@ const cleanTmpFile = async function (tmpFile) {
     return
   }
 
-  await fs.unlink(tmpFile)
+  // This is usually a regular file but can be a directory if the tar archive
+  // was extracted but not moved yet
+  // TODO: use fs.mkdir(..., {recursive: true}) after dropping Node <12
+  await del(tmpFile, { force: true })
 }

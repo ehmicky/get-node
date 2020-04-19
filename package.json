@@ -49,6 +49,7 @@
     "test": "test"
   },
   "dependencies": {
+    "del": "^5.1.0",
     "execa": "^4.0.0",
     "fetch-node-website": "^5.0.3",
     "filter-obj": "^2.0.1",
@@ -69,7 +70,6 @@
   "devDependencies": {
     "@ehmicky/dev-tasks": "^0.31.37",
     "ava": "^3.7.1",
-    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "husky": "^4.2.5",
     "sinon": "^9.0.2",

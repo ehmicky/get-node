@@ -61,7 +61,7 @@
     "node-version-alias": "^1.0.1",
     "path-exists": "^4.0.0",
     "path-key": "^3.1.1",
-    "preferred-node-version": "^1.0.1",
+    "preferred-node-version": "^1.1.0",
     "semver": "^7.3.2",
     "tar-fs": "^2.0.1",
     "tmp-promise": "^2.0.2"

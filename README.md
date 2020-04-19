@@ -31,7 +31,7 @@ Features include:
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
 - can guess the current project's version using its
-  [`.nvmrc`](#getnodeversion-options)
+  [`.nvmrc` or `package.json` (`engines.node` field)](#getnodeversion-options)
 
 # Example
 
@@ -47,7 +47,7 @@ console.log(path) // /home/user/.cache/nve/8.16.2/node
 console.log(version) // 8.16.2
 
 // Download Node.js latest release
-const { path, version } = await getNode('*')
+const { path, version } = await getNode('latest')
 console.log(path) // /home/user/.cache/nve/13.0.1/node
 console.log(version) // 13.0.1
 
@@ -55,13 +55,10 @@ console.log(version) // 13.0.1
 await getNode('8.12.0')
 await getNode('<7')
 
-// Download latest Node.js version
-await getNode('latest')
-
 // Download latest LTS Node.js version
 await getNode('lts')
 
-// Download current project's Node.js version using its `.nvmrc` or `package.json`
+// Download current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
 await getNode('now')
 
 // Specify the output directory
@@ -168,8 +165,8 @@ allowed except `mips` and `mipsel`.
 _Type_: `string`\
 _Default_: `process.cwd()`
 
-When using the [`.` alias](#getnodeversion-options), start looking for a Node.js
-version file from this directory.
+When using the [`now` alias](#getnodeversion-options), start looking for a
+Node.js version file from this directory.
 
 ### Return value
 

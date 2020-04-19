@@ -1,4 +1,4 @@
-import { version as processVersion } from 'process'
+import { version as processVersion, env } from 'process'
 
 import test from 'ava'
 import execa from 'execa'
@@ -14,13 +14,21 @@ test('Does not work on very old versions', async (t) => {
 })
 
 test('"now" alias default to current process version', async (t) => {
-  const output = getOutput()
-  const { path, version } = await getNode('now', { output })
+  // eslint-disable-next-line fp/no-mutation
+  env.TEST_HOME_DIR = '/'
 
-  t.true(await pathExists(path))
-  const { stdout } = await execa(path, ['--version'])
-  t.is(stdout, processVersion)
-  t.is(`v${version}`, processVersion)
+  try {
+    const output = getOutput()
+    const { path, version } = await getNode('now', { output, cwd: '/' })
 
-  await removeOutput(path)
+    t.true(await pathExists(path))
+    const { stdout } = await execa(path, ['--version'])
+    t.is(stdout, processVersion)
+    t.is(`v${version}`, processVersion)
+
+    await removeOutput(path)
+  } finally {
+    // eslint-disable-next-line fp/no-delete
+    delete env.TEST_HOME_DIR
+  }
 })

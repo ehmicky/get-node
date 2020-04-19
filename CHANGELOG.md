@@ -1,3 +1,9 @@
+# 10.0.0
+
+## Breaking changes
+
+- Rename the [alias `now`](/README.md#getnodeversion-options) to `here`
+
 # 9.0.0
 
 ## Breaking changes

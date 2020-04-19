@@ -1,3 +1,14 @@
+# 11.0.0
+
+## Breaking changes
+
+- Rename the [alias `here`](/README.md#getnodeversion-options) to `local`
+
+## Features
+
+- Add the [alias `global`](/README.md#getnodeversion-options) to target the
+  global Node version, regardless of the current directory
+
 # 10.0.0
 
 ## Breaking changes

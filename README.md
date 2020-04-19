@@ -58,7 +58,10 @@ await getNode('<7')
 // Download latest LTS Node.js version
 await getNode('lts')
 
-// Download current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
+// Download Node.js version from `~/.nvmrc` or the current process version
+await getNode('global')
+
+// Download current directory's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
 await getNode('local')
 
 // Specify the output directory
@@ -99,13 +102,19 @@ _Return value_: `Promise<object>`
 
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
-- `local`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
-  or
-  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
-  in the current directory, parent directories or home directory.
-  [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
-  used by other Node.js version managers are also searched for. Defaults to the
-  current process's Node version.
+- `global`: Global Node version
+  - Using the home directory [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc) or
+    [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  - [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+    used by other Node.js version managers are also searched for
+  - If nothing is found, defaults to the current process's Node version
+- `local`: Current directory's Node version
+  - Using the current directory or parent directories
+    [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
+    [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+    (or
+    [additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md))
+  - Defaults to the `global` version
 
 ### Options
 

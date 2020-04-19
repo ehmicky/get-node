@@ -22,15 +22,23 @@ export const getVersion = async function ({
   return version
 }
 
-const resolveVersion = async function ({
+const resolveVersion = function ({
   versionRange,
   preferredNodeOpts,
   nodeVersionAliasOpts,
 }) {
-  if (versionRange !== 'local') {
-    return nodeVersionAlias(versionRange, nodeVersionAliasOpts)
+  if (versionRange === 'global') {
+    return getPreferredVersion({ ...preferredNodeOpts, global: true })
   }
 
+  if (versionRange === 'local') {
+    return getPreferredVersion(preferredNodeOpts)
+  }
+
+  return nodeVersionAlias(versionRange, nodeVersionAliasOpts)
+}
+
+const getPreferredVersion = async function (preferredNodeOpts) {
   const { version } = await preferredNodeVersion(preferredNodeOpts)
 
   if (version === undefined) {

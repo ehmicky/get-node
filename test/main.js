@@ -15,6 +15,7 @@ import {
   TEST_VERSION_RANGE,
   LATEST_VERSION,
   NOW_VERSION,
+  ALIAS_VERSION,
 } from './helpers/versions.js'
 
 each(
@@ -27,6 +28,7 @@ each(
     TEST_VERSION_RANGE,
     LATEST_VERSION,
     NOW_VERSION,
+    ALIAS_VERSION,
   ],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async (t) => {

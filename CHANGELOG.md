@@ -1,3 +1,19 @@
+# 9.0.0
+
+## Breaking changes
+
+- Aliases `c` and `current` renamed to `now`
+- The [alias `now`](/README.md#getnodeversion-options) now takes into account
+  `package.json` `engines.node` field and
+  [additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+  used by other Node.js version managers.
+- Alias `l` removed: please use `latest` instead
+
+## Features
+
+- Added [alias `lts`](/README.md#getnodeversion-options) to target the latest
+  LTS version
+
 # 8.0.1
 
 ## Bug fixes

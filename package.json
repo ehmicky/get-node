@@ -58,9 +58,10 @@
     "jszip": "^3.3.0",
     "moize": "^5.4.5",
     "move-file": "^1.2.0",
-    "normalize-node-version": "^9.0.1",
+    "node-version-alias": "^1.0.0",
     "path-exists": "^4.0.0",
     "path-key": "^3.1.1",
+    "preferred-node-version": "^1.0.0",
     "semver": "^7.3.2",
     "tar-fs": "^2.0.1",
     "tmp-promise": "^2.0.2"

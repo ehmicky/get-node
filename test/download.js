@@ -1,6 +1,5 @@
 import test from 'ava'
 import execa from 'execa'
-import normalizeNodeVersion from 'normalize-node-version'
 import pathExists from 'path-exists'
 import { each } from 'test-each'
 
@@ -51,8 +50,8 @@ each(
   [NO_XZ_VERSION, TEST_VERSION],
   ({ title }, { mirror, message }, version) => {
     test(`HTTP error | ${title}`, async (t) => {
-      // Ensure normalize-node-version is cached
-      await normalizeNodeVersion(version)
+      // Ensure all-node-versions is cached
+      await getNode(TEST_VERSION)
 
       const outputA = getOutput()
       await t.throwsAsync(getNode(version, { output: outputA, mirror }), {

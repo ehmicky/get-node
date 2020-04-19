@@ -19,9 +19,10 @@ export const getOpts = async function (opts) {
   validateVersionRange(optsC)
 
   const { cwd, fetch, mirror, progress, ...optsD } = optsC
-  const normalizeOpts = { cwd, fetch, mirror }
+  const preferredNodeOpts = { cwd, fetch, mirror }
+  const nodeVersionAliasOpts = { fetch, mirror }
   const fetchOpts = { mirror, progress }
-  return { ...optsD, normalizeOpts, fetchOpts }
+  return { ...optsD, preferredNodeOpts, nodeVersionAliasOpts, fetchOpts }
 }
 
 const isDefined = function (key, value) {
@@ -29,7 +30,7 @@ const isDefined = function (key, value) {
 }
 
 const DEFAULT_OPTS = {
-  versionRange: '*',
+  versionRange: 'latest',
   progress: false,
   arch,
 }
@@ -38,7 +39,7 @@ const EXAMPLE_OPTS = {
   ...DEFAULT_OPTS,
   output: getCwd(),
   versionRange: '8',
-  // Passed to normalize-node-version
+  // Passed to preferred-node-version
   cwd: getCwd(),
   // Passed to all-node-versions
   fetch: true,
@@ -52,4 +53,6 @@ const validateVersionRange = function ({ versionRange }) {
   }
 }
 
-const ALIASES = new Set(['latest', 'l', 'current', 'c'])
+// Although `node-version-alias` supports more aliases, we only allow those ones
+// to keep it simple
+const ALIASES = new Set(['latest', 'now', 'lts'])

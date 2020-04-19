@@ -7,7 +7,6 @@ import getNode from '../src/main.js'
 
 import { getOutput, removeOutput } from './helpers/main.js'
 import {
-  NO_BIN_VERSION,
   OLDEST_VERSION,
   NO_XZ_VERSION,
   OLD_WIN_VERSION,
@@ -42,7 +41,3 @@ each(
     })
   },
 )
-
-test('Does not work on very old versions', async (t) => {
-  await t.throwsAsync(getNode(NO_BIN_VERSION))
-})

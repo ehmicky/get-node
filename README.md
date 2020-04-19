@@ -58,8 +58,11 @@ await getNode('<7')
 // Download latest Node.js version
 await getNode('latest')
 
+// Download latest LTS Node.js version
+await getNode('lts')
+
 // Download current project's Node.js version using its `.nvmrc` or `package.json`
-await getNode('current')
+await getNode('now')
 
 // Specify the output directory
 const { path } = await getNode('8', {
@@ -98,9 +101,14 @@ _Return value_: `Promise<object>`
 `12`, `12.6.0` or `<12`, or one of the following aliases:
 
 - `latest`: Latest available Node version
-- `now`: Node version from a `.nvmrc`, `.node-version` or `.naverc` file in the
-  current directory or any parent directory. Defaults to the current process's
-  Node version
+- `lts`: Latest LTS Node version
+- `now`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
+  or
+  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  in the current directory, parent directories or home directory.
+  [Some additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+  used by other Node.js version managers are also searched for. Defaults to the
+  current process's Node version.
 
 ### Options
 

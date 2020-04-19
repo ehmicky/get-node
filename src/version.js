@@ -6,7 +6,7 @@ import { lt as ltVersion } from 'semver'
 
 // Resolve full Node.js version.
 // We resolve aliases like 'latest' or 'lts' using `node-version-alias`.
-// The 'here' alias uses more complex logic using `preferred-node-version` and
+// The 'local' alias uses more complex logic using `preferred-node-version` and
 // defaults to `process.version`.
 export const getVersion = async function ({
   versionRange,
@@ -27,7 +27,7 @@ const resolveVersion = async function ({
   preferredNodeOpts,
   nodeVersionAliasOpts,
 }) {
-  if (versionRange !== 'here') {
+  if (versionRange !== 'local') {
     return nodeVersionAlias(versionRange, nodeVersionAliasOpts)
   }
 

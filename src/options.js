@@ -55,4 +55,4 @@ const validateVersionRange = function ({ versionRange }) {
 
 // Although `node-version-alias` supports more aliases, we only allow those ones
 // to keep it simple
-const ALIASES = new Set(['latest', 'here', 'lts'])
+const ALIASES = new Set(['latest', 'local', 'lts'])

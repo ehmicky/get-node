@@ -14,7 +14,7 @@ import {
   TEST_VERSION,
   TEST_VERSION_RANGE,
   LATEST_VERSION,
-  HERE_VERSION,
+  LOCAL_VERSION,
   ALIAS_VERSION,
 } from './helpers/versions.js'
 
@@ -27,7 +27,7 @@ each(
     TEST_VERSION,
     TEST_VERSION_RANGE,
     LATEST_VERSION,
-    HERE_VERSION,
+    LOCAL_VERSION,
     ALIAS_VERSION,
   ],
   ({ title }, versionInput) => {

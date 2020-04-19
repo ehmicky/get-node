@@ -59,7 +59,7 @@ await getNode('<7')
 await getNode('lts')
 
 // Download current project's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
-await getNode('here')
+await getNode('local')
 
 // Specify the output directory
 const { path } = await getNode('8', {
@@ -99,7 +99,7 @@ _Return value_: `Promise<object>`
 
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
-- `here`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
+- `local`: Node version from any [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc)
   or
   [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
   in the current directory, parent directories or home directory.
@@ -165,7 +165,7 @@ allowed except `mips` and `mipsel`.
 _Type_: `string`\
 _Default_: `process.cwd()`
 
-When using the [`here` alias](#getnodeversion-options), start looking for a
+When using the [`local` alias](#getnodeversion-options), start looking for a
 Node.js version file from this directory.
 
 ### Return value

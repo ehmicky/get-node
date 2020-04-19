@@ -190,6 +190,10 @@ _Type_: `string`
 - [`nve`](https://github.com/ehmicky/nve): Run a specific Node.js version (CLI)
 - [`nvexeca`](https://github.com/ehmicky/nve): Run a specific Node.js version
   (programmatic)
+- [`preferred-node-version`](https://github.com/ehmicky/preferred-node-version):
+  Get the preferred Node.js version of a project or user
+- [`node-version-alias`](https://github.com/ehmicky/node-version-alias): Resolve
+  Node.js version aliases like `latest`, `lts` or `erbium`
 - [`normalize-node-version`](https://github.com/ehmicky/normalize-node-version):
   Normalize and validate Node.js versions
 - [`all-node-versions`](https://github.com/ehmicky/all-node-versions): List all

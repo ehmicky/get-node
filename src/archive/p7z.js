@@ -36,7 +36,7 @@ const mHas7zBinary = async function () {
   return !failed
 }
 
-const has7zBinary = moize(mHas7zBinary)
+const has7zBinary = moize(mHas7zBinary, { maxSize: 1e3 })
 
 // 7zip does not support stdin streaming with *.7z but it supports stdout
 // streaming. So we first download the archive to a temporary file, then extract

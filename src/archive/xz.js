@@ -36,7 +36,7 @@ const mHasXzBinary = async function () {
   return !failed
 }
 
-const hasXzBinary = moize(mHasXzBinary)
+const hasXzBinary = moize(mHasXzBinary, { maxSize: 1e3 })
 
 export const downloadXz = async function ({
   version,

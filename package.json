@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "del": "^5.1.0",
-    "execa": "^4.0.2",
+    "execa": "^4.0.3",
     "fetch-node-website": "^5.0.3",
     "filter-obj": "^2.0.1",
     "get-stream": "^5.1.0",

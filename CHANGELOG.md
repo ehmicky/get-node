@@ -28,7 +28,7 @@
 - Aliases `c` and `current` renamed to `now`
 - The [alias `now`](/README.md#getnodeversion-options) now takes into account
   `package.json` `engines.node` field and
-  [additional files](https://github.com/ehmicky/preferred-node-version/blob/master/README.md)
+  [additional files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md)
   used by other Node.js version managers.
 - Alias `l` removed: please use `latest` instead
 
@@ -203,14 +203,14 @@
 ## Features
 
 - Improve the appearance of the progress bar with the
-  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options).
+  [`progress` option](https://github.com/ehmicky/get-node/blob/main/README.md#getnodeversion-options).
 
 # 5.3.0
 
 ## Features
 
 - The
-  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options)
+  [`progress` option](https://github.com/ehmicky/get-node/blob/main/README.md#getnodeversion-options)
   now displays a progress bar instead of a spinner.
 
 # 5.2.0
@@ -230,9 +230,9 @@
 ## Breaking changes
 
 - Change the
-  [`progress` option](https://github.com/ehmicky/get-node/blob/master/README.md#getnodeversion-options)
+  [`progress` option](https://github.com/ehmicky/get-node/blob/main/README.md#getnodeversion-options)
   default value from `true` to `false` when called programmatically. The
-  [`--progress` CLI option](https://github.com/ehmicky/get-node/blob/master/README.md#--progress)
+  [`--progress` CLI option](https://github.com/ehmicky/get-node/blob/main/README.md#--progress)
   still defaults to `true`.
 
 # 4.0.3
@@ -258,7 +258,7 @@
 ## Breaking changes
 
 - The output directory is now specified as
-  [an `--output` flag](https://github.com/ehmicky/get-node/blob/master/README.md#--output)
+  [an `--output` flag](https://github.com/ehmicky/get-node/blob/main/README.md#--output)
   instead of a positional argument on the CLI. This means
   `get-node VERSION OUTPUT` should now be `get-node --output=OUTPUT VERSION`.
 
@@ -266,10 +266,10 @@
 
 - Add `--help` and `--version` CLI flags
 - Add
-  [`--progress`](https://github.com/ehmicky/get-node/blob/master/README.md#--progress)
+  [`--progress`](https://github.com/ehmicky/get-node/blob/main/README.md#--progress)
   CLI flag
 - Add
-  [`--mirror`](https://github.com/ehmicky/get-node/blob/master/README.md#--mirror)
+  [`--mirror`](https://github.com/ehmicky/get-node/blob/main/README.md#--mirror)
   option
 - Improve CLI spinner
 

@@ -63,6 +63,7 @@
     "path-exists": "^4.0.0",
     "path-key": "^3.1.1",
     "preferred-node-version": "^1.1.0",
+    "rimraf": "^3.0.2",
     "semver": "^7.3.2",
     "tar-fs": "^2.1.0",
     "tmp-promise": "^3.0.2"

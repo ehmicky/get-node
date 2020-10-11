@@ -1,6 +1,10 @@
 import { promises as fs } from 'fs'
+import { promisify } from 'util'
 
+import rimraf from 'rimraf'
 import { extract as tarExtract } from 'tar-fs'
+
+const pRimraf = promisify(rimraf)
 
 // Extract .tar.gz and .tar.xz archive
 export const untar = function (tmpFile) {
@@ -19,6 +23,9 @@ const shouldExclude = function (path) {
 export const moveTar = async function (tmpFile) {
   const intermediateFile = `${tmpFile}-${Math.random()}`
   await fs.rename(`${tmpFile}/node`, intermediateFile)
-  await fs.rmdir(tmpFile)
+
+  // TODO: use `fs.promises.rm()` after dropping support for Node <14.14.0
+  await pRimraf(tmpFile, { disableGlob: true })
+
   await fs.rename(intermediateFile, tmpFile)
 }

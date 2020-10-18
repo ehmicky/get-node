@@ -3,6 +3,8 @@ import { promisify } from 'util'
 
 import getNode from '../../src/main.js'
 
+// TODO: replace with `timers/promises` `setTimeout()` after dropping support
+// for Node <15.0.0
 const pSetTimeout = promisify(setTimeout)
 
 const [, , versionRange, output] = argv

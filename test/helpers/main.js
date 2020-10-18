@@ -5,6 +5,8 @@ import { promisify } from 'util'
 
 import del from 'del'
 
+// TODO: replace with `timers/promises` `setTimeout()` after dropping support
+// for Node <15.0.0
 const pSetTimeout = promisify(setTimeout)
 
 export const getOutput = function () {

@@ -5,6 +5,7 @@ import { gte as gteVersion } from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 
+// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
 const pPipeline = promisify(pipeline)
 
 // On Windows, when no zip archive is available (old Node.js versions), download

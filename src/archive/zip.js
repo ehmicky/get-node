@@ -7,6 +7,7 @@ import { satisfies } from 'semver'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
 
+// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
 const pPipeline = promisify(pipeline)
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1

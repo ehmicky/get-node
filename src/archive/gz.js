@@ -7,6 +7,7 @@ import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 
 import { untar, moveTar } from './tar.js'
 
+// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
 const pPipeline = promisify(pipeline)
 
 // Downloads .tar.gz archive and extract it

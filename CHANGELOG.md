@@ -1,3 +1,9 @@
+# 11.0.2
+
+## Bug fixes
+
+- Fix issue with `SIGINT` handlers
+
 # 11.0.1
 
 ## Bug fixes

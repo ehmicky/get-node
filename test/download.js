@@ -41,7 +41,10 @@ test('Writes atomically', async (t) => {
 
 each(
   [
-    { mirror: 'https://unknown-mirror.com', message: /Could not connect/u },
+    {
+      mirror: 'https://unknown-mirror.com',
+      message: /Could not connect|download/u,
+    },
     // We cannot test this since all the OS/architecture tested in CI have
     // Node.js binaries. So we simulate it by using a `mirror` to an existing
     // website, leading to a 404.

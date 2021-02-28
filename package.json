@@ -69,7 +69,7 @@
     "tmp-promise": "^3.0.2"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^0.31.85",
+    "@ehmicky/dev-tasks": "^0.31.86",
     "sinon": "^9.2.4",
     "test-each": "^2.0.1"
   },

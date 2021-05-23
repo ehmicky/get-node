@@ -82,7 +82,7 @@ await getNode('8', { arch: 'x32' })
 npm install get-node
 ```
 
-`node >=10.17.0` must be globally installed. However any Node version can be
+`node >=12.20.0` must be globally installed. However any Node version can be
 downloaded.
 
 To use this module as a CLI instead, please check

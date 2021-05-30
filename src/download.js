@@ -118,6 +118,6 @@ const cleanTmpFile = async function (tmpFile) {
 
   // This is usually a regular file but can be a directory if the tar archive
   // was extracted but not moved yet
-  // TODO: use fs.mkdir(..., {recursive: true}) after dropping Node <12
+  // TODO: use fs.promises.rm(..., {recursive: true}) after dropping Node <14
   await del(tmpFile, { force: true })
 }

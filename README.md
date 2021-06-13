@@ -38,7 +38,7 @@ Features include:
 <!-- eslint-skip -->
 
 ```js
-const getNode = require('get-node')
+import getNode from 'get-node'
 
 // Download a specific Node.js release
 const { path, version } = await getNode('8')

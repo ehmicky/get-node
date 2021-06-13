@@ -2,7 +2,7 @@ import { pipeline } from 'stream'
 import { promisify } from 'util'
 
 import getStream from 'get-stream'
-import { loadAsync } from 'jszip'
+import jszip from 'jszip'
 import semver from 'semver'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
@@ -47,7 +47,7 @@ const getZipFilepath = function (version, arch) {
 }
 
 const getZipStream = async function (zipContent, filepath) {
-  const archive = await loadAsync(zipContent, JSZIP_OPTIONS)
+  const archive = await jszip.loadAsync(zipContent, JSZIP_OPTIONS)
   const file = archive.file(`${filepath}/node.exe`)
   const zipStream = file.nodeStream('nodebuffer')
   return zipStream

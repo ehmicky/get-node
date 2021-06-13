@@ -93,8 +93,10 @@ const getDownloadError = function ({
     return `No Node.js binaries available for ${version} on ${platform} ${arch}`
   }
 
+  /* c8 ignore start */
   // Testing other HTTP errors is hard in CI.
   return `Could not download Node.js ${version}: ${message}`
+  /* c8 ignore stop */
 }
 
 const moveTmpFile = async function (tmpFile, nodePath) {

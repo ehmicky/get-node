@@ -42,13 +42,13 @@ import getNode from 'get-node'
 
 // Download a specific Node.js release
 const { path, version } = await getNode('8')
-console.log(path) // /home/user/.cache/nve/8.16.2/node
-console.log(version) // 8.16.2
+console.log(path) // /home/user/.cache/nve/8.17.0/node
+console.log(version) // 8.17.0
 
 // Download Node.js latest release
 const { path, version } = await getNode('latest')
-console.log(path) // /home/user/.cache/nve/13.0.1/node
-console.log(version) // 13.0.1
+console.log(path) // /home/user/.cache/nve/16.3.0/node
+console.log(version) // 16.3.0
 
 // Any version range can be used
 await getNode('8.12.0')

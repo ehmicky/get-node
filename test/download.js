@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'url'
+
 import test from 'ava'
 import execa from 'execa'
 // eslint-disable-next-line import/no-unresolved, node/no-missing-import
@@ -8,7 +10,9 @@ import { each } from 'test-each'
 import { getOutput, removeOutput } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
-const ATOMIC_PROCESS = `${__dirname}/helpers/atomic.js`
+const ATOMIC_PROCESS = fileURLToPath(
+  new URL('./helpers/atomic.js', import.meta.url),
+)
 
 test('Caches download', async (t) => {
   const output = getOutput()

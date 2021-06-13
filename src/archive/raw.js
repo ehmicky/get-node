@@ -35,14 +35,14 @@ const getFilepath = function (version, arch) {
     return `win-${arch}/node.exe`
   }
 
+  /* c8 ignore start */
   // We currently only run CI tests on Windows x64
-  // istanbul ignore else
   if (arch === 'x64') {
     return 'x64/node.exe'
   }
 
-  // istanbul ignore next
   return 'node.exe'
+  /* c8 ignore stop */
 }
 
 const NEW_URL_VERSION = '4.0.0'

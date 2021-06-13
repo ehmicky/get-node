@@ -18,16 +18,16 @@ export const downloadRuntime = function ({
     return downloadWindowsNode({ version, tmpFile, arch, fetchOpts })
   }
 
-  // istanbul ignore else
   if (SUPPORTED_UNIX.has(platform)) {
     return downloadUnixNode({ version, tmpFile, arch, fetchOpts })
   }
 
+  /* c8 ignore start */
   // TODO: support android, freebsd and openbsd.
   // https://nodejs.org/dist does not deliver binaries for those platforms.
   // We currently do not run CI tests on those platforms
-  // istanbul ignore next
   throw new Error(`Unsupported platform: ${platform}`)
+  /* c8 ignore stop */
 }
 
 const SUPPORTED_UNIX = new Set(['linux', 'darwin', 'aix', 'sunos'])

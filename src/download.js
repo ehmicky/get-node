@@ -89,13 +89,11 @@ const getDownloadError = function ({
     return `Could not connect to ${mirror}`
   }
 
-  // istanbul ignore else
   if (message.includes('404')) {
     return `No Node.js binaries available for ${version} on ${platform} ${arch}`
   }
 
   // Testing other HTTP errors is hard in CI.
-  // istanbul ignore next
   return `Could not download Node.js ${version}: ${message}`
 }
 

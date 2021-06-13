@@ -3,10 +3,11 @@ import { platform } from 'process'
 // Retrieve the CPU architecture as used in binary filenames.
 // Can be changed with the `arch` option.
 export const getArch = function (arch) {
-  // istanbul ignore next
+  /* c8 ignore start */
   if (platform === 'aix') {
     return 'ppc64'
   }
+  /* c8 ignore stop */
 
   const archA = PLATFORMS[arch]
 

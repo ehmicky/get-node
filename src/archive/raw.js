@@ -1,7 +1,7 @@
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 
-import { gte as gteVersion } from 'semver'
+import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 
@@ -31,7 +31,7 @@ export const downloadRaw = async function ({
 
 // Before Node.js 4.0.0, the URL to the node.exe was different
 const getFilepath = function (version, arch) {
-  if (gteVersion(version, NEW_URL_VERSION)) {
+  if (semver.gte(version, NEW_URL_VERSION)) {
     return `win-${arch}/node.exe`
   }
 

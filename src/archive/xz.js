@@ -5,7 +5,7 @@ import { promisify } from 'util'
 
 import execa from 'execa'
 import moize from 'moize'
-import { satisfies } from 'semver'
+import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 
@@ -24,7 +24,7 @@ export const shouldUseXz = function (version) {
 
 // Older Node.js versions only shipped .tar.gz not .tar.xz
 const versionHasXz = function (version) {
-  return satisfies(version, XZ_VERSION_RANGE)
+  return semver.satisfies(version, XZ_VERSION_RANGE)
 }
 
 const XZ_VERSION_RANGE = '^0.10.42 || >=0.12.10'

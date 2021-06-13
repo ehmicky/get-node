@@ -7,7 +7,7 @@ import { promisify } from 'util'
 import execa from 'execa'
 import moize from 'moize'
 import pathKey from 'path-key'
-import { satisfies } from 'semver'
+import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 
@@ -23,7 +23,7 @@ export const shouldUse7z = function (version) {
 }
 
 const versionHas7z = function (version) {
-  return satisfies(version, P7Z_VERSION_RANGE)
+  return semver.satisfies(version, P7Z_VERSION_RANGE)
 }
 
 const P7Z_VERSION_RANGE = '^4.5.0 || >=6.2.1'

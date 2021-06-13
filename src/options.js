@@ -2,7 +2,7 @@ import { cwd as getCwd, arch } from 'process'
 
 import filterObj from 'filter-obj'
 import { validate } from 'jest-validate'
-import { validRange } from 'semver'
+import semver from 'semver'
 
 import { addOutput } from './output.js'
 
@@ -48,7 +48,7 @@ const EXAMPLE_OPTS = {
 }
 
 const validateVersionRange = function ({ versionRange }) {
-  if (!ALIASES.has(versionRange) && validRange(versionRange) === null) {
+  if (!ALIASES.has(versionRange) && semver.validRange(versionRange) === null) {
     throw new TypeError(`Not a valid Node version range: ${versionRange}`)
   }
 }

@@ -3,7 +3,7 @@ import { promisify } from 'util'
 
 import getStream from 'get-stream'
 import { loadAsync } from 'jszip'
-import { satisfies } from 'semver'
+import semver from 'semver'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
 
@@ -12,7 +12,7 @@ const pPipeline = promisify(pipeline)
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 export const shouldUseZip = function (version) {
-  return satisfies(version, ZIP_VERSION_RANGE)
+  return semver.satisfies(version, ZIP_VERSION_RANGE)
 }
 
 const ZIP_VERSION_RANGE = '^4.5.0 || >=6.2.1'

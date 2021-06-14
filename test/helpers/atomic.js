@@ -1,7 +1,8 @@
 import { argv, exit } from 'process'
 import { promisify } from 'util'
 
-import getNode from '../../src/main.js'
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import getNode from 'get-node'
 
 // TODO: replace with `timers/promises` `setTimeout()` after dropping support
 // for Node <15.0.0

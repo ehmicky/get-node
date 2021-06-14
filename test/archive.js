@@ -1,10 +1,10 @@
 import { env } from 'process'
 
 import test from 'ava'
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import getNode from 'get-node'
 import pathExists from 'path-exists'
 import pathKey from 'path-key'
-
-import getNode from '../src/main.js'
 
 import { getOutput, removeOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'

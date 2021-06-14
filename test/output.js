@@ -3,9 +3,9 @@ import { arch } from 'process'
 
 import test from 'ava'
 import del from 'del'
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import getNode from 'get-node'
 import globalCacheDir from 'global-cache-dir'
-
-import getNode from '../src/main.js'
 
 import { getOutput, getNodeDir, removeOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'

@@ -1,9 +1,9 @@
 import test from 'ava'
 import execa from 'execa'
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
+import getNode from 'get-node'
 import pathExists from 'path-exists'
 import { each } from 'test-each'
-
-import getNode from '../src/main.js'
 
 import { getOutput, removeOutput } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'

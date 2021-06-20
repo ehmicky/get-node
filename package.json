@@ -57,7 +57,7 @@
     "move-file": "^2.1.0",
     "node-version-alias": "^1.0.1",
     "path-exists": "^4.0.0",
-    "path-key": "^3.1.1",
+    "path-key": "^4.0.0",
     "preferred-node-version": "^1.1.0",
     "rimraf": "^3.0.2",
     "semver": "^7.3.5",

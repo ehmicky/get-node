@@ -3,7 +3,6 @@ import { getOpts } from './options.js'
 import { getVersion } from './version.js'
 
 // Download the Node.js binary for a specific `versionRange`
-// eslint-disable-next-line import/no-default-export
 export default async function getNode(versionRange, opts) {
   const {
     versionRange: versionRangeA,

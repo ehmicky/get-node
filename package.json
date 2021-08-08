@@ -55,7 +55,7 @@
     "jest-validate": "^27.0.6",
     "jszip": "^3.5.0",
     "moize": "^6.0.3",
-    "move-file": "^2.1.0",
+    "move-file": "^3.0.0",
     "node-version-alias": "^2.0.0",
     "path-exists": "^5.0.0",
     "path-key": "^4.0.0",

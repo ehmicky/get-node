@@ -3,7 +3,7 @@ import { arch, platform } from 'process'
 import test from 'ava'
 import execa from 'execa'
 import getNode from 'get-node'
-import pathExists from 'path-exists'
+import { pathExists } from 'path-exists'
 
 import { getOutput, removeOutput } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'

@@ -3,7 +3,7 @@ import { version as processVersion, env } from 'process'
 import test from 'ava'
 import execa from 'execa'
 import getNode from 'get-node'
-import pathExists from 'path-exists'
+import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
 import { getOutput, removeOutput } from './helpers/main.js'

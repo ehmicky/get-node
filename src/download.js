@@ -3,7 +3,7 @@ import { platform } from 'process'
 
 import del from 'del'
 import moveFile from 'move-file'
-import pathExists from 'path-exists'
+import { pathExists } from 'path-exists'
 import { tmpName } from 'tmp-promise'
 
 import { getArch } from './arch.js'

@@ -2,7 +2,7 @@ import { env } from 'process'
 
 import test from 'ava'
 import getNode from 'get-node'
-import pathExists from 'path-exists'
+import { pathExists } from 'path-exists'
 import pathKey from 'path-key'
 
 import { getOutput, removeOutput } from './helpers/main.js'

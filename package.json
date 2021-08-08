@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.43",
-    "sinon": "^11.1.1",
+    "sinon": "^11.1.2",
     "test-each": "^3.0.1"
   },
   "engines": {

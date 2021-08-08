@@ -2,7 +2,7 @@ import { join } from 'path'
 import { platform } from 'process'
 
 import del from 'del'
-import moveFile from 'move-file'
+import { moveFile } from 'move-file'
 import { pathExists } from 'path-exists'
 import { tmpName } from 'tmp-promise'
 

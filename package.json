@@ -54,7 +54,7 @@
     "global-cache-dir": "^3.0.1",
     "jest-validate": "^27.2.4",
     "jszip": "^3.7.1",
-    "moize": "^6.0.3",
+    "moize": "^6.1.0",
     "move-file": "^3.0.0",
     "node-version-alias": "^2.0.0",
     "path-exists": "^5.0.0",

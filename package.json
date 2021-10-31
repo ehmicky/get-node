@@ -63,7 +63,7 @@
     "rimraf": "^3.0.2",
     "semver": "^7.3.5",
     "tar-fs": "^2.1.1",
-    "tmp-promise": "^3.0.2"
+    "tmp-promise": "^3.0.3"
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.56",

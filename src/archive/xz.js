@@ -3,7 +3,7 @@ import { platform } from 'process'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import moize from 'moize'
 import semver from 'semver'
 
@@ -30,7 +30,7 @@ const versionHasXz = function (version) {
 const XZ_VERSION_RANGE = '^0.10.42 || >=0.12.10'
 
 const mHasXzBinary = async function () {
-  const { failed } = await execa.command('xz --version', {
+  const { failed } = await execaCommand('xz --version', {
     reject: false,
     stdio: 'ignore',
   })
@@ -50,7 +50,7 @@ export const downloadXz = async function ({
     `node-v${version}-${platform}-${arch}.tar.xz`,
     fetchOpts,
   )
-  const { stdout, cancel } = execa.command(
+  const { stdout, cancel } = execaCommand(
     `xz --decompress --stdout --threads=${cpus().length}`,
     {
       input: response,

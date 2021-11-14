@@ -1,7 +1,7 @@
 import { arch, platform } from 'process'
 
 import test from 'ava'
-import execa from 'execa'
+import { execa } from 'execa'
 import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 

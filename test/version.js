@@ -1,7 +1,7 @@
 import { version as processVersion, env } from 'process'
 
 import test from 'ava'
-import execa from 'execa'
+import { execa } from 'execa'
 import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
@@ -30,8 +30,8 @@ each([LOCAL_VERSION, GLOBAL_VERSION], ({ title }, alias) => {
 
         t.true(await pathExists(path))
         const { stdout } = await execa(path, ['--version'])
-        t.is(stdout, processVersion)
-        t.is(`v${version}`, processVersion)
+        t.is(stdout, `v${version}`)
+        t.is(processVersion, `v${version}`)
 
         await removeOutput(path)
       } finally {

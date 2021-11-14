@@ -4,7 +4,7 @@ import { env } from 'process'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 
-import execa from 'execa'
+import { execa } from 'execa'
 import moize from 'moize'
 import pathKey from 'path-key'
 import semver from 'semver'

@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url'
 
 import test from 'ava'
-import execa from 'execa'
+import { execa } from 'execa'
 import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'

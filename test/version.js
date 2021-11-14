@@ -30,8 +30,8 @@ each([LOCAL_VERSION, GLOBAL_VERSION], ({ title }, alias) => {
 
         t.true(await pathExists(path))
         const { stdout } = await execa(path, ['--version'])
-        t.is(stdout, `v${version}`)
-        t.is(processVersion, `v${version}`)
+        t.is(stdout, processVersion)
+        t.is(`v${version}`, processVersion)
 
         await cleanup()
       } finally {

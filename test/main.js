@@ -1,10 +1,9 @@
 import test from 'ava'
 import { execa } from 'execa'
-import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getOutput, removeOutput } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.js'
 import {
   OLDEST_VERSION,
   NO_XZ_VERSION,
@@ -31,14 +30,13 @@ each(
   ],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async (t) => {
-      const output = getOutput()
-      const { path, version } = await getNode(versionInput, { output })
+      const { path, version, cleanup } = await getNodeVersion(versionInput)
 
       t.true(await pathExists(path))
       const { stdout } = await execa(path, ['--version'])
       t.is(stdout, `v${version}`)
 
-      await removeOutput(path)
+      await cleanup()
     })
   },
 )

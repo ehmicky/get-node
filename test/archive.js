@@ -1,11 +1,10 @@
 import { env } from 'process'
 
 import test from 'ava'
-import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import pathKey from 'path-key'
 
-import { getOutput, removeOutput } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
 const PATH_KEY = pathKey()
@@ -14,12 +13,11 @@ test.serial('Works when no xz/7z binary exists', async (t) => {
   const { pathEnv, pathExt } = patchPath()
 
   try {
-    const output = getOutput()
-    const { path } = await getNode(TEST_VERSION, { output })
+    const { path, cleanup } = await getNodeVersion(TEST_VERSION)
 
     t.true(await pathExists(path))
 
-    await removeOutput(path)
+    await cleanup()
   } finally {
     unpatchPath({ pathEnv, pathExt })
   }

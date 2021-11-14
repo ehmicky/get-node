@@ -2,11 +2,10 @@ import { version as processVersion, env } from 'process'
 
 import test from 'ava'
 import { execa } from 'execa'
-import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getOutput, removeOutput } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.js'
 import {
   NO_BIN_VERSION,
   GLOBAL_VERSION,
@@ -14,7 +13,7 @@ import {
 } from './helpers/versions.js'
 
 test('Does not work on very old versions', async (t) => {
-  await t.throwsAsync(getNode(NO_BIN_VERSION))
+  await t.throwsAsync(getNodeVersion(NO_BIN_VERSION))
 })
 
 each([LOCAL_VERSION, GLOBAL_VERSION], ({ title }, alias) => {
@@ -25,15 +24,16 @@ each([LOCAL_VERSION, GLOBAL_VERSION], ({ title }, alias) => {
       env.TEST_HOME_DIR = '/'
 
       try {
-        const output = getOutput()
-        const { path, version } = await getNode(alias, { output, cwd: '/' })
+        const { path, version, cleanup } = await getNodeVersion(alias, {
+          cwd: '/',
+        })
 
         t.true(await pathExists(path))
         const { stdout } = await execa(path, ['--version'])
         t.is(stdout, `v${version}`)
         t.is(processVersion, `v${version}`)
 
-        await removeOutput(path)
+        await cleanup()
       } finally {
         // eslint-disable-next-line fp/no-delete
         delete env.TEST_HOME_DIR

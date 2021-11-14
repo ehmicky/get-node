@@ -4,17 +4,25 @@ import { platform } from 'process'
 import { promisify } from 'util'
 
 import del from 'del'
+import getNode from 'get-node'
 
 // TODO: replace with `timers/promises` `setTimeout()` after dropping support
 // for Node <15.0.0
 const pSetTimeout = promisify(setTimeout)
+
+export const getNodeVersion = async function (versionRange, opts) {
+  const output = getOutput()
+  const { path, version } = await getNode(versionRange, { output, ...opts })
+  const cleanup = removeOutput.bind(undefined, path)
+  return { output, path, version, cleanup }
+}
 
 export const getOutput = function () {
   const id = String(Math.random()).replace('.', '')
   return `${tmpdir()}/test-get-node-${id}`
 }
 
-export const removeOutput = async function (nodePath) {
+const removeOutput = async function (nodePath) {
   await pSetTimeout(REMOVE_TIMEOUT)
 
   const nodeDir = getNodeDir(nodePath)

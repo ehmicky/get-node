@@ -2,11 +2,10 @@ import { fileURLToPath } from 'url'
 
 import test from 'ava'
 import { execa } from 'execa'
-import getNode from 'get-node'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getOutput, removeOutput } from './helpers/main.js'
+import { getOutput, getNodeVersion } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = fileURLToPath(
@@ -14,25 +13,24 @@ const ATOMIC_PROCESS = fileURLToPath(
 )
 
 test('Caches download', async (t) => {
-  const output = getOutput()
-  const { path } = await getNode(TEST_VERSION, { output })
-  const { path: pathA } = await getNode(TEST_VERSION, { output })
+  const { path, output, cleanup } = await getNodeVersion(TEST_VERSION)
+  const { path: pathA } = await getNodeVersion(TEST_VERSION, { output })
 
   t.is(path, pathA)
 
-  await removeOutput(path)
+  await cleanup()
 })
 
 test('Parallel downloads', async (t) => {
   const output = getOutput()
-  const [{ path }, { path: pathA }] = await Promise.all([
-    getNode(TEST_VERSION, { output }),
-    getNode(TEST_VERSION, { output }),
+  const [{ path, cleanup }, { path: pathA }] = await Promise.all([
+    getNodeVersion(TEST_VERSION, { output }),
+    getNodeVersion(TEST_VERSION, { output }),
   ])
 
   t.is(path, pathA)
 
-  await removeOutput(path)
+  await cleanup()
 })
 
 test('Writes atomically', async (t) => {
@@ -57,12 +55,10 @@ each(
   ({ title }, { mirror, message }, version) => {
     test(`HTTP error | ${title}`, async (t) => {
       // Ensure all-node-versions is cached
-      await getNode(TEST_VERSION)
+      const { cleanup } = await getNodeVersion(TEST_VERSION)
 
-      const outputA = getOutput()
-      await t.throwsAsync(getNode(version, { output: outputA, mirror }), {
-        message,
-      })
+      await t.throwsAsync(getNodeVersion(version, { mirror }), { message })
+      await cleanup()
     })
   },
 )

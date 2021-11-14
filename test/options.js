@@ -1,8 +1,7 @@
 import test from 'ava'
-import getNode from 'get-node'
 import { each } from 'test-each'
 
-import { getOutput, removeOutput } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.js'
 
 each(
   [
@@ -15,19 +14,16 @@ each(
   ],
   ({ title }, { versionRange, ...opts }) => {
     test(`Invalid arguments | ${title}`, async (t) => {
-      await t.throwsAsync(getNode(versionRange, opts))
+      await t.throwsAsync(getNodeVersion(versionRange, opts))
     })
   },
 )
 
 test('Defaults version to *', async (t) => {
-  const output = getOutput()
-  const [{ path }, { path: pathA }] = await Promise.all([
-    getNode('*', { output }),
-    getNode(undefined, { output }),
-  ])
+  const { path, cleanup, output } = await getNodeVersion('*')
+  const { path: pathA } = await getNodeVersion(undefined, { output })
 
   t.is(path, pathA)
 
-  await removeOutput(path)
+  await cleanup()
 })

@@ -9,7 +9,7 @@ import { getOutput, getNodeVersion } from './helpers/main.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.js'
 
 const ATOMIC_PROCESS = fileURLToPath(
-  new URL('./helpers/atomic.js', import.meta.url),
+  new URL('helpers/atomic.js', import.meta.url),
 )
 
 test('Caches download', async (t) => {

@@ -2,18 +2,13 @@ import getNode from 'get-node'
 import { expectType, expectError } from 'tsd'
 
 expectType<Promise<{ version: string; path: string }>>(getNode('14.0.0'))
-expectType<Promise<{ version: string; path: string }>>(getNode('8'))
+await getNode('8')
 
-expectType<Promise<{ version: string; path: string }>>(
-  getNode('8', {
-    arch: 'x64',
-  }),
-)
-
-expectType<{ version: string; path: string }>(
-  await getNode('8', {
-    mirror: 'https://npm.taobao.org/mirrors/node',
-  }),
-)
+await getNode('8', { output: 'node' })
+await getNode('8', { progress: true })
+await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
+await getNode('8', { fetch: true })
+await getNode('8', { arch: 'x64' })
+await getNode('8', { cwd: '.' })
 
 expectError(getNode(14))

@@ -1,3 +1,9 @@
+# 12.1.0
+
+## Features
+
+- Add TypeScript types.
+
 # 12.0.0
 
 ## Breaking changes

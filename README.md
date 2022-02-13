@@ -94,14 +94,14 @@ To use this module as a CLI instead, please check
 
 # Usage
 
-## getNode(version, options?)
+## getNode(versionRange, options?)
 
-`version`: `string`\
+`versionRange`: `string`\
 `options`: `object?`\
 _Return value_: `Promise<object>`
 
-`version` can be any [version range](https://github.com/npm/node-semver) such as
-`12`, `12.6.0` or `<12`, or one of the following aliases:
+`versionRange` can be any [version range](https://github.com/npm/node-semver)
+such as `12`, `12.6.0` or `<12`, or one of the following aliases:
 
 - `latest`: Latest available Node version
 - `lts`: Latest LTS Node version
@@ -175,7 +175,7 @@ allowed except `mips` and `mipsel`.
 #### cwd
 
 _Type_: `string`\
-_Default_: `process.cwd()`
+_Default_: `.`
 
 When using the [`local` alias](#getnodeversion-options), start looking for a
 Node.js version file from this directory.

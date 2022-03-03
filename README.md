@@ -70,7 +70,7 @@ const { path } = await getNode('8', {
 console.log(path) // /home/user/.cache/node_releases/13.0.1/node
 
 // Use a mirror website
-await getNode('8', { mirror: 'https://npm.taobao.org/mirrors/node' })
+await getNode('8', { mirror: 'https://npmmirror.com/mirrors/node' })
 
 // Specify the CPU architecture
 await getNode('8', { arch: 'x32' })
@@ -144,7 +144,7 @@ _Type_: `string`\
 _Default_: `https://nodejs.org/dist`
 
 Base URL to retrieve Node.js binaries. Can be customized (for example
-`https://npm.taobao.org/mirrors/node`).
+`https://npmmirror.com/mirrors/node`).
 
 The following environment variables can also be used: `NODE_MIRROR`,
 `NVM_NODEJS_ORG_MIRROR`, `N_NODE_MIRROR` or `NODIST_NODE_MIRROR`.

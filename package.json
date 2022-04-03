@@ -70,7 +70,7 @@
     "@ehmicky/dev-tasks": "^1.0.68",
     "sinon": "^13.0.1",
     "test-each": "^4.0.0",
-    "tsd": "^0.19.1"
+    "tsd": "^0.20.0"
   },
   "engines": {
     "node": ">=12.20.0"

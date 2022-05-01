@@ -2,16 +2,17 @@ import { env, platform, arch } from 'process'
 
 import test from 'ava'
 
+// eslint-disable-next-line no-restricted-imports, n/no-restricted-import
+import { shouldUseXz } from '../src/archive/xz.js'
+
 import { getNodeVersion } from './helpers/main.js'
 import { TEST_VERSION } from './helpers/versions.js'
 
 // When run on Windows, the tests require '7z' to be installed globally
 test.serial('Checks checksums', async (t) => {
+  const testChecksum = await getTestChecksum(TEST_VERSION)
   // eslint-disable-next-line fp/no-mutation
-  env.TEST_CHECKSUMS =
-    platform === 'win32'
-      ? `abcdef  node-v${TEST_VERSION}-win-${arch}.7z`
-      : `abcdef  node-v${TEST_VERSION}-${platform}-${arch}.tar.xz`
+  env.TEST_CHECKSUMS = `abcdef  node-v${TEST_VERSION}-${testChecksum}`
 
   try {
     await t.throwsAsync(getNodeVersion(TEST_VERSION), {
@@ -22,6 +23,15 @@ test.serial('Checks checksums', async (t) => {
     delete env.TEST_CHECKSUMS
   }
 })
+
+const getTestChecksum = async function (version) {
+  if (platform === 'win32') {
+    return `win-${arch}.7z`
+  }
+
+  const extName = (await shouldUseXz(version)) ? 'xz' : 'gz'
+  return `${platform}-${arch}.tar.${extName}`
+}
 
 test.serial('Throws on corrupted checksums', async (t) => {
   // eslint-disable-next-line fp/no-mutation

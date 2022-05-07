@@ -82,7 +82,7 @@ await getNode('8', { arch: 'x32' })
 npm install get-node
 ```
 
-`node >=12.20.0` must be globally installed. However any Node version can be
+`node >=14.18.0` must be globally installed. However any Node version can be
 downloaded.
 
 This package is an ES module and must be loaded using

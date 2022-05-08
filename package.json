@@ -47,7 +47,6 @@
     "test": "test"
   },
   "dependencies": {
-    "del": "^6.0.0",
     "execa": "^6.1.0",
     "fetch-node-website": "^6.0.0",
     "filter-obj": "^3.0.0",
@@ -68,6 +67,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^1.0.71",
+    "del": "^6.0.0",
     "is-ci": "^3.0.1",
     "sinon": "^13.0.1",
     "test-each": "^4.0.0",

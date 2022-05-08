@@ -6,8 +6,8 @@
 
 ## Features
 
-- The [`cwd` option](https://github.com/ehmicky/preferred-node-version#cwd) can
-  now be a `file:` URL
+- The [`cwd` option](https://github.com/ehmicky/get-node#cwd) can now be a
+  `file:` URL
 
 # 12.1.0
 

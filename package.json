@@ -60,7 +60,7 @@
     "path-exists": "^5.0.0",
     "path-key": "^4.0.0",
     "preferred-node-version": "^3.0.1",
-    "semver": "^7.3.6",
+    "semver": "^7.3.7",
     "tar-fs": "^2.1.1",
     "tmp-promise": "^3.0.3"
   },

@@ -1,9 +1,9 @@
+import { rm } from 'fs/promises'
 import { tmpdir } from 'os'
 import { dirname } from 'path'
 import { platform } from 'process'
 import { promisify } from 'util'
 
-import del from 'del'
 import getNode from 'get-node'
 
 // TODO: replace with `timers/promises` `setTimeout()` after dropping support
@@ -26,7 +26,7 @@ const removeOutput = async function (nodePath) {
   await pSetTimeout(REMOVE_TIMEOUT)
 
   const nodeDir = getNodeDir(nodePath)
-  await del(dirname(nodeDir), { force: true })
+  await rm(dirname(nodeDir), { force: true, recursive: true })
 }
 
 // We need to wait a little for Windows to release the lock on the `node`

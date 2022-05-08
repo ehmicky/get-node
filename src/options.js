@@ -1,7 +1,7 @@
 import { cwd as getCwd, arch } from 'process'
 
 import filterObj from 'filter-obj'
-import { validate } from 'jest-validate'
+import { validate, multipleValidOptions } from 'jest-validate'
 import semver from 'semver'
 
 import { addOutput } from './output.js'
@@ -40,7 +40,7 @@ const EXAMPLE_OPTS = {
   output: getCwd(),
   versionRange: '8',
   // Passed to preferred-node-version
-  cwd: getCwd(),
+  cwd: multipleValidOptions(getCwd(), new URL('.', import.meta.url)),
   // Passed to all-node-versions
   fetch: true,
   // Passed to fetch-node-website

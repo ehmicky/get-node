@@ -174,7 +174,7 @@ allowed except `mips` and `mipsel`.
 
 #### cwd
 
-_Type_: `string`\
+_Type_: `string | URL`\
 _Default_: `.`
 
 When using the [`local` alias](#getnodeversion-options), start looking for a

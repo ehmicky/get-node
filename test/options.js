@@ -2,6 +2,7 @@ import test from 'ava'
 import { each } from 'test-each'
 
 import { getNodeVersion } from './helpers/main.js'
+import { TEST_VERSION } from './helpers/versions.js'
 
 each(
   [
@@ -15,6 +16,16 @@ each(
   ({ title }, { versionRange, ...opts }) => {
     test(`Invalid arguments | ${title}`, async (t) => {
       await t.throwsAsync(getNodeVersion(versionRange, opts))
+    })
+  },
+)
+
+each(
+  [{ cwd: '.' }, { cwd: new URL('.', import.meta.url) }],
+  ({ title }, opts) => {
+    test(`Valid options | ${title}`, async (t) => {
+      const { version } = await getNodeVersion(TEST_VERSION, opts)
+      t.is(version, TEST_VERSION)
     })
   },
 )

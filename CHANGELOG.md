@@ -1,3 +1,9 @@
+# 13.0.1
+
+## Dependencies
+
+- Upgrade `node-version-alias`
+
 # 13.0.0
 
 ## Breaking changes

@@ -56,7 +56,7 @@
     "jszip": "^3.9.1",
     "moize": "^6.1.0",
     "move-file": "^3.0.0",
-    "node-version-alias": "^2.0.0",
+    "node-version-alias": "^3.0.0",
     "path-exists": "^5.0.0",
     "path-key": "^4.0.0",
     "preferred-node-version": "^3.0.0",

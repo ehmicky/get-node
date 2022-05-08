@@ -51,7 +51,7 @@
     "fetch-node-website": "^6.0.0",
     "filter-obj": "^3.0.0",
     "get-stream": "^6.0.0",
-    "global-cache-dir": "^3.0.1",
+    "global-cache-dir": "^4.0.0",
     "jest-validate": "^27.5.1",
     "jszip": "^3.9.1",
     "moize": "^6.1.0",

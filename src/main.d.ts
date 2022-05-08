@@ -67,6 +67,6 @@ export default function getNode(
      *
      * @default "."
      */
-    cwd?: string
+    cwd?: string | URL
   },
 ): Promise<NodeBinary>

@@ -12,8 +12,8 @@ test('--arch current', async (t) => {
     arch,
   })
 
-  const result = await execa(path, ['--version'])
-  t.is(result.stdout, `v${version}`)
+  const { stdout } = await execa(path, ['--version'])
+  t.is(stdout, `v${version}`)
 
   await cleanup()
 })

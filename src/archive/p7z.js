@@ -1,4 +1,5 @@
-import { createWriteStream, promises as fs } from 'fs'
+import { createWriteStream } from 'fs'
+import { unlink } from 'fs/promises'
 import { delimiter, normalize } from 'path'
 import { env } from 'process'
 import { pipeline } from 'stream'
@@ -9,6 +10,7 @@ import moize from 'moize'
 import pathKey from 'path-key'
 import semver from 'semver'
 
+// eslint-disable-next-line import/max-dependencies
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 
 // TODO: replace with `stream/promises` once dropping support for Node <15.0.0
@@ -93,6 +95,6 @@ const P7Z_PATH = normalize('/Program Files/7-Zip')
 const PATH_KEY = pathKey()
 
 const cleanup = async function (tmp7zFile, cancel) {
-  await fs.unlink(tmp7zFile)
+  await unlink(tmp7zFile)
   cancel()
 }

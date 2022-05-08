@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs'
+import { rename } from 'fs/promises'
 import { promisify } from 'util'
 
 import rimraf from 'rimraf'
@@ -22,10 +22,10 @@ const shouldExclude = function (path) {
 // remove it right away.
 export const moveTar = async function (tmpFile) {
   const intermediateFile = `${tmpFile}-${Math.random()}`
-  await fs.rename(`${tmpFile}/node`, intermediateFile)
+  await rename(`${tmpFile}/node`, intermediateFile)
 
   // TODO: use `fs.promises.rm()` after dropping support for Node <14.14.0
   await pRimraf(tmpFile, { disableGlob: true })
 
-  await fs.rename(intermediateFile, tmpFile)
+  await rename(intermediateFile, tmpFile)
 }

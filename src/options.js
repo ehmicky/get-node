@@ -18,9 +18,9 @@ export const getOpts = async function (opts) {
 
   validateVersionRange(optsC)
 
-  const { cwd, fetch, mirror, progress, ...optsD } = optsC
-  const preferredNodeOpts = { cwd, fetch, mirror }
-  const nodeVersionAliasOpts = { fetch, mirror }
+  const { cwd, fetch: fetchOpt, mirror, progress, ...optsD } = optsC
+  const preferredNodeOpts = { cwd, fetch: fetchOpt, mirror }
+  const nodeVersionAliasOpts = { fetch: fetchOpt, mirror }
   const fetchOpts = { mirror, progress }
   return { ...optsD, preferredNodeOpts, nodeVersionAliasOpts, fetchOpts }
 }

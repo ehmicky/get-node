@@ -53,7 +53,7 @@
     "get-stream": "^6.0.0",
     "global-cache-dir": "^4.0.0",
     "jest-validate": "^27.5.1",
-    "jszip": "^3.9.1",
+    "jszip": "^3.10.0",
     "moize": "^6.1.1",
     "move-file": "^3.0.0",
     "node-version-alias": "^3.0.0",

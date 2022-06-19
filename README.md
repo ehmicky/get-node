@@ -36,9 +36,6 @@ Features include:
 
 # Example
 
-<!-- Remove 'eslint-skip' once estree supports top-level await -->
-<!-- eslint-skip -->
-
 ```js
 import getNode from 'get-node'
 
@@ -46,34 +43,51 @@ import getNode from 'get-node'
 const { path, version } = await getNode('8')
 console.log(path) // /home/user/.cache/nve/8.17.0/node
 console.log(version) // 8.17.0
+```
 
+```js
 // Download Node.js latest release
 const { path, version } = await getNode('latest')
 console.log(path) // /home/user/.cache/nve/16.3.0/node
 console.log(version) // 16.3.0
+```
 
+```js
 // Any version range can be used
 await getNode('8.12.0')
 await getNode('<7')
+```
 
+```js
 // Download latest LTS Node.js version
 await getNode('lts')
+```
 
+```js
 // Download Node.js version from `~/.nvmrc` or the current process version
 await getNode('global')
+```
 
-// Download current directory's Node.js version using its `.nvmrc` or `package.json` (`engines.node` field)
+```js
+// Download current directory's Node.js version using its `.nvmrc` or
+// `package.json` (`engines.node` field)
 await getNode('local')
+```
 
+```js
 // Specify the output directory
 const { path } = await getNode('8', {
   output: '/home/user/.cache/node_releases/',
 })
 console.log(path) // /home/user/.cache/node_releases/13.0.1/node
+```
 
+```js
 // Use a mirror website
 await getNode('8', { mirror: 'https://npmmirror.com/mirrors/node' })
+```
 
+```js
 // Specify the CPU architecture
 await getNode('8', { arch: 'x32' })
 ```

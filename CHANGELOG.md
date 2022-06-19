@@ -1,3 +1,9 @@
+# 13.1.0
+
+## Features
+
+- Improve TypeScript types
+
 # 13.0.1
 
 ## Dependencies

@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "execa": "^6.1.0",
-    "fetch-node-website": "^6.0.0",
+    "fetch-node-website": "^6.1.0",
     "filter-obj": "^3.0.0",
     "get-stream": "^6.0.0",
     "global-cache-dir": "^4.0.0",

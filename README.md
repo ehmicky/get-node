@@ -8,6 +8,8 @@ Download a specific version of Node.js.
 The Node.js release is downloaded, uncompressed and untared to an executable
 file ready to run.
 
+# Features
+
 Fast:
 
 - the download is cached
@@ -134,7 +136,8 @@ enables caching.
 
 #### progress
 
-_Type_: `boolean` _Default_: `false`
+_Type_: `boolean`\
+_Default_: `false`
 
 Whether to show a progress bar.
 

@@ -1,6 +1,6 @@
 import { cwd as getCwd, arch } from 'process'
 
-import filterObj from 'filter-obj'
+import { excludeKeys } from 'filter-obj'
 import { validate, multipleValidOptions } from 'jest-validate'
 import semver from 'semver'
 
@@ -11,7 +11,7 @@ import { addOutput } from './output.js'
 export const getOpts = async function (opts) {
   validate(opts, { exampleConfig: EXAMPLE_OPTS })
 
-  const optsA = filterObj(opts, isDefined)
+  const optsA = excludeKeys(opts, isUndefined)
   const optsB = { ...DEFAULT_OPTS, ...optsA }
 
   const optsC = await addOutput(optsB)
@@ -25,8 +25,8 @@ export const getOpts = async function (opts) {
   return { ...optsD, preferredNodeOpts, nodeVersionAliasOpts, fetchOpts }
 }
 
-const isDefined = function (key, value) {
-  return value !== undefined
+const isUndefined = function (key, value) {
+  return value === undefined
 }
 
 const DEFAULT_OPTS = {

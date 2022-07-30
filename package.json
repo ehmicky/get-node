@@ -35,7 +35,7 @@
     "package-manager"
   ],
   "license": "Apache-2.0",
-  "homepage": "https://git.io/fj7JT",
+  "homepage": "https://www.github.com/ehmicky/get-node",
   "repository": "ehmicky/get-node",
   "bugs": {
     "url": "https://github.com/ehmicky/get-node/issues"

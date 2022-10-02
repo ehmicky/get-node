@@ -6,7 +6,7 @@ import { pipeline } from 'stream'
 import { promisify } from 'util'
 
 import { execa } from 'execa'
-import moize from 'moize'
+import mem from 'mem'
 import pathKey from 'path-key'
 import semver from 'semver'
 
@@ -39,7 +39,7 @@ const mHas7zBinary = async function () {
   return !failed
 }
 
-const has7zBinary = moize(mHas7zBinary, { maxSize: 1e3 })
+const has7zBinary = mem(mHas7zBinary)
 
 // 7zip does not support stdin streaming with *.7z but it supports stdout
 // streaming. So we first download the archive to a temporary file, then extract

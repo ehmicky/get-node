@@ -4,7 +4,7 @@ import { pipeline } from 'stream'
 import { promisify } from 'util'
 
 import { execaCommand } from 'execa'
-import moize from 'moize'
+import mem from 'mem'
 import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
@@ -37,7 +37,7 @@ const mHasXzBinary = async function () {
   return !failed
 }
 
-const hasXzBinary = moize(mHasXzBinary, { maxSize: 1e3 })
+const hasXzBinary = mem(mHasXzBinary)
 
 export const downloadXz = async function ({
   version,

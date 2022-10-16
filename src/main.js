@@ -11,8 +11,7 @@ export default async function getNode(versionRange, opts) {
     preferredNodeOpts,
     nodeVersionAliasOpts,
     fetchOpts,
-  } = await getOpts({ ...opts, versionRange })
-
+  } = await getOpts(versionRange, opts)
   const version = await getVersion({
     versionRange: versionRangeA,
     preferredNodeOpts,

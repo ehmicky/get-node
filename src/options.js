@@ -1,58 +1,44 @@
-import { cwd as getCwd, arch } from 'process'
+import { arch as processArch } from 'process'
 
-import { excludeKeys } from 'filter-obj'
-import { validate, multipleValidOptions } from 'jest-validate'
-import semver from 'semver'
+import isPlainObj from 'is-plain-obj'
 
-import { addOutput } from './output.js'
+import { validateArch } from './arch.js'
+import { getDefaultOutput, validateOutput } from './output.js'
+import { DEFAULT_VERSION_RANGE, validateVersionRange } from './version.js'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
-export const getOpts = async function (opts) {
-  validate(opts, { exampleConfig: EXAMPLE_OPTS })
+export const getOpts = async function (
+  versionRange = DEFAULT_VERSION_RANGE,
+  opts = {},
+) {
+  validateVersionRange(versionRange)
 
-  const optsA = excludeKeys(opts, isUndefined)
-  const optsB = { ...DEFAULT_OPTS, ...optsA }
+  if (!isPlainObj(opts)) {
+    throw new TypeError(`Options must be a plain object: ${opts}`)
+  }
 
-  const optsC = await addOutput(optsB)
+  const {
+    output = await getDefaultOutput(),
+    arch = processArch,
+    cwd,
+    fetch: fetchOpt,
+    mirror,
+    progress = false,
+  } = opts
 
-  validateVersionRange(optsC)
+  validateOutput(output)
+  validateArch(arch)
 
-  const { cwd, fetch: fetchOpt, mirror, progress, ...optsD } = optsC
   const preferredNodeOpts = { cwd, fetch: fetchOpt, mirror }
   const nodeVersionAliasOpts = { fetch: fetchOpt, mirror }
   const fetchOpts = { mirror, progress }
-  return { ...optsD, preferredNodeOpts, nodeVersionAliasOpts, fetchOpts }
-}
-
-const isUndefined = function (key, value) {
-  return value === undefined
-}
-
-const DEFAULT_OPTS = {
-  versionRange: 'latest',
-  progress: false,
-  arch,
-}
-
-const EXAMPLE_OPTS = {
-  ...DEFAULT_OPTS,
-  output: getCwd(),
-  versionRange: '8',
-  // Passed to preferred-node-version
-  cwd: multipleValidOptions(getCwd(), new URL('.', import.meta.url)),
-  // Passed to all-node-versions
-  fetch: true,
-  // Passed to fetch-node-website
-  mirror: 'https://nodejs.org/dist',
-}
-
-const validateVersionRange = function ({ versionRange }) {
-  if (!ALIASES.has(versionRange) && semver.validRange(versionRange) === null) {
-    throw new TypeError(`Not a valid Node version range: ${versionRange}`)
+  return {
+    versionRange,
+    output,
+    arch,
+    preferredNodeOpts,
+    nodeVersionAliasOpts,
+    fetchOpts,
   }
 }
-
-// Although `node-version-alias` supports more aliases, we only allow those ones
-// to keep it simple
-const ALIASES = new Set(['latest', 'lts', 'global', 'local'])

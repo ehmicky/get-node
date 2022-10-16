@@ -1,5 +1,17 @@
 import { platform } from 'process'
 
+// Validate `arch` option
+export const validateArch = function (arch) {
+  if (arch in PLATFORMS) {
+    return
+  }
+
+  const availableArch = Object.keys(PLATFORMS).join(', ')
+  throw new TypeError(
+    `Option "arch" must not be ${arch} but one of: ${availableArch}`,
+  )
+}
+
 // Retrieve the CPU architecture as used in binary filenames.
 // Can be changed with the `arch` option.
 export const getArch = function (arch) {
@@ -9,13 +21,7 @@ export const getArch = function (arch) {
   }
   /* c8 ignore stop */
 
-  const archA = PLATFORMS[arch]
-
-  if (archA === undefined) {
-    throw new Error(`Unsupported CPU architecture: ${arch}`)
-  }
-
-  return archA
+  return PLATFORMS[arch]
 }
 
 const PLATFORMS = {

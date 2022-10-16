@@ -30,7 +30,3 @@ if (platform === 'linux') {
     await cleanup()
   })
 }
-
-test('--arch invalid', async (t) => {
-  await t.throwsAsync(getNodeVersion(TEST_VERSION, { arch: 'invalid' }))
-})

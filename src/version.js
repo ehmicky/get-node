@@ -4,6 +4,24 @@ import nodeVersionAlias from 'node-version-alias'
 import preferredNodeVersion from 'preferred-node-version'
 import semver from 'semver'
 
+// Default value for `versionRange`
+export const DEFAULT_VERSION_RANGE = 'latest'
+
+// Validate `versionRange` argument
+export const validateVersionRange = function (versionRange) {
+  if (typeof versionRange !== 'string') {
+    throw new TypeError(`Node version range must be a string: ${versionRange}`)
+  }
+
+  if (!ALIASES.has(versionRange) && semver.validRange(versionRange) === null) {
+    throw new TypeError(`Not a valid Node version range: ${versionRange}`)
+  }
+}
+
+// Although `node-version-alias` supports more aliases, we only allow those ones
+// to keep it simple
+const ALIASES = new Set(['latest', 'lts', 'global', 'local'])
+
 // Resolve full Node.js version.
 // We resolve aliases like 'latest' or 'lts' using `node-version-alias`.
 // The 'local' alias uses more complex logic using `preferred-node-version` and

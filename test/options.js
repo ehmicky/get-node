@@ -1,4 +1,5 @@
 import test from 'ava'
+import getNode from 'get-node'
 import { each } from 'test-each'
 
 import { getNodeVersion } from './helpers/main.js'
@@ -6,17 +7,16 @@ import { TEST_VERSION } from './helpers/versions.js'
 
 each(
   [
-    true,
-    { versionRange: true },
-    { versionRange: 'not_a_version_range' },
-    { versionRange: '90' },
-    { output: true },
-    { progress: 0 },
-    { arch: 'invalid' },
+    [true],
+    ['not_a_version_range'],
+    ['90'],
+    [TEST_VERSION, true],
+    [TEST_VERSION, { output: true }],
+    [TEST_VERSION, { arch: 'invalid' }],
   ],
-  ({ title }, { versionRange, ...opts }) => {
+  ({ title }, args) => {
     test(`Invalid arguments | ${title}`, async (t) => {
-      await t.throwsAsync(getNodeVersion(versionRange, opts))
+      await t.throwsAsync(getNode(...args))
     })
   },
 )

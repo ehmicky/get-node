@@ -6,6 +6,7 @@ import { TEST_VERSION } from './helpers/versions.js'
 
 each(
   [
+    true,
     { versionRange: true },
     { versionRange: 'not_a_version_range' },
     { versionRange: '90' },

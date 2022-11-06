@@ -1,5 +1,5 @@
-import { argv, exit } from 'process'
-import { promisify } from 'util'
+import { argv, exit } from 'node:process'
+import { promisify } from 'node:util'
 
 import getNode from 'get-node'
 

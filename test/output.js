@@ -1,6 +1,6 @@
-import { rm } from 'fs/promises'
-import { dirname, resolve, normalize } from 'path'
-import { arch } from 'process'
+import { rm } from 'node:fs/promises'
+import { dirname, resolve, normalize } from 'node:path'
+import { arch } from 'node:process'
 
 import test from 'ava'
 import globalCacheDir from 'global-cache-dir'

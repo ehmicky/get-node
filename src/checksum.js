@@ -1,5 +1,5 @@
-import { createHash } from 'crypto'
-import { env } from 'process'
+import { createHash } from 'node:crypto'
+import { env } from 'node:process'
 
 import fetchNodeWebsite from 'fetch-node-website'
 import getStream from 'get-stream'

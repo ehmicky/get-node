@@ -1,7 +1,7 @@
-import { cpus } from 'os'
-import { platform } from 'process'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
+import { cpus } from 'node:os'
+import { platform } from 'node:process'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
 
 import { execaCommand } from 'execa'
 import mem from 'mem'

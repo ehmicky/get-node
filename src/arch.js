@@ -1,4 +1,4 @@
-import { platform } from 'process'
+import { platform } from 'node:process'
 
 // Validate `arch` option
 export const validateArch = function (arch) {

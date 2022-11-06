@@ -1,4 +1,4 @@
-import { version as processVersion, env } from 'process'
+import { version as processVersion, env } from 'node:process'
 
 import test from 'ava'
 import { execa } from 'execa'

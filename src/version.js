@@ -1,4 +1,4 @@
-import { version as processVersion } from 'process'
+import { version as processVersion } from 'node:process'
 
 import nodeVersionAlias from 'node-version-alias'
 import preferredNodeVersion from 'preferred-node-version'

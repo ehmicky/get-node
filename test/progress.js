@@ -1,4 +1,4 @@
-import { stderr } from 'process'
+import { stderr } from 'node:process'
 
 import test from 'ava'
 import sinon from 'sinon'

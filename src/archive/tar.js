@@ -1,4 +1,4 @@
-import { rename, rm } from 'fs/promises'
+import { rename, rm } from 'node:fs/promises'
 
 import { extract as tarExtract } from 'tar-fs'
 

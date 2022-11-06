@@ -1,4 +1,4 @@
-import { env } from 'process'
+import { env } from 'node:process'
 
 import test from 'ava'
 import { pathExists } from 'path-exists'

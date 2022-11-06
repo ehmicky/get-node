@@ -1,7 +1,7 @@
-import { platform } from 'process'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
-import { createGunzip } from 'zlib'
+import { platform } from 'node:process'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
+import { createGunzip } from 'node:zlib'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 

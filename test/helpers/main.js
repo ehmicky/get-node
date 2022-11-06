@@ -1,8 +1,8 @@
-import { rm } from 'fs/promises'
-import { tmpdir } from 'os'
-import { dirname } from 'path'
-import { platform } from 'process'
-import { promisify } from 'util'
+import { rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { dirname } from 'node:path'
+import { platform } from 'node:process'
+import { promisify } from 'node:util'
 
 import getNode from 'get-node'
 

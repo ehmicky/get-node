@@ -1,4 +1,4 @@
-import { platform } from 'process'
+import { platform } from 'node:process'
 
 import { downloadGz } from './gz.js'
 import { shouldUse7z, download7z } from './p7z.js'

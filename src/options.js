@@ -1,4 +1,4 @@
-import { arch as processArch } from 'process'
+import { arch as processArch } from 'node:process'
 
 import isPlainObj from 'is-plain-obj'
 

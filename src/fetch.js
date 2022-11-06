@@ -1,6 +1,5 @@
-// eslint-disable-next-line fp/no-events
-import { once } from 'events'
-import { createWriteStream } from 'fs'
+import { once } from 'node:events'
+import { createWriteStream } from 'node:fs'
 
 import fetchNodeWebsite from 'fetch-node-website'
 

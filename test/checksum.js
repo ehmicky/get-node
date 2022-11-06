@@ -1,4 +1,4 @@
-import { env, platform, arch } from 'process'
+import { env, platform, arch } from 'node:process'
 
 import test from 'ava'
 

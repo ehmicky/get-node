@@ -1,6 +1,6 @@
-import { rm } from 'fs/promises'
-import { join } from 'path'
-import { platform } from 'process'
+import { rm } from 'node:fs/promises'
+import { join } from 'node:path'
+import { platform } from 'node:process'
 
 import { moveFile } from 'move-file'
 import { pathExists } from 'path-exists'

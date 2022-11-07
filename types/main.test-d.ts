@@ -5,7 +5,7 @@ import {
   expectNotAssignable,
 } from 'tsd'
 
-import getNode, { Options, NodeBinary, SemverVersion } from './main.js'
+import getNode, { Options, NodeBinary, SemverVersion } from 'get-node'
 
 const nodeBinary = await getNode('14')
 expectError(getNode(14))

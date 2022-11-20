@@ -71,7 +71,7 @@
     "@ehmicky/dev-tasks": "^1.0.103",
     "@types/node": "^17.0.31",
     "is-ci": "^3.0.1",
-    "sinon": "^14.0.0",
+    "sinon": "^14.0.2",
     "test-each": "^5.6.0"
   },
   "engines": {

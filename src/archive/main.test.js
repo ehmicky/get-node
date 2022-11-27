@@ -4,8 +4,8 @@ import test from 'ava'
 import { pathExists } from 'path-exists'
 import pathKey from 'path-key'
 
-import { getNodeVersion } from './helpers/main.test.js'
-import { TEST_VERSION } from './helpers/versions.test.js'
+import { getNodeVersion } from '../helpers/main.test.js'
+import { TEST_VERSION } from '../helpers/versions.test.js'
 
 const PATH_KEY = pathKey()
 

@@ -3,8 +3,7 @@ import { env, platform, arch } from 'node:process'
 import test from 'ava'
 
 // eslint-disable-next-line no-restricted-imports
-import { shouldUseXz } from '../src/archive/xz.js'
-
+import { shouldUseXz } from './archive/xz.js'
 import { getNodeVersion } from './helpers/main.test.js'
 import { TEST_VERSION } from './helpers/versions.test.js'
 

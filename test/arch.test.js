@@ -4,8 +4,8 @@ import test from 'ava'
 import { execa } from 'execa'
 import { pathExists } from 'path-exists'
 
-import { getNodeVersion } from './helpers/main.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { getNodeVersion } from './helpers/main.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 test('--arch current', async (t) => {
   const { path, version, cleanup } = await getNodeVersion(TEST_VERSION, {

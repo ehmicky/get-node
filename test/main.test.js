@@ -3,7 +3,7 @@ import { execa } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getNodeVersion } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.test.js'
 import {
   OLDEST_VERSION,
   NO_XZ_VERSION,
@@ -14,7 +14,7 @@ import {
   LATEST_VERSION,
   LOCAL_VERSION,
   ALIAS_VERSION,
-} from './helpers/versions.js'
+} from './helpers/versions.test.js'
 
 each(
   [

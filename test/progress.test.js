@@ -4,8 +4,8 @@ import test from 'ava'
 import sinon from 'sinon'
 import { each } from 'test-each'
 
-import { getNodeVersion } from './helpers/main.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { getNodeVersion } from './helpers/main.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 each(
   [

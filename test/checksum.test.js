@@ -5,8 +5,8 @@ import test from 'ava'
 // eslint-disable-next-line no-restricted-imports
 import { shouldUseXz } from '../src/archive/xz.js'
 
-import { getNodeVersion } from './helpers/main.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { getNodeVersion } from './helpers/main.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 // When run on Windows, the tests require '7z' to be installed globally
 test.serial('Checks checksums', async (t) => {

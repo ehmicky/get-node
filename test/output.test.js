@@ -5,8 +5,8 @@ import { arch } from 'node:process'
 import test from 'ava'
 import globalCacheDir from 'global-cache-dir'
 
-import { getNodeDir, getNodeVersion } from './helpers/main.js'
-import { TEST_VERSION } from './helpers/versions.js'
+import { getNodeDir, getNodeVersion } from './helpers/main.test.js'
+import { TEST_VERSION } from './helpers/versions.test.js'
 
 test.serial('Defaults output to cache directory', async (t) => {
   const cacheDir = await globalCacheDir('nve')

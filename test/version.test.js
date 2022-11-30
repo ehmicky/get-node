@@ -5,12 +5,12 @@ import { execa } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getNodeVersion } from './helpers/main.js'
+import { getNodeVersion } from './helpers/main.test.js'
 import {
   NO_BIN_VERSION,
   GLOBAL_VERSION,
   LOCAL_VERSION,
-} from './helpers/versions.js'
+} from './helpers/versions.test.js'
 
 test('Does not work on very old versions', async (t) => {
   await t.throwsAsync(getNodeVersion(NO_BIN_VERSION))

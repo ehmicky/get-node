@@ -1,46 +1,51 @@
-import {
-  expectType,
-  expectError,
-  expectAssignable,
-  expectNotAssignable,
-} from 'tsd'
+import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
 
 import getNode, { Options, NodeBinary, SemverVersion } from 'get-node'
 
 const nodeBinary = await getNode('14')
-expectError(getNode(14))
+// @ts-expect-error
+getNode(14)
 
 await getNode('14', {})
 expectAssignable<Options>({})
-expectError(await getNode('14', true))
-expectError(await getNode('14', { unknown: true }))
+// @ts-expect-error
+await getNode('14', true)
+// @ts-expect-error
+await getNode('14', { unknown: true })
 
 await getNode('14', { output: 'node' })
 expectAssignable<Options>({ output: 'node' })
-expectError(await getNode('14', { output: true }))
+// @ts-expect-error
+await getNode('14', { output: true })
 
 await getNode('14', { progress: true })
 expectAssignable<Options>({ progress: true })
-expectError(await getNode('14', { progress: 'true' }))
+// @ts-expect-error
+await getNode('14', { progress: 'true' })
 
 await getNode('14', { mirror: 'https://example.com' })
 expectAssignable<Options>({ mirror: 'https://example.com' })
-expectError(await getNode('14', { mirror: true }))
+// @ts-expect-error
+await getNode('14', { mirror: true })
 
 await getNode('14', { fetch: true })
 await getNode('14', { fetch: undefined })
 expectAssignable<Options>({ fetch: true })
-expectError(getNode('14', { fetch: 'true' }))
+// @ts-expect-error
+getNode('14', { fetch: 'true' })
 
 await getNode('14', { arch: 'x64' })
 expectAssignable<Options>({ arch: 'x64' })
-expectError(await getNode('14', { arch: true }))
-expectError(await getNode('14', { arch: 'unknownArch' }))
+// @ts-expect-error
+await getNode('14', { arch: true })
+// @ts-expect-error
+await getNode('14', { arch: 'unknownArch' })
 
 await getNode('14', { cwd: '.' })
 expectAssignable<Options>({ cwd: '.' })
 expectAssignable<Options>({ cwd: new URL('file://example.com') })
-expectError(await getNode('14', { cwd: true }))
+// @ts-expect-error
+await getNode('14', { cwd: true })
 
 expectAssignable<SemverVersion>('1.2.3')
 expectAssignable<SemverVersion>('0.0.1')

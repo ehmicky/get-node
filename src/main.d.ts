@@ -7,7 +7,7 @@ import type {
 
 export type { SemverVersion }
 
-export type NodeBinary = {
+export interface NodeBinary {
   /**
    * Absolute path to the `node` executable
    */

@@ -9,7 +9,7 @@ import getNode, {
 const nodeBinary = await getNode('14')
 const NODE_VERSION = 14
 // @ts-expect-error
-getNode(NODE_VERSION)
+await getNode(NODE_VERSION)
 
 await getNode('14', {})
 expectAssignable<Options>({})
@@ -37,7 +37,7 @@ await getNode('14', { fetch: true })
 await getNode('14', { fetch: undefined })
 expectAssignable<Options>({ fetch: true })
 // @ts-expect-error
-getNode('14', { fetch: 'true' })
+await getNode('14', { fetch: 'true' })
 
 await getNode('14', { arch: 'x64' })
 expectAssignable<Options>({ arch: 'x64' })

@@ -3,8 +3,9 @@ import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
 import getNode, { Options, NodeBinary, SemverVersion } from 'get-node'
 
 const nodeBinary = await getNode('14')
+const NODE_VERSION = 14
 // @ts-expect-error
-getNode(14)
+getNode(NODE_VERSION)
 
 await getNode('14', {})
 expectAssignable<Options>({})

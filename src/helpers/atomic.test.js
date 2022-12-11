@@ -18,4 +18,4 @@ const launchThenAbort = async function () {
 
 const TIMEOUT = 5e2
 
-launchThenAbort()
+await launchThenAbort()

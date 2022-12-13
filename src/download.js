@@ -11,7 +11,7 @@ import { downloadRuntime } from './archive/main.js'
 
 // Download the Node.js binary for a specific `version`.
 // If the file already exists, do nothing. This allows caching.
-export const download = async function ({ version, output, arch, fetchOpts }) {
+export const download = async ({ version, output, arch, fetchOpts }) => {
   const archA = getArch(arch)
   const nodePath = join(output, version, archA, NODE_FILENAME)
 
@@ -42,7 +42,7 @@ const NODE_FILENAME = platform === 'win32' ? 'node.exe' : 'bin/node'
 //  - this means the file might be on a different partition
 //    (https://github.com/ehmicky/get-node/issues/1), requiring copying it
 //    instead of renaming it. This is done by the `move-file` library.
-const downloadFile = async function ({ version, nodePath, arch, fetchOpts }) {
+const downloadFile = async ({ version, nodePath, arch, fetchOpts }) => {
   const tmpFile = await tmpName({ prefix: `get-node-${version}-${arch}` })
 
   try {
@@ -53,7 +53,7 @@ const downloadFile = async function ({ version, nodePath, arch, fetchOpts }) {
   }
 }
 
-const tmpDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
+const tmpDownload = async ({ version, tmpFile, arch, fetchOpts }) => {
   const checksumError = await safeDownload({
     version,
     tmpFile,
@@ -69,7 +69,7 @@ const tmpDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
   }
 }
 
-const safeDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
+const safeDownload = async ({ version, tmpFile, arch, fetchOpts }) => {
   try {
     return await downloadRuntime({ version, tmpFile, arch, fetchOpts })
   } catch (error) {
@@ -79,12 +79,12 @@ const safeDownload = async function ({ version, tmpFile, arch, fetchOpts }) {
   }
 }
 
-const getDownloadError = function ({
+const getDownloadError = ({
   message,
   version,
   arch,
   fetchOpts: { mirror },
-}) {
+}) => {
   if (message.includes('getaddrinfo')) {
     return `Could not connect to ${mirror}`
   }
@@ -98,7 +98,7 @@ const getDownloadError = function ({
   return `Could not download Node.js ${version}: ${message}`
 }
 
-const moveTmpFile = async function (tmpFile, nodePath) {
+const moveTmpFile = async (tmpFile, nodePath) => {
   // Another parallel download might have been running
   if (await pathExists(nodePath)) {
     return
@@ -110,6 +110,6 @@ const moveTmpFile = async function (tmpFile, nodePath) {
 // The temporary file might still exist if:
 //  - another parallel download was running
 //  - an error was thrown
-const cleanTmpFile = async function (tmpFile) {
+const cleanTmpFile = async (tmpFile) => {
   await rm(tmpFile, { force: true, recursive: true })
 }

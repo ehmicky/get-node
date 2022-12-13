@@ -1,7 +1,7 @@
 import { platform } from 'node:process'
 
 // Validate `arch` option
-export const validateArch = function (arch) {
+export const validateArch = (arch) => {
   if (arch in PLATFORMS) {
     return
   }
@@ -14,7 +14,7 @@ export const validateArch = function (arch) {
 
 // Retrieve the CPU architecture as used in binary filenames.
 // Can be changed with the `arch` option.
-export const getArch = function (arch) {
+export const getArch = (arch) => {
   /* c8 ignore start */
   if (platform === 'aix') {
     return 'ppc64'

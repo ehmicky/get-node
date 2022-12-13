@@ -10,19 +10,19 @@ import getNode from 'get-node'
 // for Node <15.0.0
 const pSetTimeout = promisify(setTimeout)
 
-export const getNodeVersion = async function (versionRange, opts) {
+export const getNodeVersion = async (versionRange, opts) => {
   const output = getOutput()
   const { path, version } = await getNode(versionRange, { output, ...opts })
   const cleanup = removeOutput.bind(undefined, path)
   return { output, path, version, cleanup }
 }
 
-export const getOutput = function () {
+export const getOutput = () => {
   const id = String(Math.random()).replace('.', '')
   return `${tmpdir()}/test-get-node-${id}`
 }
 
-const removeOutput = async function (nodePath) {
+const removeOutput = async (nodePath) => {
   await pSetTimeout(REMOVE_TIMEOUT)
 
   const nodeDir = getNodeDir(nodePath)
@@ -33,7 +33,7 @@ const removeOutput = async function (nodePath) {
 // executable before cleaning it
 const REMOVE_TIMEOUT = 1e3
 
-export const getNodeDir = function (nodePath) {
+export const getNodeDir = (nodePath) => {
   if (platform === 'win32') {
     return dirname(nodePath)
   }

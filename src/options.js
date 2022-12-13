@@ -8,10 +8,10 @@ import { DEFAULT_VERSION_RANGE, validateVersionRange } from './version.js'
 
 // Validate input parameters and assign default values.
 // `versionRange` can start with `v` or not.
-export const getOpts = async function (
+export const getOpts = async (
   versionRange = DEFAULT_VERSION_RANGE,
   opts = {},
-) {
+) => {
   validateVersionRange(versionRange)
 
   if (!isPlainObj(opts)) {

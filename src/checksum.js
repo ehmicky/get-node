@@ -7,12 +7,12 @@ import getStream from 'get-stream'
 // Verify Node.js binary checksum.
 // Checksums are available for every Node.js release.
 // This never throws, which allows it not to be awaited right away.
-export const checkChecksum = async function ({
+export const checkChecksum = async ({
   version,
   filepath,
   response,
   fetchOpts,
-}) {
+}) => {
   try {
     const [expectedChecksum, actualChecksum] = await Promise.all([
       getExpectedChecksum(version, filepath, fetchOpts),
@@ -36,7 +36,7 @@ export const checkChecksum = async function ({
 //   3ca24...23380  node-v6.12.3-aix-ppc64.tar.gz
 //   4e731...4278f  node-v6.12.3-darwin-x64.tar.gz
 //   etc.
-const getExpectedChecksum = async function (version, filepath, fetchOpts) {
+const getExpectedChecksum = async (version, filepath, fetchOpts) => {
   const checksumLines = await getChecksumLines(version, fetchOpts)
   const [expectedChecksum] = checksumLines
     .split('\n')
@@ -45,7 +45,7 @@ const getExpectedChecksum = async function (version, filepath, fetchOpts) {
   return expectedChecksum
 }
 
-const getChecksumLines = async function (version, fetchOpts) {
+const getChecksumLines = async (version, fetchOpts) => {
   // We set this environment variable during tests. Otherwise there are no ways
   // to test checksums since they are always supposed to match unlike there is
   // a network error
@@ -61,14 +61,13 @@ const getChecksumLines = async function (version, fetchOpts) {
   return checksumLines
 }
 
-const parseChecksumLine = function (checksumLine) {
-  return checksumLine.trim().split(CHECKSUM_LINE_DELIMITER)
-}
+const parseChecksumLine = (checksumLine) =>
+  checksumLine.trim().split(CHECKSUM_LINE_DELIMITER)
 
 const CHECKSUM_LINE_DELIMITER = /\s+/u
 
 // Calculate actual checksum for this Node.js binary
-const getActualChecksum = async function (response) {
+const getActualChecksum = async (response) => {
   const hashStream = response.pipe(createHash('sha256', { encoding: 'hex' }))
   const actualChecksum = await getStream(hashStream)
   return actualChecksum

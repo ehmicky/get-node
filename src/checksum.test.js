@@ -23,7 +23,7 @@ test.serial('Checks checksums', async (t) => {
   }
 })
 
-const getTestChecksum = async function (version) {
+const getTestChecksum = async (version) => {
   if (platform === 'win32') {
     return `win-${arch}.7z`
   }

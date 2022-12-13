@@ -3,7 +3,7 @@ import { getOpts } from './options.js'
 import { getVersion } from './version.js'
 
 // Download the Node.js binary for a specific `versionRange`
-export default async function getNode(versionRange, opts) {
+const getNode = async (versionRange, opts) => {
   const {
     versionRange: versionRangeA,
     output,
@@ -20,3 +20,5 @@ export default async function getNode(versionRange, opts) {
   const nodePath = await download({ version, output, arch, fetchOpts })
   return { version, path: nodePath }
 }
+
+export default getNode

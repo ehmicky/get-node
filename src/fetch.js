@@ -7,7 +7,7 @@ import { checkChecksum } from './checksum.js'
 
 // Make HTTP request to retrieve a Node.js binary.
 // Also make another HTTP request to calculate the checksum.
-export const fetchNodeUrl = async function (version, filepath, fetchOpts) {
+export const fetchNodeUrl = async (version, filepath, fetchOpts) => {
   const response = await fetchNodeWebsite(`v${version}/${filepath}`, fetchOpts)
   const checksumError = checkChecksum({
     version,
@@ -20,18 +20,17 @@ export const fetchNodeUrl = async function (version, filepath, fetchOpts) {
 
 // `response` `error` events do not necessarily make piped streams error, so we
 // need to await either.
-export const promiseOrFetchError = async function (promise, response) {
+export const promiseOrFetchError = async (promise, response) => {
   await Promise.race([promise, throwOnFetchError(response)])
 }
 
-const throwOnFetchError = async function (response) {
+const throwOnFetchError = async (response) => {
   const [error] = await once(response, 'error')
   throw error
 }
 
 // Persist stream to a `node[.exe]` file
-export const writeNodeBinary = function (tmpFile) {
-  return createWriteStream(tmpFile, { mode: NODE_MODE })
-}
+export const writeNodeBinary = (tmpFile) =>
+  createWriteStream(tmpFile, { mode: NODE_MODE })
 
 const NODE_MODE = 0o755

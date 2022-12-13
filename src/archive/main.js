@@ -8,12 +8,7 @@ import { shouldUseZip, downloadZip } from './zip.js'
 
 // Retrieve the Node binary from the Node website and persist it.
 // The URL depends on the current OS and CPU architecture.
-export const downloadRuntime = function ({
-  version,
-  tmpFile,
-  arch,
-  fetchOpts,
-}) {
+export const downloadRuntime = ({ version, tmpFile, arch, fetchOpts }) => {
   if (platform === 'win32') {
     return downloadWindowsNode({ version, tmpFile, arch, fetchOpts })
   }
@@ -34,12 +29,12 @@ const SUPPORTED_UNIX = new Set(['linux', 'darwin', 'aix', 'sunos'])
 
 // The Windows Node binary comes as a regular file or as a .zip file. We try
 // to use the fastest method.
-export const downloadWindowsNode = async function ({
+export const downloadWindowsNode = async ({
   version,
   tmpFile,
   arch,
   fetchOpts,
-}) {
+}) => {
   if (await shouldUse7z(version)) {
     return download7z({ version, tmpFile, arch, fetchOpts })
   }
@@ -52,12 +47,12 @@ export const downloadWindowsNode = async function ({
 }
 
 // The Unix Node binary comes in a .tar.gz or .tar.xz archive.
-export const downloadUnixNode = async function ({
+export const downloadUnixNode = async ({
   version,
   tmpFile,
   arch,
   fetchOpts,
-}) {
+}) => {
   if (await shouldUseXz(version)) {
     return downloadXz({ version, tmpFile, arch, fetchOpts })
   }

@@ -23,7 +23,7 @@ test.serial('Works when no xz/7z binary exists', async (t) => {
   }
 })
 
-const patchPath = function () {
+const patchPath = () => {
   const pathEnv = env[PATH_KEY]
   const pathExt = env.PATHEXT
   // eslint-disable-next-line fp/no-mutation
@@ -33,7 +33,7 @@ const patchPath = function () {
   return { pathEnv, pathExt }
 }
 
-const unpatchPath = function ({ pathEnv, pathExt }) {
+const unpatchPath = ({ pathEnv, pathExt }) => {
   // eslint-disable-next-line fp/no-mutation
   env[PATH_KEY] = pathEnv
   // eslint-disable-next-line fp/no-mutation

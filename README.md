@@ -104,7 +104,9 @@ downloaded.
 
 This package is an ES module and must be loaded using
 [an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
-not `require()`.
+not `require()`. If TypeScript is used, it must be configured to
+[output ES modules](https://www.typescriptlang.org/docs/handbook/esm-node.html),
+not CommonJS.
 
 To use this module as a CLI instead, please check
 [`get-node-cli`](https://github.com/ehmicky/get-node-cli).

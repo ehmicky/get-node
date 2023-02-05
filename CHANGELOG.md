@@ -1,3 +1,9 @@
+# 13.6.0
+
+## Features
+
+- Upgrade Execa
+
 # 13.5.0
 
 ## Features

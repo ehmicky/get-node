@@ -2,13 +2,9 @@ import { rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname } from 'node:path'
 import { platform } from 'node:process'
-import { promisify } from 'node:util'
+import { setTimeout } from 'node:timers/promises'
 
 import getNode from 'get-node'
-
-// TODO: replace with `timers/promises` `setTimeout()` after dropping support
-// for Node <15.0.0
-const pSetTimeout = promisify(setTimeout)
 
 export const getNodeVersion = async (versionRange, opts) => {
   const output = getOutput()
@@ -23,7 +19,7 @@ export const getOutput = () => {
 }
 
 const removeOutput = async (nodePath) => {
-  await pSetTimeout(REMOVE_TIMEOUT)
+  await setTimeout(REMOVE_TIMEOUT)
 
   const nodeDir = getNodeDir(nodePath)
   await rm(dirname(nodeDir), { force: true, recursive: true })

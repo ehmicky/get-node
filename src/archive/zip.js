@@ -1,6 +1,6 @@
+import { buffer } from 'node:stream/consumers'
 import { pipeline } from 'node:stream/promises'
 
-import getStream from 'get-stream'
 import jszip from 'jszip'
 import semver from 'semver'
 
@@ -23,7 +23,7 @@ export const downloadZip = async ({ version, tmpFile, arch, fetchOpts }) => {
     `${filepath}.zip`,
     fetchOpts,
   )
-  const zipContent = await getStream.buffer(response)
+  const zipContent = await buffer(response)
   const zipStream = await getZipStream(zipContent, filepath)
   const promise = pipeline(zipStream, writeNodeBinary(tmpFile))
 

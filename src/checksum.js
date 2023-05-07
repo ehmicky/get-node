@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto'
 import { env } from 'node:process'
+import { text } from 'node:stream/consumers'
 
 import fetchNodeWebsite from 'fetch-node-website'
-import getStream from 'get-stream'
 
 // Verify Node.js binary checksum.
 // Checksums are available for every Node.js release.
@@ -57,7 +57,7 @@ const getChecksumLines = async (version, fetchOpts) => {
     ...fetchOpts,
     progress: false,
   })
-  const checksumLines = await getStream(response)
+  const checksumLines = await text(response)
   return checksumLines
 }
 
@@ -69,6 +69,6 @@ const CHECKSUM_LINE_DELIMITER = /\s+/u
 // Calculate actual checksum for this Node.js binary
 const getActualChecksum = async (response) => {
   const hashStream = response.pipe(createHash('sha256', { encoding: 'hex' }))
-  const actualChecksum = await getStream(hashStream)
+  const actualChecksum = await text(hashStream)
   return actualChecksum
 }

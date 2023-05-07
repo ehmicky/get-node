@@ -34,6 +34,12 @@ type Arch =
   | 's390x'
   | 'x64'
 
+// @ts-error @typescript-eslint/no-duplicate-type-constituents
+type UpstreamOptions = FetchNodeWebsiteOptions & NodeVersionAliasOptions
+
+// @ts-error @typescript-eslint/no-duplicate-type-constituents
+type AllUpstreamOptions = UpstreamOptions & PreferredNodeVersionOptions
+
 export type Options = Partial<{
   /**
    * Output directory for the `node` executable.
@@ -59,9 +65,7 @@ export type Options = Partial<{
    *
    * @default "https://nodejs.org/dist"
    */
-  mirror: FetchNodeWebsiteOptions['mirror'] &
-    NodeVersionAliasOptions['mirror'] &
-    PreferredNodeVersionOptions['mirror']
+  mirror: AllUpstreamOptions['mirror']
 
   /**
    * The list of available Node.js versions is cached for one hour by default.
@@ -71,7 +75,7 @@ export type Options = Partial<{
    *
    * @default undefined
    */
-  fetch: NodeVersionAliasOptions['fetch'] & PreferredNodeVersionOptions['fetch']
+  fetch: UpstreamOptions['fetch']
 
   /**
    * Node.js binary's CPU architecture. This is useful for example when you're

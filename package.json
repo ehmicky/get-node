@@ -53,7 +53,7 @@
   "dependencies": {
     "execa": "^7.1.1",
     "fetch-node-website": "^8.0.0",
-    "global-cache-dir": "^4.4.0",
+    "global-cache-dir": "^5.0.0",
     "is-plain-obj": "^4.1.0",
     "jszip": "^3.10.1",
     "mem": "^9.0.2",

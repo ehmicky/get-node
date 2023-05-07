@@ -1,7 +1,6 @@
 import { cpus } from 'node:os'
 import { platform } from 'node:process'
-import { pipeline } from 'node:stream'
-import { promisify } from 'node:util'
+import { pipeline } from 'node:stream/promises'
 
 import { execaCommand } from 'execa'
 import mem from 'mem'
@@ -10,9 +9,6 @@ import semver from 'semver'
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 
 import { untar, moveTar } from './tar.js'
-
-// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
-const pPipeline = promisify(pipeline)
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.
@@ -51,7 +47,7 @@ export const downloadXz = async ({ version, tmpFile, arch, fetchOpts }) => {
       buffer: false,
     },
   )
-  const promise = pPipeline(stdout, untar(tmpFile))
+  const promise = pipeline(stdout, untar(tmpFile))
 
   try {
     await promiseOrFetchError(promise, response)

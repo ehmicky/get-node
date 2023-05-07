@@ -2,19 +2,14 @@ import { createWriteStream } from 'node:fs'
 import { unlink } from 'node:fs/promises'
 import { delimiter, normalize } from 'node:path'
 import { env } from 'node:process'
-import { pipeline } from 'node:stream'
-import { promisify } from 'node:util'
+import { pipeline } from 'node:stream/promises'
 
 import { execa } from 'execa'
 import mem from 'mem'
 import pathKey from 'path-key'
 import semver from 'semver'
 
-// eslint-disable-next-line import/max-dependencies
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
-
-// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
-const pPipeline = promisify(pipeline)
 
 // .7z Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 // We try those first since they are smaller. However they require 7zip to be
@@ -49,7 +44,7 @@ export const download7z = async ({ version, tmpFile, arch, fetchOpts }) => {
     `${filepath}.7z`,
     fetchOpts,
   )
-  await pPipeline(response, createWriteStream(tmp7zFile))
+  await pipeline(response, createWriteStream(tmp7zFile))
   const { stdout, cancel } = execa(
     '7z',
     ['x', '-so', `-i!${filepath}/node.exe`, tmp7zFile],
@@ -61,7 +56,7 @@ export const download7z = async ({ version, tmpFile, arch, fetchOpts }) => {
       env: getEnv(),
     },
   )
-  const promise = pPipeline(stdout, writeNodeBinary(tmpFile))
+  const promise = pipeline(stdout, writeNodeBinary(tmpFile))
 
   try {
     await promiseOrFetchError(promise, response)

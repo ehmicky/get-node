@@ -1,14 +1,10 @@
-import { pipeline } from 'node:stream'
-import { promisify } from 'node:util'
+import { pipeline } from 'node:stream/promises'
 
 import getStream from 'get-stream'
 import jszip from 'jszip'
 import semver from 'semver'
 
 import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
-
-// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
-const pPipeline = promisify(pipeline)
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 export const shouldUseZip = (version) =>
@@ -29,7 +25,7 @@ export const downloadZip = async ({ version, tmpFile, arch, fetchOpts }) => {
   )
   const zipContent = await getStream.buffer(response)
   const zipStream = await getZipStream(zipContent, filepath)
-  const promise = pPipeline(zipStream, writeNodeBinary(tmpFile))
+  const promise = pipeline(zipStream, writeNodeBinary(tmpFile))
 
   await promiseOrFetchError(promise, response)
 

@@ -1,12 +1,8 @@
-import { pipeline } from 'node:stream'
-import { promisify } from 'node:util'
+import { pipeline } from 'node:stream/promises'
 
 import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
-
-// TODO: replace with `stream/promises` once dropping support for Node <15.0.0
-const pPipeline = promisify(pipeline)
 
 // On Windows, when no zip archive is available (old Node.js versions), download
 // the raw `node.exe` file available for download instead.
@@ -17,7 +13,7 @@ export const downloadRaw = async ({ version, tmpFile, arch, fetchOpts }) => {
     filepath,
     fetchOpts,
   )
-  const promise = pPipeline(response, writeNodeBinary(tmpFile))
+  const promise = pipeline(response, writeNodeBinary(tmpFile))
 
   await promiseOrFetchError(promise, response)
 

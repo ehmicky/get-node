@@ -1,9 +1,10 @@
+import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
+
 import getNode, {
   type Options,
   type NodeBinary,
   type SemverVersion,
 } from 'get-node'
-import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
 
 const nodeBinary = await getNode('14')
 const NODE_VERSION = 14

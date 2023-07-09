@@ -33,6 +33,11 @@ expectAssignable<Options>({ mirror: 'https://example.com' })
 // @ts-expect-error
 await getNode('14', { mirror: true })
 
+await getNode('14', { signal: AbortSignal.abort() })
+expectAssignable<Options>({ signal: AbortSignal.abort() })
+// @ts-expect-error
+await getNode('14', { signal: 'signal' })
+
 await getNode('14', { fetch: true })
 await getNode('14', { fetch: undefined })
 expectAssignable<Options>({ fetch: true })

@@ -200,6 +200,13 @@ _Default_: `.`
 When using the [`local` alias](#getnodeversion-options), start looking for a
 Node.js version file from this directory.
 
+#### signal
+
+_Type_:
+[`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)
+
+Cancels when the signal is aborted.
+
 ### Return value
 
 The returned `Promise` resolves to an object with the following properties.

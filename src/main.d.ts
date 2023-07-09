@@ -68,6 +68,11 @@ export type Options = Partial<{
   mirror: AllUpstreamOptions['mirror']
 
   /**
+   * Cancels when the signal is aborted.
+   */
+  signal?: AllUpstreamOptions['signal']
+
+  /**
    * The list of available Node.js versions is cached for one hour by default.
    * If the `fetch` option is:
    *  - `true`: the cache will not be used

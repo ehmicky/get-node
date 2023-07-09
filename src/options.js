@@ -25,14 +25,15 @@ export const getOpts = async (
     fetch: fetchOpt,
     mirror,
     progress = false,
+    signal,
   } = opts
 
   validateOutput(output)
   validateArch(arch)
 
-  const preferredNodeOpts = { cwd, fetch: fetchOpt, mirror }
-  const nodeVersionAliasOpts = { fetch: fetchOpt, mirror }
-  const fetchOpts = { mirror, progress }
+  const preferredNodeOpts = { cwd, fetch: fetchOpt, mirror, signal }
+  const nodeVersionAliasOpts = { fetch: fetchOpt, mirror, signal }
+  const fetchOpts = { mirror, progress, signal }
   return {
     versionRange,
     output,

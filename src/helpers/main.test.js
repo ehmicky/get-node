@@ -3,8 +3,12 @@ import { tmpdir } from 'node:os'
 import { dirname } from 'node:path'
 import { platform } from 'node:process'
 import { setTimeout } from 'node:timers/promises'
+import { fileURLToPath } from 'node:url'
 
 import getNode from 'get-node'
+
+const FIXTURES_DIR_URL = new URL('../fixtures/', import.meta.url)
+export const FIXTURES_DIR = fileURLToPath(FIXTURES_DIR_URL)
 
 export const getNodeVersion = async (versionRange, opts) => {
   const output = getOutput()

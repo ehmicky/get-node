@@ -1,7 +1,10 @@
+import { basename } from 'node:path'
 import { version as processVersion } from 'node:process'
 
 import nodeVersionAlias from 'node-version-alias'
-import preferredNodeVersion from 'preferred-node-version'
+import preferredNodeVersion, {
+  NODE_VERSION_FILES,
+} from 'preferred-node-version'
 import semver from 'semver'
 
 // Default value for `versionRange`
@@ -13,10 +16,15 @@ export const validateVersionRange = (versionRange) => {
     throw new TypeError(`Node version range must be a string: ${versionRange}`)
   }
 
-  if (!ALIASES.has(versionRange) && semver.validRange(versionRange) === null) {
+  if (!isVersionRange(versionRange)) {
     throw new TypeError(`Not a valid Node version range: ${versionRange}`)
   }
 }
+
+const isVersionRange = (versionRange) =>
+  ALIASES.has(versionRange) ||
+  isVersionFile(versionRange) ||
+  semver.validRange(versionRange) !== null
 
 // Although `node-version-alias` supports more aliases, we only allow those ones
 // to keep it simple
@@ -53,8 +61,17 @@ const resolveVersion = ({
     return getPreferredVersion(preferredNodeOpts)
   }
 
+  if (isVersionFile(versionRange)) {
+    return getPreferredVersion({ ...preferredNodeOpts, files: [versionRange] })
+  }
+
   return nodeVersionAlias(versionRange, nodeVersionAliasOpts)
 }
+
+const isVersionFile = (versionRange) =>
+  NODE_VERSION_FILES_SET.has(basename(versionRange))
+
+const NODE_VERSION_FILES_SET = new Set(NODE_VERSION_FILES)
 
 const getPreferredVersion = async (preferredNodeOpts) => {
   const { version } = await preferredNodeVersion(preferredNodeOpts)

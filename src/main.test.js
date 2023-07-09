@@ -3,7 +3,7 @@ import { execa } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getNodeVersion } from './helpers/main.test.js'
+import { getNodeVersion, FIXTURES_DIR } from './helpers/main.test.js'
 import {
   OLDEST_VERSION,
   NO_XZ_VERSION,
@@ -27,6 +27,7 @@ each(
     LATEST_VERSION,
     LOCAL_VERSION,
     ALIAS_VERSION,
+    `${FIXTURES_DIR}nvmrc/.nvmrc`,
   ],
   ({ title }, versionInput) => {
     test(`Downloads node | ${title}`, async (t) => {

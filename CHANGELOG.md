@@ -1,3 +1,17 @@
+# 14.2.0
+
+## Features
+
+- The version can now be specified as a file path to a
+  [`.nvmrc`](https://github.com/nvm-sh/nvm#nvmrc),
+  [`package.json` (`engines.node` field)](https://docs.npmjs.com/files/package.json#engines)
+  or
+  [similar files](https://github.com/ehmicky/preferred-node-version/blob/main/README.md).
+
+```js
+const { path, version } = await getNode('/path/to/.nvmrc')
+```
+
 # 14.1.0
 
 ## Features

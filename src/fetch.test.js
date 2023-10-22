@@ -1,7 +1,7 @@
 import { stderr } from 'node:process'
 
 import test from 'ava'
-import sinon from 'sinon'
+import { spy } from 'sinon'
 import { each } from 'test-each'
 
 import { getNodeVersion } from './helpers/main.test.js'
@@ -15,14 +15,14 @@ each(
   ],
   ({ title }, { progress, called }) => {
     test.serial(`Progress bar | ${title}`, async (t) => {
-      const spy = sinon.spy(stderr, 'write')
+      const spyA = spy(stderr, 'write')
 
       const { cleanup } = await getNodeVersion(TEST_VERSION, { progress })
       await cleanup()
 
-      t.is(spy.called, called)
+      t.is(spyA.called, called)
 
-      spy.restore()
+      spyA.restore()
     })
   },
 )

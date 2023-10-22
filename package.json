@@ -70,7 +70,7 @@
     "tmp-promise": "^3.0.3"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^2.0.96",
+    "@ehmicky/dev-tasks": "^2.0.97",
     "@types/node": "^20.6.3",
     "is-ci": "^3.0.1",
     "sinon": "^17.0.0",

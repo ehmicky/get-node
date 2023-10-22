@@ -1,6 +1,6 @@
 {
   "name": "get-node",
-  "version": "14.2.1",
+  "version": "15.0.0",
   "type": "module",
   "exports": {
     "types": "./build/src/main.d.ts",

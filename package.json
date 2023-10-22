@@ -61,7 +61,7 @@
     "jszip": "^3.10.1",
     "mem": "^9.0.2",
     "move-file": "^3.0.0",
-    "node-version-alias": "^4.1.0",
+    "node-version-alias": "^5.0.0",
     "path-exists": "^5.0.0",
     "path-key": "^4.0.0",
     "preferred-node-version": "^4.2.0",

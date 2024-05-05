@@ -1,3 +1,5 @@
+import { platform, arch } from 'node:process'
+
 import test from 'ava'
 import { execa } from 'execa'
 import { pathExists } from 'path-exists'
@@ -18,10 +20,11 @@ import {
 
 each(
   [
-    OLDEST_VERSION,
-    NO_XZ_VERSION,
-    OLD_WIN_VERSION,
-    NO_ZIP_VERSION,
+    // GitHub actions macOS runs on ARM64.
+    // However ARM64 with macOS was only added to Node 16.0.0.
+    ...(platform === 'darwin' && arch === 'arm64'
+      ? []
+      : [OLDEST_VERSION, NO_XZ_VERSION, OLD_WIN_VERSION, NO_ZIP_VERSION]),
     TEST_VERSION,
     TEST_VERSION_RANGE,
     LATEST_VERSION,

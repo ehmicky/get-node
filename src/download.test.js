@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
 import test from 'ava'
-import { execa } from 'execa'
+import { execaNode } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
@@ -35,7 +35,7 @@ test('Parallel downloads', async (t) => {
 
 test('Writes atomically', async (t) => {
   const output = getOutput()
-  await execa('node', [ATOMIC_PROCESS, TEST_VERSION, output])
+  await execaNode(ATOMIC_PROCESS, [TEST_VERSION, output])
 
   t.false(await pathExists(output))
 })

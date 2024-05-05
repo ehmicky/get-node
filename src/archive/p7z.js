@@ -45,23 +45,22 @@ export const download7z = async ({ version, tmpFile, arch, fetchOpts }) => {
     fetchOpts,
   )
   await pipeline(response, createWriteStream(tmp7zFile))
-  const { stdout, cancel } = execa(
+  const subprocess = execa(
     '7z',
     ['x', '-so', `-i!${filepath}/node.exe`, tmp7zFile],
     {
       stdin: 'ignore',
-      stdout: 'pipe',
+      stdout: ['pipe', writeNodeBinary(tmpFile)],
       stderr: 'ignore',
       buffer: false,
       env: getEnv(),
     },
   )
-  const promise = pipeline(stdout, writeNodeBinary(tmpFile))
 
   try {
-    await promiseOrFetchError(promise, response)
+    await promiseOrFetchError(subprocess, response)
   } finally {
-    await cleanup(tmp7zFile, cancel)
+    await cleanup(tmp7zFile, subprocess)
   }
 
   return checksumError
@@ -78,7 +77,7 @@ const getEnv = () => {
 const P7Z_PATH = normalize('/Program Files/7-Zip')
 const PATH_KEY = pathKey()
 
-const cleanup = async (tmp7zFile, cancel) => {
+const cleanup = async (tmp7zFile, subprocess) => {
   await unlink(tmp7zFile)
-  cancel()
+  subprocess.kill()
 }

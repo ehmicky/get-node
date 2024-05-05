@@ -2,7 +2,7 @@ import { cpus } from 'node:os'
 import { platform } from 'node:process'
 import { pipeline } from 'node:stream/promises'
 
-import { execaCommand } from 'execa'
+import { execa } from 'execa'
 import mem from 'mem'
 import semver from 'semver'
 
@@ -23,7 +23,7 @@ const versionHasXz = (version) => semver.satisfies(version, XZ_VERSION_RANGE)
 const XZ_VERSION_RANGE = '^0.10.42 || >=0.12.10'
 
 const mHasXzBinary = async () => {
-  const { failed } = await execaCommand('xz --version', {
+  const { failed } = await execa('xz', ['--version'], {
     reject: false,
     stdio: 'ignore',
   })
@@ -38,21 +38,25 @@ export const downloadXz = async ({ version, tmpFile, arch, fetchOpts }) => {
     `node-v${version}-${platform}-${arch}.tar.xz`,
     fetchOpts,
   )
-  const { stdout, cancel } = execaCommand(
-    `xz --decompress --stdout --threads=${cpus().length}`,
+  const subprocess = execa(
+    'xz',
+    ['--decompress', '--stdout', `--threads=${cpus().length}`],
     {
-      input: response,
+      stdin: ['pipe', response],
       stdout: 'pipe',
       stderr: 'ignore',
       buffer: false,
     },
   )
-  const promise = pipeline(stdout, untar(tmpFile))
+  const promise = Promise.all([
+    subprocess,
+    pipeline(subprocess.stdout, untar(tmpFile)),
+  ])
 
   try {
     await promiseOrFetchError(promise, response)
   } finally {
-    cancel()
+    subprocess.kill()
   }
 
   await moveTar(tmpFile)

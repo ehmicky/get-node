@@ -1,3 +1,10 @@
+# 15.0.1
+
+## Dependencies
+
+- Upgrade [Execa](https://github.com/sindresorhus/execa) to
+  [`9.0.0`](https://github.com/sindresorhus/execa/releases/tag/v9.0.0)
+
 # 15.0.0
 
 ## Breaking changes

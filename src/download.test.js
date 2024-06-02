@@ -43,7 +43,7 @@ test('Writes atomically', async (t) => {
 each(
   [
     {
-      mirror: 'https://unknown-mirror.com',
+      mirror: 'https://invalid-mirror.com',
       message: /Could not connect|download/u,
     },
     // We cannot test this since all the OS/architecture tested in CI have

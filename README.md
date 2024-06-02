@@ -42,7 +42,7 @@ Features include:
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
 - can guess the current project's version using its
-  [`.nvmrc` or `package.json` (`engines.node` field)](#getnodeversion-options)
+  [`.nvmrc` or `package.json` (`engines.node` field)](#getnodeversionrange-options)
 
 # Example
 
@@ -216,8 +216,8 @@ allowed except `mips` and `mipsel`.
 _Type_: `string | URL`\
 _Default_: `.`
 
-When using the [`local` alias](#getnodeversion-options), start looking for a
-Node.js version file from this directory.
+When using the [`local` alias](#getnodeversionrange-options), start looking for
+a Node.js version file from this directory.
 
 #### signal
 

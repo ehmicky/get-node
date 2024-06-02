@@ -38,7 +38,7 @@ Features include:
 - Linux/Mac/Windows support
 - works with old Node.js versions
 - [progress bar](#progress)
-- using [version ranges](#getnodeversion-options)
+- using [version ranges](#getnodeversionrange-options)
 - specifying [a mirror website](#mirror) for nodejs.org
 - helpful error messages
 - can guess the current project's version using its
@@ -288,7 +288,7 @@ Thanks go to our wonderful contributors:
 <table>
   <tr>
     <td align="center"><a href="https://fosstodon.org/@ehmicky"><img src="https://avatars2.githubusercontent.com/u/8136211?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ehmicky</b></sub></a><br /><a href="https://github.com/ehmicky/get-node/commits?author=ehmicky" title="Code">💻</a> <a href="#design-ehmicky" title="Design">🎨</a> <a href="#ideas-ehmicky" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ehmicky/get-node/commits?author=ehmicky" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://tunnckoCore.com"><img src="https://avatars3.githubusercontent.com/u/5038030?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Charlike Mike Reagent</b></sub></a><br /><a href="https://github.com/ehmicky/get-node/issues?q=author%3AtunnckoCore" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/tunnckocore"><img src="https://avatars3.githubusercontent.com/u/5038030?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Charlike Mike Reagent</b></sub></a><br /><a href="https://github.com/ehmicky/get-node/issues?q=author%3AtunnckoCore" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://instagram.com/private.number_"><img src="https://avatars.githubusercontent.com/u/1075694?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hiroki osame</b></sub></a><br /><a href="https://github.com/ehmicky/get-node/commits?author=privatenumber" title="Code">💻</a> <a href="https://github.com/ehmicky/get-node/commits?author=privatenumber" title="Tests">⚠️</a> <a href="#ideas-privatenumber" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>

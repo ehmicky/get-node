@@ -59,7 +59,7 @@
     "global-cache-dir": "^6.0.0",
     "is-plain-obj": "^4.1.0",
     "jszip": "^3.10.1",
-    "mem": "^9.0.2",
+    "memoize": "^10.0.0",
     "move-file": "^3.0.0",
     "node-version-alias": "^5.0.0",
     "path-exists": "^5.0.0",

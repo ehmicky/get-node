@@ -3,7 +3,7 @@ import { platform } from 'node:process'
 import { pipeline } from 'node:stream/promises'
 
 import { execa } from 'execa'
-import mem from 'mem'
+import memoize from 'memoize'
 import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
@@ -30,7 +30,7 @@ const mHasXzBinary = async () => {
   return !failed
 }
 
-const hasXzBinary = mem(mHasXzBinary)
+const hasXzBinary = memoize(mHasXzBinary)
 
 export const downloadXz = async ({ version, tmpFile, arch, fetchOpts }) => {
   const { response, checksumError } = await fetchNodeUrl(

@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "@ehmicky/dev-tasks": "^3.0.4",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "is-ci": "^3.0.1",
     "sinon": "^18.0.0",
     "test-each": "^7.0.0"

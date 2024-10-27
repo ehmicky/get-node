@@ -1,7 +1,7 @@
 import type { Options as FetchNodeWebsiteOptions } from 'fetch-node-website'
 import type { Options as NodeVersionAliasOptions } from 'node-version-alias'
 import type {
-  Options as PreferredNodeVersionOptions,
+  Options as PreferredVersionOptions,
   SemverVersion,
 } from 'preferred-node-version'
 
@@ -38,7 +38,7 @@ type Arch =
 type UpstreamOptions = FetchNodeWebsiteOptions & NodeVersionAliasOptions
 
 // @ts-error @typescript-eslint/no-duplicate-type-constituents
-type AllUpstreamOptions = UpstreamOptions & PreferredNodeVersionOptions
+type AllUpstreamOptions = UpstreamOptions & PreferredVersionOptions
 
 export type Options = Partial<{
   /**

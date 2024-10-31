@@ -4,7 +4,7 @@ import { createGunzip } from 'node:zlib'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 
-import { untar, moveTar } from './tar.js'
+import { moveTar, untar } from './tar.js'
 
 // Downloads .tar.gz archive and extract it
 export const downloadGz = async ({ version, arch, tmpFile, fetchOpts }) => {

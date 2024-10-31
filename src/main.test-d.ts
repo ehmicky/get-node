@@ -1,8 +1,8 @@
-import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
+import { expectAssignable, expectNotAssignable, expectType } from 'tsd'
 
 import getNode, {
-  type Options,
   type NodeBinary,
+  type Options,
   type SemverVersion,
 } from 'get-node'
 

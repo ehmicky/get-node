@@ -1,4 +1,4 @@
-import { version as processVersion, env } from 'node:process'
+import { env, version as processVersion } from 'node:process'
 
 import test from 'ava'
 import { execa } from 'execa'
@@ -7,9 +7,9 @@ import { each } from 'test-each'
 
 import { getNodeVersion } from './helpers/main.test.js'
 import {
-  NO_BIN_VERSION,
   GLOBAL_VERSION,
   LOCAL_VERSION,
+  NO_BIN_VERSION,
 } from './helpers/versions.test.js'
 
 test('Does not work on very old versions', async (t) => {

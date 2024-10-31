@@ -4,7 +4,7 @@ import { pipeline } from 'node:stream/promises'
 import jszip from 'jszip'
 import semver from 'semver'
 
-import { fetchNodeUrl, writeNodeBinary, promiseOrFetchError } from '../fetch.js'
+import { fetchNodeUrl, promiseOrFetchError, writeNodeBinary } from '../fetch.js'
 
 // .zip Node binaries for Windows were added in Node 4.5.0 and 6.2.1
 export const shouldUseZip = (version) =>

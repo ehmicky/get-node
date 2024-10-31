@@ -5,7 +5,7 @@ import { execaNode } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getOutput, getNodeVersion } from './helpers/main.test.js'
+import { getNodeVersion, getOutput } from './helpers/main.test.js'
 import { NO_XZ_VERSION, TEST_VERSION } from './helpers/versions.test.js'
 
 const ATOMIC_PROCESS = fileURLToPath(

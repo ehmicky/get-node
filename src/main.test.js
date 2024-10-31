@@ -1,21 +1,21 @@
-import { platform, arch } from 'node:process'
+import { arch, platform } from 'node:process'
 
 import test from 'ava'
 import { execa } from 'execa'
 import { pathExists } from 'path-exists'
 import { each } from 'test-each'
 
-import { getNodeVersion, FIXTURES_DIR } from './helpers/main.test.js'
+import { FIXTURES_DIR, getNodeVersion } from './helpers/main.test.js'
 import {
-  OLDEST_VERSION,
-  NO_XZ_VERSION,
-  OLD_WIN_VERSION,
-  NO_ZIP_VERSION,
-  TEST_VERSION,
-  TEST_VERSION_RANGE,
+  ALIAS_VERSION,
   LATEST_VERSION,
   LOCAL_VERSION,
-  ALIAS_VERSION,
+  NO_XZ_VERSION,
+  NO_ZIP_VERSION,
+  OLD_WIN_VERSION,
+  OLDEST_VERSION,
+  TEST_VERSION,
+  TEST_VERSION_RANGE,
 } from './helpers/versions.test.js'
 
 each(

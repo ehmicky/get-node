@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises'
-import { dirname, resolve, normalize } from 'node:path'
+import { dirname, normalize, resolve } from 'node:path'
 import { arch } from 'node:process'
 
 import test from 'ava'

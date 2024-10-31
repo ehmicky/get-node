@@ -8,7 +8,7 @@ import semver from 'semver'
 
 import { fetchNodeUrl, promiseOrFetchError } from '../fetch.js'
 
-import { untar, moveTar } from './tar.js'
+import { moveTar, untar } from './tar.js'
 
 // Node provides with .tar.xz that are twice smaller. We try to use those.
 // Those are not available for AIX nor 0.*.* versions.

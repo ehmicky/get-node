@@ -1,10 +1,10 @@
 import { platform } from 'node:process'
 
 import { downloadGz } from './gz.js'
-import { shouldUse7z, download7z } from './p7z.js'
+import { download7z, shouldUse7z } from './p7z.js'
 import { downloadRaw } from './raw.js'
-import { shouldUseXz, downloadXz } from './xz.js'
-import { shouldUseZip, downloadZip } from './zip.js'
+import { downloadXz, shouldUseXz } from './xz.js'
+import { downloadZip, shouldUseZip } from './zip.js'
 
 // Retrieve the Node binary from the Node website and persist it.
 // The URL depends on the current OS and CPU architecture.

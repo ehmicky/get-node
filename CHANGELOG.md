@@ -1,3 +1,9 @@
+# 15.0.2
+
+## Security fix
+
+- Fix vulnerability in `tar-fs` dependency by upgrading it
+
 # 15.0.1
 
 ## Dependencies

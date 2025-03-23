@@ -75,7 +75,7 @@
     "@ehmicky/prettier-config": "^1.0.5",
     "@types/node": "^22.13.14",
     "is-ci": "^4.1.0",
-    "sinon": "^19.0.4",
+    "sinon": "^20.0.0",
     "test-each": "^7.0.0"
   },
   "engines": {

@@ -1,3 +1,9 @@
+# 15.0.3
+
+## Documentation
+
+- Improve documentation in `README.md`
+
 # 15.0.2
 
 ## Security fix

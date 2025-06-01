@@ -1,3 +1,9 @@
+# 15.0.4
+
+## Dependencies
+
+- Upgrade `tar-fs` dependency
+
 # 15.0.3
 
 ## Documentation
